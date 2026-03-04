@@ -87,14 +87,14 @@ export function ResourceIcons({
   }
 
   return (
-    <div className={`flex justify-around items-center px-6 py-5 bg-bar-dark${highlight ? " animate-resource-highlight" : ""}`}>
+    <div className={`flex justify-around items-center px-6 py-5 bg-bar-dark${highlight ? " animate-resource-highlight" : ""}`} data-testid="resource-bar" role="group" aria-label="Resource levels">
       {RESOURCE_KEYS.map((key) => {
         const Icon = ICON_COMPONENTS[key];
         const preview = previewMap.get(key);
         const value = resources[key];
 
         return (
-          <div key={key} className="flex flex-col items-center gap-0.5">
+          <div key={key} className="flex flex-col items-center gap-0.5" data-testid={`resource-${key}`} role="img" aria-label={`${key}: ${value} out of 100`}>
             {/* Impact indicator — small colored triangle above icon */}
             <div className="h-3 flex items-end">
               {preview && (

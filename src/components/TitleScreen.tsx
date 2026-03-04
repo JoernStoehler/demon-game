@@ -4,7 +4,7 @@ interface TitleScreenProps {
 
 export function TitleScreen({ onStart }: TitleScreenProps) {
   return (
-    <div className="flex flex-col items-center justify-center h-full px-6 text-center bg-bar-dark">
+    <div className="flex flex-col items-center justify-center h-full px-6 text-center bg-bar-dark" data-testid="title-screen" role="main">
       <div className="mb-8">
         <h1 className="text-4xl font-bold tracking-widest text-tan mb-3">
           THE PAUSE
@@ -21,8 +21,10 @@ export function TitleScreen({ onStart }: TitleScreenProps) {
       </p>
 
       <button
-        className="px-8 py-4 bg-tan text-text-dark rounded-lg font-bold uppercase tracking-wider text-sm active:bg-tan-light transition-colors min-h-[44px]"
+        className="px-8 py-4 bg-tan text-text-dark rounded-lg font-bold uppercase tracking-wider text-sm active:bg-tan-light transition-colors min-h-[44px] cursor-pointer"
         onClick={onStart}
+        data-testid="start-button"
+        aria-label="Start game — Take Office"
       >
         Take Office
       </button>

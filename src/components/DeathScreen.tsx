@@ -54,7 +54,7 @@ export function DeathScreen({
   onRestart,
 }: DeathScreenProps) {
   return (
-    <div className="flex flex-col items-center justify-center h-full px-6 text-center bg-bar-dark overflow-y-auto">
+    <div className="flex flex-col items-center justify-center h-full px-6 text-center bg-bar-dark overflow-y-auto" data-testid="death-screen" role="main" aria-label="Game over">
       <div className="mb-4">
         <DeathResourceIcon resource={death.resource} />
       </div>
@@ -85,6 +85,8 @@ export function DeathScreen({
         <button
           className="px-8 py-4 bg-tan text-text-dark rounded-lg font-bold uppercase tracking-wider text-sm hover:bg-tan-light active:bg-tan-light transition-colors min-h-[44px] cursor-pointer"
           onClick={onRestart}
+          data-testid="restart-button"
+          aria-label="Try again — start a new game"
         >
           Try Again
         </button>

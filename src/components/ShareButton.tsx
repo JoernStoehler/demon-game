@@ -36,6 +36,8 @@ export function ShareButton({ death, turn, history }: ShareButtonProps) {
     <button
       className="px-8 py-4 bg-transparent border-2 border-text-light text-text-light rounded-lg font-bold uppercase tracking-wider text-sm hover:bg-text-light/10 active:bg-text-light/20 transition-colors min-h-[44px] cursor-pointer"
       onClick={handleShare}
+      data-testid="share-button"
+      aria-label={copied ? "Copied to clipboard" : "Share your result"}
     >
       {copied ? "Copied!" : "Share"}
     </button>

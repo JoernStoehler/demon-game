@@ -74,3 +74,15 @@ body {
 .animate-resource-highlight {
   animation: resource-highlight 1.5s ease-in-out infinite;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-card-enter {
+    animation: none;
+  }
+  .animate-bar-pulse {
+    animation: none;
+  }
+  .animate-resource-highlight {
+    animation: none;
+  }
+}
