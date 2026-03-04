@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import type { DeathInfo, HistoryEntry, ResourceKey } from "../engine/types";
 import { audio } from "../hooks/useAudio";
 import { ShareButton } from "./ShareButton";
@@ -55,10 +55,28 @@ export function DeathScreen({
   history,
   onRestart,
 }: DeathScreenProps) {
+  const handleRestart = useCallback(() => {
+    audio.play("uiClick");
+    audio.startAmbient();
+    onRestart();
+  }, [onRestart]);
+
   useEffect(() => {
     audio.play("death");
     audio.stopAmbient();
   }, []);
+
+  // Enter key restarts the game
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        handleRestart();
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [handleRestart]);
 
   return (
     <div className="flex flex-col items-center justify-center h-full px-6 text-center bg-bar-dark overflow-y-auto" data-testid="death-screen" role="main" aria-label="Game over">
@@ -91,11 +109,7 @@ export function DeathScreen({
         <ShareButton death={death} turn={turnsSurvived} history={history} />
         <button
           className="px-8 py-4 bg-tan text-text-dark rounded-lg font-bold uppercase tracking-wider text-sm hover:bg-tan-light active:bg-tan-light transition-colors min-h-[44px] cursor-pointer"
-          onClick={() => {
-            audio.play("uiClick");
-            audio.startAmbient();
-            onRestart();
-          }}
+          onClick={handleRestart}
           data-testid="restart-button"
           aria-label="Try again — start a new game"
         >

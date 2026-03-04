@@ -1,3 +1,4 @@
+import { useEffect, useCallback } from "react";
 import { audio } from "../hooks/useAudio";
 import { MuteButton } from "./MuteButton";
 
@@ -6,6 +7,24 @@ interface TitleScreenProps {
 }
 
 export function TitleScreen({ onStart }: TitleScreenProps) {
+  const handleStart = useCallback(() => {
+    audio.init();
+    audio.play("uiClick");
+    onStart();
+  }, [onStart]);
+
+  // Enter key starts the game
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        handleStart();
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [handleStart]);
+
   return (
     <div className="flex flex-col items-center justify-center h-full px-6 text-center bg-bar-dark relative" data-testid="title-screen" role="main">
       <div className="absolute top-4 right-4">
@@ -29,11 +48,7 @@ export function TitleScreen({ onStart }: TitleScreenProps) {
 
       <button
         className="px-8 py-4 bg-tan text-text-dark rounded-lg font-bold uppercase tracking-wider text-sm active:bg-tan-light transition-colors min-h-[44px] cursor-pointer"
-        onClick={() => {
-          audio.init();
-          audio.play("uiClick");
-          onStart();
-        }}
+        onClick={handleStart}
         data-testid="start-button"
         aria-label="Start game — Take Office"
       >
