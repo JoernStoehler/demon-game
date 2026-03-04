@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import type { DeathInfo, HistoryEntry, ResourceKey } from "../engine/types";
+import { audio } from "../hooks/useAudio";
 import { ShareButton } from "./ShareButton";
 import { generateShareText } from "./shareText";
 
@@ -53,6 +55,11 @@ export function DeathScreen({
   history,
   onRestart,
 }: DeathScreenProps) {
+  useEffect(() => {
+    audio.play("death");
+    audio.stopAmbient();
+  }, []);
+
   return (
     <div className="flex flex-col items-center justify-center h-full px-6 text-center bg-bar-dark overflow-y-auto" data-testid="death-screen" role="main" aria-label="Game over">
       <div className="mb-4">
@@ -84,7 +91,11 @@ export function DeathScreen({
         <ShareButton death={death} turn={turnsSurvived} history={history} />
         <button
           className="px-8 py-4 bg-tan text-text-dark rounded-lg font-bold uppercase tracking-wider text-sm hover:bg-tan-light active:bg-tan-light transition-colors min-h-[44px] cursor-pointer"
-          onClick={onRestart}
+          onClick={() => {
+            audio.play("uiClick");
+            audio.startAmbient();
+            onRestart();
+          }}
           data-testid="restart-button"
           aria-label="Try again — start a new game"
         >

@@ -1,6 +1,7 @@
 import { forwardRef, useEffect, useImperativeHandle } from "react";
 import type { ActiveCard } from "../engine/types";
 import { useSwipe, type TiltDirection } from "../hooks/useSwipe";
+import { audio } from "../hooks/useAudio";
 import { SpeakerPortrait } from "./SpeakerPortrait";
 
 export interface SwipeCardHandle {
@@ -30,6 +31,11 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
   useImperativeHandle(ref, () => ({
     commit: commitProgrammatic,
   }), [commitProgrammatic]);
+
+  // Play card flip sound on mount (new card appearing)
+  useEffect(() => {
+    audio.play("cardFlip");
+  }, []);
 
   // Sync tilt direction to parent for resource icon previews
   useEffect(() => {

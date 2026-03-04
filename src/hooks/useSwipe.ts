@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from "react";
+import { audio } from "./useAudio";
 
 export type TiltDirection = "left" | "right" | "center";
 
@@ -103,6 +104,7 @@ export function useSwipe({
         setIsExiting(true);
         const flyTo = dx < 0 ? -window.innerWidth : window.innerWidth;
         updateTransform(flyTo, "fly");
+        audio.play("whoosh");
 
         // Release pointer capture before callback
         const el = e.currentTarget as HTMLElement;
@@ -120,6 +122,7 @@ export function useSwipe({
       } else {
         // Spring back
         updateTransform(0, "spring");
+        audio.play("springBack");
         currentTiltRef.current = "center";
         setTiltDirection("center");
         setSwipeProgress(0);
@@ -144,6 +147,7 @@ export function useSwipe({
       setIsExiting(true);
       const flyTo = direction === "left" ? -window.innerWidth : window.innerWidth;
       updateTransform(flyTo, "fly");
+      audio.play("whoosh");
       currentTiltRef.current = direction;
       setTiltDirection(direction);
       setSwipeProgress(1);
