@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useGame } from "./engine/useGame";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 import { TitleScreen } from "./components/TitleScreen";
 import { GameScreen } from "./components/GameScreen";
 import { DeathScreen } from "./components/DeathScreen";
@@ -47,10 +48,12 @@ export default function App() {
   // Phone-frame layout: cap height at 844px (iPhone 14 Pro) so the year bar
   // isn't stranded at the bottom of tall desktop viewports.
   return (
-    <div className="mx-auto max-w-md h-dvh flex flex-col justify-center">
-      <div className="w-full overflow-hidden" style={{ maxHeight: "844px", height: "100%" }}>
-        {screen}
+    <ErrorBoundary>
+      <div className="mx-auto max-w-md h-dvh flex flex-col justify-center">
+        <div className="w-full overflow-hidden" style={{ maxHeight: "844px", height: "100%" }}>
+          {screen}
+        </div>
       </div>
-    </div>
+    </ErrorBoundary>
   );
 }

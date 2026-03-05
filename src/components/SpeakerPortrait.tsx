@@ -63,7 +63,8 @@ export function SpeakerPortrait({ speaker }: SpeakerPortraitProps) {
   return (
     <img
       src={src}
-      alt={speaker}
+      alt=""
+      aria-hidden="true"
       className="block w-full aspect-square object-cover"
       draggable={false}
     />

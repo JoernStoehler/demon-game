@@ -1,6 +1,7 @@
 import { forwardRef, useEffect, useImperativeHandle } from "react";
 import type { ActiveCard } from "../engine/types";
 import { useSwipe, type TiltDirection } from "../hooks/useSwipe";
+import { audio } from "../hooks/useAudio";
 import { SpeakerPortrait } from "./SpeakerPortrait";
 
 export interface SwipeCardHandle {
@@ -31,13 +32,18 @@ export const SwipeCard = forwardRef<SwipeCardHandle, SwipeCardProps>(
     commit: commitProgrammatic,
   }), [commitProgrammatic]);
 
+  // Play card flip sound on mount (new card appearing)
+  useEffect(() => {
+    audio.play("cardFlip");
+  }, []);
+
   // Sync tilt direction to parent for resource icon previews
   useEffect(() => {
     onTiltChange(tiltDirection);
   }, [tiltDirection, onTiltChange]);
 
   return (
-    <div className="flex flex-col items-center flex-1 relative justify-start pt-4 px-2 overflow-hidden">
+    <div className="flex flex-col items-center flex-1 relative justify-start pt-4 px-2 overflow-hidden" data-testid="swipe-card" role="region" aria-label={`${card.speaker} presents a decision`}>
       <div className="w-full flex flex-col">
         {/* Fixed text area — does NOT tilt */}
         <div className="bg-tan px-5 py-3 h-[112px] flex items-center justify-center rounded-t-lg">

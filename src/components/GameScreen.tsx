@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { GameState } from "../engine/types";
 import type { TiltDirection } from "../hooks/useSwipe";
 import { ResourceIcons } from "./ResourceIcons";
+import { MuteButton } from "./MuteButton";
 import { SwipeCard, type SwipeCardHandle } from "./SwipeCard";
 
 interface GameScreenProps {
@@ -41,7 +42,7 @@ export function GameScreen({ state, onChoice }: GameScreenProps) {
   if (!state.activeCard) return null;
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full" data-testid="game-screen" role="main">
       {/* Dark top bar — resource icons */}
       <ResourceIcons
         resources={state.resources}
@@ -61,11 +62,14 @@ export function GameScreen({ state, onChoice }: GameScreenProps) {
         />
       </div>
 
-      {/* Dark bottom bar — year display */}
-      <div className="bg-bar-dark px-5 py-5 flex justify-center">
-        <span className="text-text-light text-2xl font-bold">
+      {/* Dark bottom bar — year display + mute button */}
+      <div className="bg-bar-dark px-5 py-5 flex items-center justify-center relative" data-testid="year-display">
+        <span className="text-text-light text-2xl font-bold" aria-label={`Year ${2026 + Math.floor(state.turn / 12)}`}>
           {2026 + Math.floor(state.turn / 12)}
         </span>
+        <div className="absolute right-2">
+          <MuteButton />
+        </div>
       </div>
     </div>
   );

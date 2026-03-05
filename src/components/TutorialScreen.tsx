@@ -38,7 +38,7 @@ export function TutorialScreen({ tutorialIndex, onAdvance, onSkip }: TutorialScr
     onAdvance();
   }, [onAdvance]);
 
-  // Keyboard controls (same pattern as GameScreen)
+  // Keyboard controls (same pattern as GameScreen) + Escape to skip
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") {
@@ -47,16 +47,19 @@ export function TutorialScreen({ tutorialIndex, onAdvance, onSkip }: TutorialScr
       } else if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") {
         e.preventDefault();
         cardRef.current?.commit("right");
+      } else if (e.key === "Escape") {
+        e.preventDefault();
+        onSkip();
       }
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, []);
+  }, [onSkip]);
 
   const resources = { trust: 50, funding: 50, intel: 50, leverage: 50 };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full" data-testid="tutorial-screen" role="main">
       {/* Dark top bar — resource icons with optional highlight */}
       <ResourceIcons
         resources={resources}
@@ -80,8 +83,10 @@ export function TutorialScreen({ tutorialIndex, onAdvance, onSkip }: TutorialScr
       {/* Dark bottom bar — skip button instead of year */}
       <div className="bg-bar-dark px-5 py-5 flex justify-center">
         <button
-          className="text-text-muted text-xs font-bold uppercase tracking-wider min-h-[44px]"
+          className="text-text-muted text-xs font-bold uppercase tracking-wider min-h-[44px] cursor-pointer"
           onClick={onSkip}
+          data-testid="skip-tutorial-button"
+          aria-label="Skip tutorial and start playing"
         >
           Skip Tutorial
         </button>
