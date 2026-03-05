@@ -80,9 +80,11 @@ src/
     state.test.ts   # Unit tests
     cards.ts        # drawNextCard (weight, filter, weighted pick)
     useGame.ts      # React bridge: state + actions + localStorage
+    tutorial.ts     # Tutorial localStorage persistence helper
   data/
     cards.ts        # Card templates (29 templates)
     deaths.ts       # Death messages per resource × extreme
+    tutorial.ts     # Tutorial card content (3 cards)
   hooks/
     useSwipe.ts     # Pointer event drag/swipe/tilt logic
   components/
@@ -92,6 +94,10 @@ src/
     ResourceIcons.tsx
     SpeakerPortrait.tsx
     DeathScreen.tsx
+    TutorialScreen.tsx
+    ShareButton.tsx
+    QAReference.tsx
+    shareText.ts    # Narrative share text generation
   assets/
     portraits/*.png   # 21 AI-generated speaker portraits
   cli.ts            # CLI playtest tool (no React, headless)
@@ -129,7 +135,7 @@ src/
 - Dark, moody, stylized illustrations — each speaker instantly recognizable
 - Portrait occupies center of card body (max 280px wide), choice labels sit below
 - **Generating portraits:** `node scripts/generate-portrait.mjs <slug> "<description>" "<bg-color>"` — one portrait at a time, outputs `.png` + `.json` sidecar with provenance. Shared style config in `src/assets/portraits/style.json`.
-- **Provenance:** Each portrait has a colocated `<slug>.json` sidecar recording how it was generated (prompt, model, timestamp).
+- **Provenance:** The script outputs a colocated `<slug>.json` sidecar recording how it was generated (prompt, model, timestamp). Note: the 21 existing portraits were generated before this script existed and do NOT have sidecars — only `style.json` exists.
 
 **Typography:**
 - Space Mono font (Google Fonts), monospace — surveillance-era aesthetic
@@ -194,6 +200,14 @@ src/
 - Never document removed features or previous versions
 - Only current state matters in docs
 - False or misleading documentation is worse than none
+- Before claiming something exists in the codebase, read the code to verify
+
+**Editing CLAUDE.md and TASKS.md:**
+- Never delete information during status updates — add markers ("DONE", "STALE"), don't remove content
+- One claim per bullet — don't pack multiple facts into one sentence
+- Every qualifier matters — "clear" ≠ "detailed" ≠ "explicit"; don't compress adjective lists
+- Concrete over abstract — "run `npm run check`" not "run the tests"
+- After editing a section: verify what, why, and how are all still present
 
 **No over-engineering:**
 - No feature flags or backwards-compatibility shims
@@ -309,6 +323,17 @@ CC Web is a secondary/fallback environment (~20% of work). Has restricted networ
 - Don't ask permission for obvious engineering decisions
 - DO ask when: x-risk content accuracy matters, communication approach is unclear, scope is ambiguous
 - Jörn doesn't see exact edit diffs in chat — mention and explain repo changes when he should be aware
+- Write structured reports to files, not chat walls — lead with the answer, reasoning follows
+- When confused, say "I don't understand" on the FIRST response — don't guess for 4 turns then ask
+- Don't iterate design decisions in front of the user — think through scope/naming/approach BEFORE presenting
+- Avoid the AskUserQuestion tool — Jörn hates the modal UI. Use plain text for questions.
+
+### Quality Ownership
+- Never present a report or deliverable without running a subagent review first
+- Don't leak your preferred answer to reviewers — they'll sycophantically agree
+- If a reviewer finds fewer than 2-3 real issues, the review prompt was too soft
+- Jörn's time >> agent time. Iterate with subagents BEFORE presenting. Present only finished work.
+- Don't push QA to Jörn — own the quality of your deliverables
 
 ### Session Scoping
 - Before the session ends: report friction points, flag leftover tasks, note workflow improvements

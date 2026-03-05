@@ -14,6 +14,47 @@ This repo was migrated from `JoernStoehler/xrisk-minigames` (monorepo at `projec
 
 **Deployment:** `global-pause.pages.dev` — unchanged, wrangler.toml still uses `name = "global-pause"`.
 
+## Maturity Map
+
+What's settled vs. placeholder — read this before polishing or building on anything.
+
+| Component | Status | Notes |
+|-----------|--------|-------|
+| Engine (types, state, cards, rng) | **Mostly settled** | Pure TS, well-tested, stable API |
+| Swipe/drag UX (useSwipe, SwipeCard) | **Mostly settled** | Tuned on real devices, E2E tested |
+| Resource system (4 bars, icons, previews) | **Draft** | Mechanics may change |
+| Layout/theme system (`src/index.css` @theme) | **Mostly settled** | Centralized CSS vars, safe to retheme |
+| Screens (Title, Game, Death, Tutorial) | **Draft** | Screen layout and content will change |
+| Card content (29 templates in `src/data/cards.ts`) | **Placeholder** | All cards are placeholder — 11 marked throwaway, 18 grounded in literature but still placeholder |
+| Death messages (`src/data/deaths.ts`) | **Placeholder** | Will change with content overhaul |
+| Tutorial (3 cards in `src/data/tutorial.ts`) | **Placeholder** | MVP: 3 scripted Deputy Director cards, not designed content |
+| Portraits (21 PNGs in `src/assets/portraits/`) | **Placeholder** | 11 flagged bad style, need regen. Per-file JSON sidecars do NOT exist — only shared `style.json` |
+| Title/death screen visuals | **Placeholder** | Will change with content overhaul |
+| History chains / degraded variants | **Not started** | Blocked on card content |
+| Achievements / card collection | **Not started** | Deferred — only 29 cards, collection completes in ~5 runs |
+
+Status tiers: **Settled** = safe to build on. **Draft** = exists but expected to change. **Placeholder** = will be replaced. **Not started** = blocked or deferred.
+
+### Polish branch (not yet merged to main)
+
+5 commits on `polish` branch, all passing `npm run check`. Verify branch state before building on it: `git log --oneline main..polish`
+
+1. ErrorBoundary wrapping entire app in App.tsx
+2. data-testid attributes + ARIA labels across all components
+3. SEO: OG meta tags, social preview image, meta description, robots.txt
+4. `useAudio` hook: 6 synthesized SFX via Web Audio API + ambient drone + mute toggle (localStorage)
+5. Keyboard: Enter on title/death, Escape to skip tutorial
+
+### Polish Batch 2 scope (next up — visual identity)
+
+Focus on **structural theming** that survives a content overhaul — NOT content-specific polish.
+
+1. **Visual variants** — surveillance aesthetic, not medieval parchment. Build 2-3 options (title, game, death screens), Jörn picks. Theme pivot = changing ~10 hex values in `src/index.css` @theme block.
+2. **Achievement/milestone rewards** — visual flair on death screen for good runs. Basic: track longest run, notable cards.
+3. **Haptic feedback** — `navigator.vibrate()` on commit + death (Android only, graceful no-op).
+
+**Critical constraint:** Cards, tutorial, death messages, and portraits are placeholder/draft. Visual work should target the theme system and layout, not content rendering.
+
 ## Current
 
 - [ ] Card content: replace throwaway cards with real x-risk scenario cards — use `src/data/card-writing-guide.md`, review output on `#qa` page
@@ -40,7 +81,7 @@ This repo was migrated from `JoernStoehler/xrisk-minigames` (monorepo at `projec
 - [x] Tutorial cards (hybrid): 3 scripted Deputy Director briefing cards on first play, in-world narration + resource bar highlight, skip button, localStorage persistence (`global-pause-tutorial-done`)
 - [x] QA reference page (`#qa` hash route): numbered portraits (P1-P21), cards (C1-C29) with speaker/text/choices/previews, death messages — Jörn references items by number
 - [x] Card-writing guide (`src/data/card-writing-guide.md`): durable agent-facing spec for card content, x-risk framing, format constraints, anti-patterns — prevents lost prompts on session end
-- [x] Portrait provenance: per-file JSON sidecars (slug.json next to slug.png), shared `style.json`, single-portrait script (`scripts/generate-portrait.mjs`)
+- [x] Portrait provenance: shared `style.json` + single-portrait script (`scripts/generate-portrait.mjs`) that outputs .png + .json sidecar. Note: existing 21 portraits predate the script and do NOT have sidecars.
 - [x] Card provenance: colocated comments on all 29 cards in `src/data/cards.ts` (Source, Rationale, Category)
 - [x] Fix swipe flicker bug: old card briefly reappeared at center (~80% of swipes) — removed unnecessary state resets in useSwipe.ts setTimeout callback
 - [x] Swipe UX polish (test on real mobile device, tune thresholds/velocity) — Jörn tested on mobile, swipe feels fine

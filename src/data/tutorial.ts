@@ -1,3 +1,4 @@
+// PLACEHOLDER — will be replaced in content overhaul. Do not polish or extend.
 import type { TutorialCard } from "../engine/types";
 
 export const TUTORIAL_CARDS: TutorialCard[] = [

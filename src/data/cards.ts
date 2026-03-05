@@ -1,3 +1,4 @@
+// PLACEHOLDER — all cards will be replaced in content overhaul. Do not polish or extend.
 import type { CardTemplate, GameState } from "../engine/types";
 import { clampResources } from "../engine/state";
 
