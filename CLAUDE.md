@@ -8,7 +8,7 @@ A Reigns-clone where the player is the Director-General of the ISIA (Internation
 
 **Target audience:** People who don't yet appreciate how a global pause on AI development might work — or fail.
 
-**Core thesis:** Enforcement of a global AI pause is structurally hard. The player learns this by dying repeatedly from different failure modes — underfunding, over-surveillance, political backlash, public revolt — each caused by the tension between competing priorities.
+**Core thesis (Jörn's framing):** A pause is hard to get right and relies on a lot of luck and crisis management. The pause is not relaxed waiting but frantic effort to finish the safety homework before the deadline approaches. The player learns this by dying repeatedly from different failure modes, each caused by the tension between competing priorities.
 
 **Inspiration:** Reigns (Nerial, 2016). Faithful clone of its core mechanics: dynamic card pool, weighted draw, binary swipe, four resource bars that kill at both extremes.
 
@@ -18,15 +18,14 @@ A Reigns-clone where the player is the Director-General of the ISIA (Internation
 ```
 CLAUDE.md              # You are here
 TASKS.md               # Task tracking
-BALANCE.md             # Balance tuning process and state
 package.json           # Dependencies
 src/                   # Source code
 e2e/                   # E2E tests (Playwright)
 scripts/               # Portrait generation, utilities
+design/                # Content design docs (card-writing guide, domain model, overhaul plan)
 literature/            # Reference materials on AI x-risk (see literature/CLAUDE.md)
-docs/recipes.md        # Copy-paste patterns (Workers, D1, LLM, image gen)
-.devcontainer/         # Local devcontainer config (see .devcontainer/CLAUDE.md)
-.claude/               # Hooks, settings
+.devcontainer/         # Local devcontainer config
+.claude/               # Hooks, agents, skills, settings
 .github/               # CI/CD (deploy to Cloudflare Pages)
 ```
 
@@ -34,7 +33,7 @@ docs/recipes.md        # Copy-paste patterns (Workers, D1, LLM, image gen)
 
 ## Game Mechanics
 
-### Resource Bars (die at 0 or 100)
+### Resource Bars (die at 0 or 100) [Draft — may change in content overhaul]
 
 | Bar | Icon | At 0 | At 100 |
 |---|---|---|---|
@@ -162,7 +161,8 @@ src/
 - Tech stack: Vite + React + TypeScript, Tailwind CSS, Playwright, Cloudflare Pages
 - `.env` at repo root has Cloudflare credentials (account ID, API token) and service keys
 - **When an env var is missing:** `source .env` first. Never ask the user for secrets.
-- **Never read `.jsonl` transcript logs directly** — they are large and will crash agent context. Use memory files and conversation summaries instead.
+- **Never read `.jsonl` transcript logs directly** — they are large and will crash agent context. Grep with narrow search terms is fine for recovering specific past context.
+- **Worktree limitations:** There is no `ExitWorktree` tool. If the worktree directory is deleted while CWD points at it, the shell breaks permanently. Don't promise worktree cleanup at end of session.
 
 **Definition of Done (before marking work complete):**
 - Code compiles: `npm run build` passes
@@ -174,8 +174,9 @@ src/
 - For engineering problems: attempt before escalating. If you fail, present what you learned.
 - For x-risk content, communication approach, or scope: ask Jörn directly — don't guess on domain expertise you don't have
 
-**Specs are authoritative:**
-- This CLAUDE.md defines what to build
+**Specs are authoritative (precedence order):**
+- Jörn's words in conversation > CLAUDE.md > TASKS.md > auto-memory files
+- Auto-memory (`~/.claude/projects/.../memory/`) is unsupervised agent notes — never resolve a conflict in favor of memory over what Jörn said or what CLAUDE.md says
 - Don't modify specs without explicit approval
 - Fix code to match specs, not the other way around
 
@@ -203,7 +204,8 @@ src/
 - Before claiming something exists in the codebase, read the code to verify
 
 **Editing CLAUDE.md and TASKS.md:**
-- Never delete information during status updates — add markers ("DONE", "STALE"), don't remove content
+- During incremental status updates: add markers ("DONE", "STALE"), don't remove content — context matters
+- During cleanup passes: delete stale/false information outright — false docs are worse than no docs
 - One claim per bullet — don't pack multiple facts into one sentence
 - Every qualifier matters — "clear" ≠ "detailed" ≠ "explicit"; don't compress adjective lists
 - Concrete over abstract — "run `npm run check`" not "run the tests"
@@ -254,7 +256,7 @@ npm run cli reset        # New game
 
 ### Writing Card Content
 
-Follow `src/data/card-writing-guide.md` — the authoritative spec for card writing. Do not invent your own card-writing prompt. The guide covers x-risk framing, mechanical constraints, tone, balance rules, and literature references.
+Follow `design/card-writing-guide.md` — the authoritative spec for card writing. Do not invent your own card-writing prompt. The guide covers x-risk framing, mechanical constraints, tone, balance rules, and literature references.
 
 Each card in `src/data/cards.ts` has a provenance comment (Source, Rationale, Category). Maintain this convention when adding or modifying cards.
 
@@ -294,17 +296,6 @@ Primary environment (~80% of work). Local devcontainer on Jörn's Ubuntu desktop
 
 ---
 
-## Claude Code Web Environment (Secondary)
-
-CC Web is a secondary/fallback environment (~20% of work). Has restricted network access and pre-installed tooling.
-
-- **Playwright pinned to v1.56.1** — do not upgrade
-- **No external URLs from browsers** — `ERR_TUNNEL_CONNECTION_FAILED`; test deployments from your own browser
-- **First run:** `npm run setup:ccweb` (installs Playwright browsers + npm deps)
-- **Playwright on gVisor** — Chromium crashes under gVisor's restricted kernel. Add `--no-zygote` and `--disable-setuid-sandbox` to `launchOptions.args` in `playwright.config.ts` (alongside `--no-sandbox`, `--disable-gpu`, `--disable-dev-shm-usage`, `--disable-software-rasterizer`). Do NOT use `--single-process` — it makes the browser unstable across Playwright test contexts.
-
----
-
 ## Working with the Owner
 
 ### Jörn's Expertise
@@ -314,6 +305,16 @@ CC Web is a secondary/fallback environment (~20% of work). Has restricted networ
 - Self-described bad taste in design/UX/game mechanics
 - Top 10% in using agents for development; top software engineer who prefers not to write code
 - Provides the "what to communicate" (x-risk concepts) but agents own the "how" (web experience design)
+
+### Jörn's Setup
+- Desktop: devcontainer CLI → VS Code tunnel → vscode.dev → Chrome on remote desktop
+- Mobile: same tunnel → Chrome on Android phone
+- Raw localhost doesn't work — needs VS Code port forwarding for dev server URLs
+- On mobile, typing is slow
+
+### Plan Mode
+- Jörn uses plan mode for discussion/alignment. Exiting plan mode = "go implement"
+- If the conversation shifts from implementation to lengthy discussion, enter plan mode to avoid doing unsupervised work while Jörn is talking
 
 ### Communication Style
 - Aim for efficient information exchange, not politeness or engagement

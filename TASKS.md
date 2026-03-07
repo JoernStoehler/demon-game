@@ -1,18 +1,17 @@
 # Tasks
 
-## Handoff Note (2026-02-25)
+## Conventions
 
-This repo was migrated from `JoernStoehler/xrisk-minigames` (monorepo at `projects/global-pause/`) to its own standalone repo. Fresh git history — all prior history is in the monorepo.
+This file tracks current work and project state. Read at session start.
 
-**What's set up:**
-- Single merged CLAUDE.md (conventions + game spec)
-- `.claude/hooks/` — session-start (CC Web), worktree-create/remove
-- `.claude/agents/review.md` — review agent for branch changes
-- `.github/workflows/deploy.yml` — deploys to `global-pause.pages.dev` on push to main
-- GitHub secrets: CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID
-- `literature/` — AI x-risk reference materials for card content writing
+- **Current**: active tasks, ordered by priority
+- **Maturity Map**: what's settled vs placeholder — read before polishing or building on anything
+- **Considered but deferred**: ideas parked with rationale
+- **Done**: completed items (recent first, compressed)
 
-**Deployment:** `global-pause.pages.dev` — unchanged, wrangler.toml still uses `name = "global-pause"`.
+Status updates: mark items DONE/STALE, don't delete — context matters for future sessions.
+
+---
 
 ## Maturity Map
 
@@ -22,89 +21,70 @@ What's settled vs. placeholder — read this before polishing or building on any
 |-----------|--------|-------|
 | Engine (types, state, cards, rng) | **Mostly settled** | Pure TS, well-tested, stable API |
 | Swipe/drag UX (useSwipe, SwipeCard) | **Mostly settled** | Tuned on real devices, E2E tested |
-| Resource system (4 bars, icons, previews) | **Draft** | Mechanics may change |
+| Resource system (4 bars, icons, previews) | **Draft** | Mechanics may change in content overhaul |
 | Layout/theme system (`src/index.css` @theme) | **Mostly settled** | Centralized CSS vars, safe to retheme |
 | Screens (Title, Game, Death, Tutorial) | **Draft** | Screen layout and content will change |
 | Card content (29 templates in `src/data/cards.ts`) | **Placeholder** | All cards are placeholder — 11 marked throwaway, 18 grounded in literature but still placeholder |
 | Death messages (`src/data/deaths.ts`) | **Placeholder** | Will change with content overhaul |
 | Tutorial (3 cards in `src/data/tutorial.ts`) | **Placeholder** | MVP: 3 scripted Deputy Director cards, not designed content |
-| Portraits (21 PNGs in `src/assets/portraits/`) | **Placeholder** | 11 flagged bad style, need regen. Per-file JSON sidecars do NOT exist — only shared `style.json` |
+| Portraits (21 PNGs in `src/assets/portraits/`) | **Placeholder** | 11 flagged bad style, 3 borderline, need regen. Per-file JSON sidecars do NOT exist — only shared `style.json` |
 | Title/death screen visuals | **Placeholder** | Will change with content overhaul |
 | History chains / degraded variants | **Not started** | Blocked on card content |
 | Achievements / card collection | **Not started** | Deferred — only 29 cards, collection completes in ~5 runs |
 
 Status tiers: **Settled** = safe to build on. **Draft** = exists but expected to change. **Placeholder** = will be replaced. **Not started** = blocked or deferred.
 
-### Polish branch (not yet merged to main)
-
-5 commits on `polish` branch, all passing `npm run check`. Verify branch state before building on it: `git log --oneline main..polish`
-
-1. ErrorBoundary wrapping entire app in App.tsx
-2. data-testid attributes + ARIA labels across all components
-3. SEO: OG meta tags, social preview image, meta description, robots.txt
-4. `useAudio` hook: 6 synthesized SFX via Web Audio API + ambient drone + mute toggle (localStorage)
-5. Keyboard: Enter on title/death, Escape to skip tutorial
-
-### Polish Batch 2 scope (next up — visual identity)
-
-Focus on **structural theming** that survives a content overhaul — NOT content-specific polish.
-
-1. **Visual variants** — surveillance aesthetic, not medieval parchment. Build 2-3 options (title, game, death screens), Jörn picks. Theme pivot = changing ~10 hex values in `src/index.css` @theme block.
-2. **Achievement/milestone rewards** — visual flair on death screen for good runs. Basic: track longest run, notable cards.
-3. **Haptic feedback** — `navigator.vibrate()` on commit + death (Android only, graceful no-op).
-
-**Critical constraint:** Cards, tutorial, death messages, and portraits are placeholder/draft. Visual work should target the theme system and layout, not content rendering.
+---
 
 ## Current
 
-- [ ] Card content: replace throwaway cards with real x-risk scenario cards — use `src/data/card-writing-guide.md`, review output on `#qa` page
+- [ ] Card content: replace throwaway cards with real x-risk scenario cards — use `design/card-writing-guide.md`, review output on `#qa` page
 - [ ] Portrait regeneration: 11 portraits flagged as bad style need regen via `scripts/generate-portrait.mjs` — bad: P2(CFO), P3(Chief Scientist), P7(Deputy Dir), P9(Enforcement Chief), P11(Exec Asst), P14(Intel Analyst), P17(Legal Counsel), P20(Press Secretary); borderline: P15(Inv Journalist), P16(Junior Analyst), P18(NATO Liaison)
-- [ ] More history-triggered chains (blocked on card content — no point chaining throwaway cards)
-- [ ] More degraded variant pairs (blocked on card content — variants of throwaway cards will be replaced)
-- [ ] Re-balance after content pass (follow BALANCE.md process)
+- [ ] More history-triggered chains (blocked on card content)
+- [ ] More degraded variant pairs (blocked on card content)
+- [ ] Re-balance after content pass
 - [ ] Title/death screen polish: animations, icon sizes, layout feel clunky on mobile — defer until after card content pass sets the mood
-- [ ] Consider framer-motion migration: AnimatePresence would properly sequence card enter/exit animations (currently using setTimeout + key remount)
+
+### Balance Tuning Process
+
+When re-balancing after content changes, follow this process:
+
+1. **Simulate before tuning.** Run 20-30 random-play games, collect death-cause distribution and turn-count range:
+   ```bash
+   for i in $(seq 1 20); do npm run cli reset 2>&1 | tail -0; npm run cli auto 50 2>&1 | grep -E "depleted|overloaded|Survived"; done
+   ```
+   If >40% of deaths are the same cause, that resource axis is structurally broken.
+
+2. **Count flow rates, not individual cards.** Balance problems are rarely one card's delta — usually the net flow for resource X across ALL cards. Count sources and sinks per resource. If a resource has 12 drain cards and 3 source cards, add source cards.
+
+3. **Crisis cards are the thermostat.** High-weight resource-gated cards self-correct extreme bars. Minimum: 1 crisis card per resource per direction = 8 total.
+
+4. **Weight dominance kills variety.** No always-on card should exceed 1.5x average pool weight. High weights (3-5) reserved for conditional cards.
+
+5. **Re-simulate after changes.** Check: (a) death types spread across 5+ of 8 causes, (b) turn counts 15-40, (c) no card appears more than once every 4 turns.
+
+**Last balance state (29 cards, 24 death messages):** 6/8 death types observed. Still rare: intel-depleted (intel trends up), leverage-depleted (rescued by crisis card). Only random-play tested — no human playtesting yet.
+
+---
 
 ### Considered but deferred
-- Achievements / card collection: only 29 cards — collection completes in ~5 runs. Revisit after content overhaul adds more cards
-- Settings screen: nothing to configure (no audio, deliberate aesthetic). Add if tutorial needs skip toggle or accessibility needs arise
+
+- Achievements / card collection: only 29 cards — collection completes in ~5 runs. Revisit after content overhaul
+- Settings screen: nothing to configure. Add if tutorial needs skip toggle or accessibility needs arise
 - Better desktop layout: mobile is primary, current max-w-md phone-app look works fine
-- Different starts + immersive selection screen: massive scope, premature with 29 cards and one story arc
+- Different starts + immersive selection screen: massive scope, premature with 29 cards
+- framer-motion migration: AnimatePresence would properly sequence card enter/exit (currently setTimeout + key remount)
 
-## Done
+---
 
-- [x] Phone-frame layout: 844px max-height container centered vertically — prevents year bar from stranding at bottom of tall desktop viewports
-- [x] Death screen polish: share text preview (left-border quote), hover states on buttons, skull emoji removed
-- [x] Fly-off animation tuning: 500ms ease-in (visible departure) vs 300ms ease-out spring-back (snappy return)
-- [x] Keyboard controls: Arrow keys / A/D swipe left/right on desktop — `commitProgrammatic` in useSwipe, `forwardRef` on SwipeCard, keydown listener in GameScreen
-- [x] Social sharing from death screen: narrative share text with failure mode + notable events + time in office, Web Share API (mobile) with clipboard fallback (desktop), ShareButton alongside Try Again
-- [x] Tutorial cards (hybrid): 3 scripted Deputy Director briefing cards on first play, in-world narration + resource bar highlight, skip button, localStorage persistence (`global-pause-tutorial-done`)
-- [x] QA reference page (`#qa` hash route): numbered portraits (P1-P21), cards (C1-C29) with speaker/text/choices/previews, death messages — Jörn references items by number
-- [x] Card-writing guide (`src/data/card-writing-guide.md`): durable agent-facing spec for card content, x-risk framing, format constraints, anti-patterns — prevents lost prompts on session end
-- [x] Portrait provenance: shared `style.json` + single-portrait script (`scripts/generate-portrait.mjs`) that outputs .png + .json sidecar. Note: existing 21 portraits predate the script and do NOT have sidecars.
-- [x] Card provenance: colocated comments on all 29 cards in `src/data/cards.ts` (Source, Rationale, Category)
-- [x] Fix swipe flicker bug: old card briefly reappeared at center (~80% of swipes) — removed unnecessary state resets in useSwipe.ts setTimeout callback
-- [x] Swipe UX polish (test on real mobile device, tune thresholds/velocity) — Jörn tested on mobile, swipe feels fine
-- [x] UX polish pass: choice labels moved below card (full width, bigger font), portrait constrained to 280px, label highlight on swipe (color-mix ramp with swipe progress), bottom bar simplified to year only, CLAUDE.md updated with documentation levels convention and label placement
-- [x] Desktop playtest fixes: max-width constraint, localStorage versioning + apply() rehydration, Reigns-style card flip animation, portrait aspect-square layout shift fix, resource fill-level icons (CSS clip-path battery gauge), fixed text area height, font size bumps, wider choice labels, preview flash fix on card transition, E2E animation wait fix, stale PLAYTEST.md removed
-- [x] Re-set GitHub secrets (CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID) — done via `gh secret set`
-- [x] Post-migration audit & fixes: CLAUDE.md synced with v3 reality, hook/config hardening, card balance (4 cards), E2E test reliability, CLI RNG fix, useSwipe onPointerCancel, Vitest worktree exclusion, Dockerfile Playwright browsers
-- [x] Visual overhaul v3 polish: match Reigns layout precisely (remove card frame/shadow, hide card back in neutral, swipe perf via refs instead of state, bigger icons 48px, correct zone proportions, overflow:hidden fix, dead code cleanup, E2E viewport fix, screenshot script)
-- [x] Visual overhaul v3: Reigns-style layout (dark top/bottom bars, tan mid zone, card-back deck stack, Space Mono font, 21 AI-generated portraits via fal.ai, resource icons instead of bars, choice overlay on swipe)
-- [x] Visual overhaul v2: dark warm bg (#2A2118) + cream card (#FFFDF7), 21 geometric SVG speaker portraits (SpeakerPortrait.tsx), compact resource bars with bright colors, card materiality (shadow/border), Reigns-style contrast model
-- [x] Visual overhaul v1: warm cream palette, Inter font, speaker emoji portraits, colored card headers, per-resource bar colors, fixed bar labels (Funding/Leverage)
-- [x] Visual QA process documented in CLAUDE.md (reusable prompt templates, scoring rubric, process rules)
-- [x] V1 prototype (RTS/map style) — scrapped, UX failed on mobile
-- [x] V2 engine design discussion — concepts preserved, UX pivoted to Reigns-style
-- [x] Delete old code, rewrite CLAUDE.md for new direction
-- [x] Engine: types, state transitions, card pool draw (pure functions, no React dep)
-- [x] Throwaway card content (19 templates) + death messages (8)
-- [x] CLI playtest tool (npm run cli — headless, agent-friendly)
-- [x] Swipe UX (useSwipe hook, pointer events, CSS transforms, tap fallback)
-- [x] UI components (TitleScreen, GameScreen, SwipeCard, ResourceDisplay, ResourceBar, DeathScreen)
-- [x] App wiring + npm run check passes (typecheck + lint + build + 7 unit tests)
-- [x] E2E smoke tests (4 tests: title, game, choice, death+restart)
-- [x] Visual QA — mobile screenshots confirm all screens render correctly
-- [x] Balance tuning: rebalanced deltas, added 10 cards (29 total), 6/8 death types reachable
-- [x] Multiple death messages (3 per cause, 24 total) with turn-based selection
-- [x] BALANCE.md — documented tuning process and current balance state
+## Done (recent first)
+
+- [x] Repo cleanup: deleted 9 stale files, removed CC Web section from CLAUDE.md, fixed core thesis attribution, cleaned up TASKS.md, folded BALANCE.md, deleted stale branch
+- [x] Polish branch merged: ErrorBoundary, data-testid/ARIA, SEO meta tags, useAudio hook (6 SFX + ambient drone), keyboard controls (Enter/Escape)
+- [x] Phone-frame layout, death screen polish, fly-off animation tuning
+- [x] Keyboard controls, social sharing, tutorial cards
+- [x] QA reference page (`#qa`), card-writing guide, portrait provenance, card provenance
+- [x] Swipe flicker fix, swipe UX polish (real mobile), UX polish pass, desktop playtest fixes
+- [x] Visual overhaul v3 polish + v3 + v2 + v1
+- [x] E2E tests, balance tuning (29 cards, 6/8 death types), engine, CLI tool, swipe UX
+- [x] V1 prototype (RTS/map) — scrapped, pivoted to Reigns-style

@@ -5,7 +5,7 @@ model: sonnet
 memory: project
 ---
 
-You review agent-written event material (files matching `src/data/events-*.md`) before it's presented to Jörn. You catch the specific failure modes that agents repeatedly produce.
+You review agent-written event material (files matching `design/events-*.md`) before it's presented to Jörn. You catch the specific failure modes that agents repeatedly produce.
 
 ## Context
 
@@ -22,7 +22,7 @@ Agents invent plausible-sounding terms and attribute them to IABIED or other sou
 - If zero hits, it's fabricated
 - If the term appears but as a citation of an older source (not coined there), it's misattributed
 
-**Reference:** `src/data/iabied-vocabulary.md` — authoritative verified vocabulary. Terms listed under "Terms NOT from IABIED" are known fabrications. Watch for them reappearing.
+**Reference:** `design/iabied-vocabulary.md` — authoritative verified vocabulary. Terms listed under "Terms NOT from IABIED" are known fabrications. Watch for them reappearing.
 
 **Known past fabrications:** "born dangerous," "smuggling channel" — these were invented by agents and falsely attributed to IABIED. Flag any recurrence immediately.
 
@@ -98,7 +98,7 @@ End with:
 
 ## Reference files
 
-- `src/data/iabied-vocabulary.md` — verified vocabulary + known fabrications
-- `src/data/card-writing-guide.md` — event format and writing conventions
+- `design/iabied-vocabulary.md` — verified vocabulary + known fabrications
+- `design/card-writing-guide.md` — event format and writing conventions
 - `literature/INDEX.md` — index of all source files
 - `literature/iabied-treaty.md` — IABIED treaty (most commonly cited source)

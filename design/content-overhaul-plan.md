@@ -20,8 +20,8 @@
 - Visual design and style (Jörn: "the design and style is good")
 
 **What exists but is NOT validated:**
-- Domain model (`src/data/domain-model.md`): dimensions, causal links — written by agent from Jörn's dictation, contains known paraphrasing errors. Jörn gave corrections on some dimensions.
-- Literature findings (`src/data/literature-findings.md`): challenges, start scenarios, 8 extinction pathways, 4 survival pathways — compiled by agent from literature files. Jörn skimmed some sections.
+- Domain model (`design/domain-model.md`): dimensions, causal links — written by agent from Jörn's dictation, contains known paraphrasing errors. Jörn gave corrections on some dimensions.
+- Literature findings (`design/literature-findings.md`): challenges, start scenarios, 8 extinction pathways, 4 survival pathways — compiled by agent from literature files. Jörn skimmed some sections.
 
 **What is placeholder-quality (must be replaced):**
 - All 29 cards — not grounded in the domain model or expert predictions
@@ -567,7 +567,7 @@ Bars are continuously-updated advisor briefings, NOT things the player tries to 
 
 #### 4 visible bars (advisor briefings)
 
-Derived bottom-up from 42 event sketches (`src/data/events-draft.md`). Each bar tracks a dimension that many events depend on or affect.
+Derived bottom-up from 42 event sketches (`design/events-draft-v2.md`). Each bar tracks a dimension that many events depend on or affect.
 
 Two types of bars, reflecting two types of game state:
 
@@ -876,9 +876,9 @@ Honest limitations:
 Cards, death messages, character details — grounded in the dynamics from Step 1 and game elements from Step 2.
 
 **Existing resources:**
-- Card-writing guide: `src/data/card-writing-guide.md`
-- Literature findings: `src/data/literature-findings.md`
-- Domain model: `src/data/domain-model.md`
+- Card-writing guide: `design/card-writing-guide.md`
+- Literature findings: `design/literature-findings.md`
+- Domain model: `design/domain-model.md`
 
 ## Step 4: Win condition
 
