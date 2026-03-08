@@ -38,7 +38,7 @@ Status tiers: **Settled** = safe to build on. **Draft** = exists but expected to
 
 ## Current
 
-- [ ] Card content: replace throwaway cards with real x-risk scenario cards — use `/write-cards` skill, review output via `npm run cli cards` and `#qa` page
+- [ ] Card content: replace throwaway cards with real x-risk scenario cards — use `/write-cards` skill, review output via `npm run cli cards` and `#qa` page. Review format: agent generates .md listing all cards → Jörn gives feedback → agent edits cards + regenerates .md
 - [ ] Portrait regeneration: 11 portraits flagged as bad style need regen via `scripts/generate-portrait.mjs` — bad: P2(CFO), P3(Chief Scientist), P7(Deputy Dir), P9(Enforcement Chief), P11(Exec Asst), P14(Intel Analyst), P17(Legal Counsel), P20(Press Secretary); borderline: P15(Inv Journalist), P16(Junior Analyst), P18(NATO Liaison)
 - [ ] More history-triggered chains (blocked on card content)
 - [ ] More degraded variant pairs (blocked on card content)
@@ -79,6 +79,8 @@ When re-balancing after content changes, follow this process:
 
 ## Done (recent first)
 
+- [x] Card system refactor: CardScript functions, deleted helpers.ts, inlined clamping, split cards into 6 files, updated docs + SKILL.md
+- [x] Stale reference audit: fixed card counts (29→28), file paths in review agent, removed helpers.ts references
 - [x] Repo cleanup: deleted 9 stale files, removed CC Web section from CLAUDE.md, fixed core thesis attribution, cleaned up TASKS.md, folded BALANCE.md, deleted stale branch
 - [x] Polish branch merged: ErrorBoundary, data-testid/ARIA, SEO meta tags, useAudio hook (6 SFX + ambient drone), keyboard controls (Enter/Escape)
 - [x] Phone-frame layout, death screen polish, fly-off animation tuning
