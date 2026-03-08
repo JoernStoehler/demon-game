@@ -2,14 +2,14 @@ import { useCallback, useState } from "react";
 import type { GameState } from "./types";
 import { newGame, applyChoice, checkDeath } from "./state";
 import { drawNextCard } from "./cards";
-import { CARD_TEMPLATES } from "../data/cards";
+import { CARD_SCRIPTS } from "../data/cards";
 import { TUTORIAL_CARDS } from "../data/tutorial";
 import { isTutorialCompleted, markTutorialCompleted } from "./tutorial";
 
 const STORAGE_KEY = "global-pause-state";
 // Bump this when the save format changes (e.g. new fields, restructured data).
 // Any localStorage data with a different version is discarded.
-const STORAGE_VERSION = 2;
+const STORAGE_VERSION = 3;
 
 function saveState(state: GameState): void {
   try {
@@ -33,15 +33,19 @@ function loadState(): GameState | null {
       return null;
     }
     const state = parsed.state;
-    // Rehydrate activeCard: JSON strips functions (apply),
-    // so restore left/right from the matching card template.
+    // Rehydrate activeCard: JSON strips functions (apply).
+    // Re-run scripts to find the matching card and rebuild apply/previews.
     if (state.activeCard) {
-      const template = CARD_TEMPLATES.find(
-        (t) => t.id === state.activeCard!.templateId,
-      );
-      if (template) {
-        state.activeCard.left = template.left;
-        state.activeCard.right = template.right;
+      const pool = CARD_SCRIPTS.flatMap((s) => s(state));
+      const entry = pool.find((e) => e.id === state.activeCard!.templateId);
+      if (entry) {
+        // Redraw to rebuild with proper apply functions
+        const redrawn = drawNextCard(
+          { ...state, activeCard: null },
+          // Single-card script to force picking this specific card
+          [() => [entry]],
+        );
+        state.activeCard = redrawn.activeCard;
       } else {
         state.activeCard = null;
       }
@@ -66,7 +70,7 @@ export function useGame() {
       setState({ ...s, phase: "tutorial" });
       setTutorialIndex(0);
     } else {
-      const withCard = drawNextCard(s, CARD_TEMPLATES);
+      const withCard = drawNextCard(s, CARD_SCRIPTS);
       setState(withCard);
       saveState(withCard);
     }
@@ -77,7 +81,7 @@ export function useGame() {
     if (nextIndex >= TUTORIAL_CARDS.length) {
       markTutorialCompleted();
       const s = newGame();
-      const withCard = drawNextCard(s, CARD_TEMPLATES);
+      const withCard = drawNextCard(s, CARD_SCRIPTS);
       setState(withCard);
       saveState(withCard);
     } else {
@@ -88,7 +92,7 @@ export function useGame() {
   const skipTutorial = useCallback(() => {
     markTutorialCompleted();
     const s = newGame();
-    const withCard = drawNextCard(s, CARD_TEMPLATES);
+    const withCard = drawNextCard(s, CARD_SCRIPTS);
     setState(withCard);
     saveState(withCard);
   }, []);
@@ -100,7 +104,7 @@ export function useGame() {
       if (death) {
         s = { ...s, phase: "dead", death };
       } else {
-        s = drawNextCard(s, CARD_TEMPLATES);
+        s = drawNextCard(s, CARD_SCRIPTS);
       }
       setState(s);
       saveState(s);
@@ -110,7 +114,7 @@ export function useGame() {
 
   const restart = useCallback(() => {
     const s = newGame();
-    const withCard = drawNextCard(s, CARD_TEMPLATES);
+    const withCard = drawNextCard(s, CARD_SCRIPTS);
     setState(withCard);
     saveState(withCard);
   }, []);

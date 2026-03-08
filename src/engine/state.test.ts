@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { newGame, clampResources, applyChoice, checkDeath } from "./state";
+import { newGame, applyChoice, checkDeath } from "./state";
 import { drawNextCard } from "./cards";
-import { CARD_TEMPLATES } from "../data/cards";
+import { CARD_SCRIPTS } from "../data/cards";
 
 describe("newGame", () => {
   it("creates a fresh game with all bars at 50", () => {
@@ -18,21 +18,10 @@ describe("newGame", () => {
   });
 });
 
-describe("clampResources", () => {
-  it("applies deltas and clamps to 0-100", () => {
-    const r = { trust: 50, funding: 10, intel: 90, leverage: 50 };
-    const result = clampResources(r, { trust: 60, funding: -20, intel: 15 });
-    expect(result.trust).toBe(100);
-    expect(result.funding).toBe(0);
-    expect(result.intel).toBe(100);
-    expect(result.leverage).toBe(50);
-  });
-});
-
 describe("drawNextCard", () => {
   it("draws a card from the pool", () => {
     const state = newGame(42);
-    const withCard = drawNextCard(state, CARD_TEMPLATES);
+    const withCard = drawNextCard(state, CARD_SCRIPTS);
     expect(withCard.activeCard).not.toBeNull();
     expect(withCard.activeCard!.speaker).toBeTruthy();
     expect(withCard.activeCard!.text).toBeTruthy();
@@ -42,7 +31,7 @@ describe("drawNextCard", () => {
 describe("applyChoice + checkDeath", () => {
   it("applies choice and pushes to history", () => {
     let state = newGame(42);
-    state = drawNextCard(state, CARD_TEMPLATES);
+    state = drawNextCard(state, CARD_SCRIPTS);
     const before = state.resources;
     state = applyChoice(state, "left");
     expect(state.turn).toBe(1);

@@ -46,12 +46,12 @@ All bars start at 50. Every card choice nudges 1-3 bars. The player's job is to 
 
 ### Card Pool
 
-Cards are drawn from a weighted pool. Each card template has a `weight(state)` function that computes its current weight (0 = not in pool). This is the only mechanism for card eligibility — cards own their own logic.
+Cards are **script functions** `(state: GameState) => PoolEntry[]`. Each script runs every turn and returns zero or more entries for the pool. The engine collects all entries, filters anti-repeat, and does a weighted random pick.
 
 **Pool dynamics:**
-- **State-driven:** Cards check resource levels, turn count, or history to decide their weight
-- **History-driven:** Cards can check what prior cards were played and which choices were made
-- **Degraded variants:** Same event concept as separate templates with mutually exclusive weights. Low-intel variant offers worse options than high-intel variant.
+- **State-driven:** Scripts check resource levels, turn count, or history to decide whether to return entries
+- **History-driven:** Scripts check `state.history` for prior cards and choices
+- **Degraded variants:** One script returns different card content based on state (e.g., high-intel vs low-intel version)
 - **Anti-repeat:** Cards drawn in the last 3 turns are excluded
 
 ### Turn Flow
@@ -73,15 +73,15 @@ Runs last ~15-40 turns. Death is frequent and expected. Each death teaches somet
 ```
 src/
   engine/
-    types.ts        # GameState, CardTemplate, Resources, ChoiceOption
+    types.ts        # GameState, PoolEntry, CardScript, Resources, ChoiceOption
     rng.ts          # Seeded PRNG (mulberry32)
     state.ts        # newGame, applyChoice, checkDeath (pure functions)
     state.test.ts   # Unit tests
-    cards.ts        # drawNextCard (weight, filter, weighted pick)
+    cards.ts        # drawNextCard (run scripts, filter, weighted pick)
     useGame.ts      # React bridge: state + actions + localStorage
     tutorial.ts     # Tutorial localStorage persistence helper
   data/
-    cards.ts        # Card templates (29 templates)
+    cards/          # Card scripts (28 scripts across 6 files + examples)
     deaths.ts       # Death messages per resource × extreme
     tutorial.ts     # Tutorial card content (3 cards)
   hooks/
@@ -108,7 +108,7 @@ src/
 ### Key Patterns
 
 - **Engine has zero React dependency.** `types.ts`, `state.ts`, `cards.ts`, `rng.ts` are pure TypeScript. The CLI tool uses them directly.
-- **Cards own their weight.** No external card injection or pool mutation. Each card's `weight(state)` function determines if and how likely it is to appear.
+- **Cards are scripts.** Each card is a `CardScript` function `(state) => PoolEntry[]` that returns zero or more entries for the card pool. The engine runs all scripts each turn, does weighted random pick, and resolves the picked entry into an `ActiveCard` for the UI.
 - **Swipe via Pointer Events.** Works for touch and mouse. CSS transforms via ref during drag (no re-renders). Spring-back on non-commit, fly-off on commit.
 - **Directional previews (Reigns-style).** On tilt, affected resource icons show small/large colored triangles. No numbers — player develops intuition.
 
@@ -256,14 +256,14 @@ npm run cli reset        # New game
 
 ### Writing Card Content
 
-Follow `design/card-writing-guide.md` — the authoritative spec for card writing. Do not invent your own card-writing prompt. The guide covers x-risk framing, mechanical constraints, tone, balance rules, and literature references.
+Use the `/write-cards` skill (`.claude/skills/write-cards/SKILL.md`) — the authoritative spec for card writing. Also read `src/data/cards/examples.ts` (annotated patterns). Do not invent your own card-writing prompt.
 
-Each card in `src/data/cards.ts` has a provenance comment (Source, Rationale, Category). Maintain this convention when adding or modifying cards.
+Each card file in `src/data/cards/` has provenance comments (Source, Rationale, Category). Maintain this convention when adding or modifying cards.
 
 ### QA Reference Pages
 
 Access via URL hash on the live site or dev server:
-- **`#qa`** — numbered portrait gallery (P1-P21) + card content overview (C1-C29) + death messages. Jörn uses these numbers to reference items in feedback.
+- **`#qa`** — numbered portrait gallery (P1-P21) + card content overview + death messages. Jörn uses these numbers to reference items in feedback.
 
 ### Visual QA (screenshots)
 

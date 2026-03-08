@@ -7,6 +7,9 @@ export interface Resources {
   leverage: number; // 0-100
 }
 
+/** Resource deltas: { trust: 5, intel: -3 } means trust +5, intel -3. Omitted = no change. */
+export type Effects = Partial<Record<ResourceKey, number>>;
+
 /** Directional preview shown on tilt: small or large change */
 export type PreviewSize = "small" | "large";
 
@@ -16,6 +19,23 @@ export interface ChoicePreview {
   size: PreviewSize;
 }
 
+/** A pool entry produced by a card script. Flat structure — no nesting. */
+export interface PoolEntry {
+  id: string;
+  speaker: string;
+  text: string;
+  leftLabel: string;
+  rightLabel: string;
+  leftEffects: Effects;
+  rightEffects: Effects;
+  weight: number;
+  color?: string;
+}
+
+/** A script that populates the card pool. Runs every turn. */
+export type CardScript = (state: GameState) => PoolEntry[];
+
+/** Resolved choice with apply function and previews — built by the engine from Effects. */
 export interface ChoiceOption {
   label: string;
   /** Reducer: takes current state, returns new state with effects applied */
@@ -24,18 +44,7 @@ export interface ChoiceOption {
   previews: ChoicePreview[];
 }
 
-export interface CardTemplate {
-  id: string;
-  speaker: string;
-  text: string;
-  left: ChoiceOption;
-  right: ChoiceOption;
-  /** Return 0 to exclude from pool. Cards own their own eligibility. */
-  weight: (state: GameState) => number;
-  /** Card accent color (cosmetic) */
-  color?: string;
-}
-
+/** Active card ready for the UI — engine resolves PoolEntry into this. */
 export interface ActiveCard {
   templateId: string;
   speaker: string;

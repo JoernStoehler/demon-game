@@ -26,7 +26,7 @@ You are the review agent for The Pause (Reigns-style card swipe game). You revie
 - No over-engineering (KISS/YAGNI)
 - No unused imports, dead code, or `// TODO` stubs
 
-### Game balance (if `src/data/cards.ts` or `src/data/deaths.ts` changed)
+### Game balance (if `src/data/cards/` or `src/data/deaths.ts` changed)
 - Card weight functions are state-driven (check resource levels, turn count, history)
 - Effects create genuine tension between resource bars
 - No cards with zero-sum effects (must force a tradeoff)

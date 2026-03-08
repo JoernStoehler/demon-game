@@ -1,8 +1,17 @@
+---
+name: write-cards
+description: Rules and reference for writing game cards. Read before creating or modifying cards.
+---
+
 # Card Writing Guide
 
-Agent-facing reference for writing card content. Read this before creating or modifying cards.
+Read before creating or modifying cards:
 
-Jörn reviews card output on the QA page (`#qa`), not this file. Edit this file if cards keep coming out wrong in the same systematic way.
+1. **This file** — content rules, tone, balance, card categories
+2. **`src/data/cards/examples.ts`** — annotated examples of every card pattern (not wired into the game)
+3. **`src/engine/types.ts`** — `CardScript`, `PoolEntry`, `GameState` type definitions
+
+Jörn reviews card output on the QA page (`#qa`) and via `npm run cli cards`, not this file. Edit this file if cards keep coming out wrong in the same systematic way.
 
 ---
 
@@ -56,26 +65,34 @@ All start at 50. The tensions above map directly to resource conflicts:
 
 ---
 
-## Card Format
+## Card Syntax
+
+A card is a **script function**: `(state: GameState) => PoolEntry[]`. Each script runs every turn and returns zero or more cards for the pool. The engine picks one by weighted random selection.
 
 ```typescript
-{
+import type { CardScript } from "../../engine/types";
+
+// Simple card — always in the pool
+const myCard: CardScript = () => [{
   id: "kebab-case-id",          // unique, descriptive
   speaker: "Role Title",        // must match a portrait in SpeakerPortrait.tsx
-  text: "...",                  // 1-2 sentences, present tense, concrete scenario
-  left: {
-    label: "Action phrase",     // 2-5 words, imperative
-    apply: (s) => ({ ...s, resources: clampResources(s.resources, { trust: 5, intel: -8 }) }),
-    previews: [
-      { resource: "trust", direction: "up", size: "small" },
-      { resource: "intel", direction: "down", size: "small" },
-    ],
-  },
-  right: { /* same structure */ },
-  weight: (s) => ...,           // 0 = excluded, >0 = draw weight
+  text: "1-2 sentences...",     // present tense, concrete scenario
+  leftLabel: "Action phrase",
+  rightLabel: "Action phrase",
+  leftEffects: { trust: 5, intel: -8 },
+  rightEffects: { funding: 10, leverage: -5 },
+  weight: 1.5,
   color: "#ef4444",             // optional, crisis accent color
-}
+}];
+
+// State-gated card — return [] to exclude from pool
+const gatedCard: CardScript = (state) => {
+  if (state.resources.intel < 40) return [];
+  return [{ id: "...", /* ... */ weight: 1.5 }];
+};
 ```
+
+The engine auto-derives preview indicators from effects (|delta| >= 10 → large arrow, else small) and builds apply functions from effects.
 
 ### Text Guidelines
 
@@ -89,7 +106,6 @@ All start at 50. The tensions above map directly to resource conflicts:
 
 - **Touch 2-3 resources** per choice. Single-resource cards feel flat.
 - **Deltas range ±3 to ±15.** Small (3-6) for routine, medium (6-10) for incidents, large (10-15) for crises.
-- **Previews must match deltas.** `size: "small"` for ±3-8, `size: "large"` for ±9-15.
 - **No safe options.** Every choice should cost something.
 
 ### Weight Guidelines
@@ -130,29 +146,53 @@ Low-stakes flavor cards. Quiet days, conference invites. Give the player a breat
 ## Patterns
 
 ### Degraded Variants
-Same event, worse options when a resource is low. Mutually exclusive weight functions.
+Same event, different content depending on state. One script returns different cards:
 
 ```typescript
-// Normal variant (intel >= 40): good options
-weight: (s) => (s.resources.intel >= 40 ? 1.5 : 0)
-
-// Degraded variant (intel < 40): worse options, same event concept
-weight: (s) => (s.resources.intel < 40 ? 1.5 : 0)
+const rogueLab: CardScript = (state) => {
+  const highIntel = state.resources.intel >= 40;
+  return [{
+    id: highIntel ? "rogue-lab-normal" : "rogue-lab-degraded",
+    speaker: highIntel ? "Intelligence Analyst" : "Junior Analyst",
+    text: highIntel ? "Thermal anomaly detected..." : "Rumors of unauthorized compute...",
+    leftLabel: highIntel ? "Send inspectors" : "Expensive investigation",
+    rightLabel: highIntel ? "Flag for next quarter" : "Ignore the rumors",
+    leftEffects: highIntel ? { funding: -8, intel: 8, leverage: 5 } : { funding: -12, intel: 5 },
+    rightEffects: highIntel ? { trust: -5, intel: -3 } : { trust: -3, intel: -6 },
+    weight: 1.5,
+  }];
+};
 ```
 
 Teaches the player: "when your Intel is low, everything is harder." Pure experiential learning.
 
 ### History Chains
-Card A → consequence Card B (triggered by Card A's choice).
+
+Card A → consequence Card B (triggered by Card A's choice). Check `state.history` directly:
 
 ```typescript
-// Consequence card: appears after specific choice
-weight: (s) => recentChoice(s, "parent-card-id", "left") ? 3 : 0
+// Immediate follow-up (within 2 turns, very high weight)
+const followUp: CardScript = (state) => {
+  const trigger = state.history.find(
+    (h) => h.cardId === "heat-signature" && h.choice === "left",
+  );
+  if (!trigger || state.turn - trigger.turn > 2) return [];
+  return [{ id: "cannabis-plantation", ..., weight: 10 }];
+};
+
+// Delayed consequence (3-6 turns later)
+const delayedConsequence: CardScript = (state) => {
+  const trigger = state.history.find(
+    (h) => h.cardId === "heat-signature" && h.choice === "left",
+  );
+  if (!trigger) return [];
+  const delay = state.turn - trigger.turn;
+  if (delay < 3 || delay > 6) return [];
+  return [{ id: "raid-diplomatic-fallout", ..., weight: 3 }];
+};
 ```
 
-Use `recentChoice(state, cardId, choice, withinTurns)` helper (defined in cards.ts).
-
-Best chains have different consequences for left vs. right choice on the parent card. See whistleblower → whistleblower-fallout / coverup-leak as the reference example.
+Best chains have different consequences for left vs. right choice on the parent card.
 
 ---
 

@@ -4,9 +4,10 @@
  */
 
 import { SpeakerPortrait } from "./SpeakerPortrait";
-import { CARD_TEMPLATES } from "../data/cards";
+import { CARD_SCRIPTS } from "../data/cards";
 import { DEATH_MESSAGES } from "../data/deaths";
-import type { ResourceKey } from "../engine/types";
+import { newGame } from "../engine/state";
+import type { PoolEntry, ResourceKey } from "../engine/types";
 
 const RESOURCE_LABELS: Record<ResourceKey, string> = {
   trust: "Trust",
@@ -14,6 +15,8 @@ const RESOURCE_LABELS: Record<ResourceKey, string> = {
   intel: "Intel",
   leverage: "Leverage",
 };
+
+const LARGE_THRESHOLD = 10;
 
 /** All unique speakers in portrait-import order */
 const SPEAKERS = [
@@ -40,18 +43,60 @@ const SPEAKERS = [
   "Executive Assistant",
 ];
 
-function PreviewBadges({ previews }: { previews: Array<{ resource: ResourceKey; direction: string; size: string }> }) {
+/** Collect all unique cards by running scripts with various states */
+function collectAllCards(): PoolEntry[] {
+  const base = newGame(1);
+  const states = [
+    base,
+    { ...base, turn: 10 },
+    { ...base, turn: 20 },
+    { ...base, resources: { ...base.resources, trust: 15 } },
+    { ...base, resources: { ...base.resources, funding: 15 } },
+    { ...base, resources: { ...base.resources, intel: 15 } },
+    { ...base, resources: { ...base.resources, leverage: 15 } },
+    { ...base, resources: { ...base.resources, intel: 85 } },
+    { ...base, resources: { ...base.resources, funding: 85 } },
+    { ...base, resources: { ...base.resources, leverage: 85 } },
+    { ...base, resources: { ...base.resources, trust: 85 } },
+    // With some history for chain cards
+    { ...base, turn: 5, history: [
+      { turn: 2, cardId: "whistleblower", choice: "left" as const },
+      { turn: 3, cardId: "lobby-meeting", choice: "left" as const },
+    ]},
+    { ...base, turn: 5, history: [
+      { turn: 2, cardId: "whistleblower", choice: "right" as const },
+    ]},
+  ];
+  const seen = new Set<string>();
+  const cards: PoolEntry[] = [];
+  for (const state of states) {
+    for (const script of CARD_SCRIPTS) {
+      for (const entry of script(state)) {
+        if (!seen.has(entry.id)) {
+          seen.add(entry.id);
+          cards.push(entry);
+        }
+      }
+    }
+  }
+  return cards;
+}
+
+const ALL_CARDS = collectAllCards();
+
+function EffectBadges({ effects }: { effects: Partial<Record<ResourceKey, number>> }) {
+  const entries = Object.entries(effects).filter(([, v]) => v !== 0) as [ResourceKey, number][];
   return (
     <span className="inline-flex gap-1 flex-wrap">
-      {previews.map((p, i) => (
+      {entries.map(([resource, value]) => (
         <span
-          key={i}
+          key={resource}
           className={`text-xs px-1.5 py-0.5 rounded ${
-            p.direction === "up" ? "bg-green-800 text-green-200" : "bg-red-800 text-red-200"
+            value > 0 ? "bg-green-800 text-green-200" : "bg-red-800 text-red-200"
           }`}
         >
-          {RESOURCE_LABELS[p.resource]} {p.direction === "up" ? "↑" : "↓"}
-          {p.size === "large" ? "↑" : ""}
+          {RESOURCE_LABELS[resource]} {value > 0 ? "↑" : "↓"}
+          {Math.abs(value) >= LARGE_THRESHOLD ? (value > 0 ? "↑" : "↓") : ""}
         </span>
       ))}
     </span>
@@ -83,9 +128,9 @@ export function QAReference() {
       </div>
 
       {/* --- CARDS --- */}
-      <h2 className="text-xl font-bold mb-3 border-b border-neutral-700 pb-1">Cards ({CARD_TEMPLATES.length})</h2>
+      <h2 className="text-xl font-bold mb-3 border-b border-neutral-700 pb-1">Cards ({ALL_CARDS.length})</h2>
       <div className="space-y-4 mb-10">
-        {CARD_TEMPLATES.map((card, i) => (
+        {ALL_CARDS.map((card, i) => (
           <div key={card.id} className="bg-neutral-800 rounded p-3">
             <div className="flex items-start gap-2 mb-2">
               <span className="bg-amber-700 text-white text-xs px-1.5 py-0.5 rounded font-bold shrink-0">
@@ -99,12 +144,12 @@ export function QAReference() {
             <p className="text-neutral-300 mb-2 leading-relaxed">{card.text}</p>
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div className="bg-neutral-700/50 rounded p-2">
-                <div className="text-blue-300 font-bold mb-1">← {card.left.label}</div>
-                <PreviewBadges previews={card.left.previews} />
+                <div className="text-blue-300 font-bold mb-1">← {card.leftLabel}</div>
+                <EffectBadges effects={card.leftEffects} />
               </div>
               <div className="bg-neutral-700/50 rounded p-2">
-                <div className="text-orange-300 font-bold mb-1">{card.right.label} →</div>
-                <PreviewBadges previews={card.right.previews} />
+                <div className="text-orange-300 font-bold mb-1">{card.rightLabel} →</div>
+                <EffectBadges effects={card.rightEffects} />
               </div>
             </div>
           </div>
@@ -142,7 +187,7 @@ export function QAReference() {
       </div>
 
       <p className="text-neutral-500 text-xs text-center pb-4">
-        Ref format: P1-P{SPEAKERS.length} for portraits, C1-C{CARD_TEMPLATES.length} for cards
+        Ref format: P1-P{SPEAKERS.length} for portraits, C1-C{ALL_CARDS.length} for cards
       </p>
     </div>
   );

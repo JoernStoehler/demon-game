@@ -24,7 +24,7 @@
 - Literature findings (`design/literature-findings.md`): challenges, start scenarios, 8 extinction pathways, 4 survival pathways — compiled by agent from literature files. Jörn skimmed some sections.
 
 **What is placeholder-quality (must be replaced):**
-- All 29 cards — not grounded in the domain model or expert predictions
+- All 28 cards — not grounded in the domain model or expert predictions
 - All 21 characters — Jörn doesn't find them memorable, flagged many portraits as bad style
 - Current 4 bars (Trust/Funding/Intel/Leverage) — may or may not survive redesign
 
@@ -876,7 +876,7 @@ Honest limitations:
 Cards, death messages, character details — grounded in the dynamics from Step 1 and game elements from Step 2.
 
 **Existing resources:**
-- Card-writing guide: `design/card-writing-guide.md`
+- Card-writing guide: `.claude/skills/write-cards/SKILL.md`
 - Literature findings: `design/literature-findings.md`
 - Domain model: `design/domain-model.md`
 

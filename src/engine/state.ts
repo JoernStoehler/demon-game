@@ -24,19 +24,6 @@ export function newGame(seed?: number): GameState {
   };
 }
 
-/** Helper for card reducers: apply deltas to resources with clamping to 0-100 */
-export function clampResources(
-  resources: GameState["resources"],
-  deltas: Partial<Record<ResourceKey, number>>,
-): GameState["resources"] {
-  const next = { ...resources };
-  for (const key of RESOURCE_KEYS) {
-    if (deltas[key] !== undefined) {
-      next[key] = Math.max(0, Math.min(100, next[key] + deltas[key]));
-    }
-  }
-  return next;
-}
 
 export function applyChoice(
   state: GameState,

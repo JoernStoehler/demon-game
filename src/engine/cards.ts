@@ -1,39 +1,54 @@
-import type { ActiveCard, CardTemplate, GameState } from "./types";
+import type { ActiveCard, CardScript, ChoiceOption, ChoicePreview, Effects, GameState, ResourceKey } from "./types";
 import { weightedPick } from "./rng";
 
 const ANTI_REPEAT_WINDOW = 3;
+const LARGE_THRESHOLD = 10;
+
+function derivePreviews(effects: Effects): ChoicePreview[] {
+  const previews: ChoicePreview[] = [];
+  for (const [key, value] of Object.entries(effects)) {
+    if (value === 0) continue;
+    previews.push({
+      resource: key as ResourceKey,
+      direction: value > 0 ? "up" : "down",
+      size: Math.abs(value) >= LARGE_THRESHOLD ? "large" : "small",
+    });
+  }
+  return previews;
+}
+
+function resolveChoice(label: string, effects: Effects): ChoiceOption {
+  return {
+    label,
+    apply: (s) => {
+      const resources = { ...s.resources };
+      for (const [key, delta] of Object.entries(effects)) {
+        const k = key as ResourceKey;
+        resources[k] = Math.max(0, Math.min(100, resources[k] + delta));
+      }
+      return { ...s, resources };
+    },
+    previews: derivePreviews(effects),
+  };
+}
 
 export function drawNextCard(
   state: GameState,
-  templates: CardTemplate[],
+  scripts: CardScript[],
 ): GameState {
-  // Compute weights, filtering out zero-weight and recently-drawn cards
+  // Run all scripts to populate pool
+  const pool = scripts.flatMap((s) => s(state));
+
+  // Filter out recently-drawn cards
   const recentIds = new Set(
     state.history.slice(-ANTI_REPEAT_WINDOW).map((h) => h.cardId),
   );
 
-  const eligible: CardTemplate[] = [];
-  const weights: number[] = [];
-
-  for (const t of templates) {
-    if (recentIds.has(t.id)) continue;
-    const w = t.weight(state);
-    if (w > 0) {
-      eligible.push(t);
-      weights.push(w);
-    }
-  }
+  let eligible = pool.filter((e) => !recentIds.has(e.id) && e.weight > 0);
 
   if (eligible.length === 0) {
-    // Fallback: if nothing is eligible (shouldn't happen with enough content),
-    // pick from all templates ignoring anti-repeat
-    for (const t of templates) {
-      const w = t.weight(state);
-      if (w > 0) {
-        eligible.push(t);
-        weights.push(w);
-      }
-    }
+    // Fallback: ignore anti-repeat
+    eligible = pool.filter((e) => e.weight > 0);
   }
 
   if (eligible.length === 0) {
@@ -49,7 +64,7 @@ export function drawNextCard(
     };
   }
 
-  // weightedPick mutates state.rngState in-place, so we need a mutable copy
+  const weights = eligible.map((e) => e.weight);
   const rng = { rngState: state.rngState };
   const picked = weightedPick(rng, eligible, weights);
 
@@ -57,8 +72,8 @@ export function drawNextCard(
     templateId: picked.id,
     speaker: picked.speaker,
     text: picked.text,
-    left: picked.left,
-    right: picked.right,
+    left: resolveChoice(picked.leftLabel, picked.leftEffects),
+    right: resolveChoice(picked.rightLabel, picked.rightEffects),
     color: picked.color,
   };
 

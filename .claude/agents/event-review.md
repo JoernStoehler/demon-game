@@ -99,6 +99,6 @@ End with:
 ## Reference files
 
 - `design/iabied-vocabulary.md` — verified vocabulary + known fabrications
-- `design/card-writing-guide.md` — event format and writing conventions
+- `.claude/skills/write-cards/SKILL.md` — card format and writing conventions
 - `literature/INDEX.md` — index of all source files
 - `literature/iabied-treaty.md` — IABIED treaty (most commonly cited source)
