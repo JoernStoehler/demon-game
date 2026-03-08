@@ -169,6 +169,7 @@ src/
 - Lint passes: `npm run lint` passes
 - Feature works end-to-end (not just "function exists")
 - `// TODO` stubs do NOT count as done
+- **Commit after completing each unit of work.** Don't accumulate uncommitted changes across long sessions — context compaction loses awareness of dirty working tree.
 
 **No guessing:**
 - For engineering problems: attempt before escalating. If you fail, present what you learned.
