@@ -83,6 +83,13 @@ import "./north-korea-pattern";
 import "./stepping-on-toes";
 import "./chip-audit-deadline";
 import "./celebrity-endorsement";
+import "./cops-refuse-search";
+import "./inconvenient-true-positive";
+import "./academic-freedom-revolt";
+import "./review-conference";
+import "./mission-drift";
+import "./hostage-gambit";
+import "./china-hawk";
 
 import type { CardScript } from "../../engine/types";
 import { getScripts } from "./registry";
