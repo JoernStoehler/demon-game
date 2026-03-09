@@ -59,6 +59,16 @@ import "./media-waste-story";
 import "./near-miss";
 import "./unemployment-crisis";
 import "./generational-shift";
+import "./datacenter-hidden";
+import "./surveillance-blind-spot";
+import "./agency-trains-ai";
+import "./success-trap";
+import "./econ-boom-request";
+import "./rogue-internal-experiment";
+import "./old-chips-new-tricks";
+import "./true-believer";
+import "./leadership-purge";
+import "./protest-that-helps";
 
 import type { CardScript } from "../../engine/types";
 import { getScripts } from "./registry";
