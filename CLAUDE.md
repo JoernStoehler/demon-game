@@ -261,6 +261,16 @@ Use the `/write-cards` skill (`.claude/skills/write-cards/SKILL.md`) — the aut
 
 Each card file in `src/data/cards/` has provenance comments (Source, Rationale, Category). Maintain this convention when adding or modifying cards.
 
+### Card Map & Export
+
+```bash
+npm run cards            # Generate both outputs:
+                         #   design/cards-export.md  — flat review file grouped by source file
+                         #   public/cards-map.html   — D3 force graph (tag/state/chain edges)
+```
+
+The card map is the primary tool for reviewing card content and relationships. Nodes: cards (circles, colored by file), state variables (teal squares), content tags (purple diamonds). Edges derived from code (history chains, hidden state reads/writes) and `tags` field.
+
 ### QA Reference Pages
 
 Access via URL hash on the live site or dev server:

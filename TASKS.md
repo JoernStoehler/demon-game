@@ -24,12 +24,13 @@ What's settled vs. placeholder — read this before polishing or building on any
 | Resource system (4 bars, icons, previews) | **Draft** | Mechanics may change in content overhaul |
 | Layout/theme system (`src/index.css` @theme) | **Mostly settled** | Centralized CSS vars, safe to retheme |
 | Screens (Title, Game, Death, Tutorial) | **Draft** | Screen layout and content will change |
-| Card content (28 scripts in `src/data/cards/`) | **Placeholder** | All cards are placeholder — 11 marked throwaway, 18 grounded in literature but still placeholder |
+| Card content (144 cards in `src/data/cards/`) | **Draft** | 144 cards across 38 files, agent-written — text quality needs expert review/rewrite |
 | Death messages (`src/data/deaths.ts`) | **Placeholder** | Will change with content overhaul |
 | Tutorial (3 cards in `src/data/tutorial.ts`) | **Placeholder** | MVP: 3 scripted Deputy Director cards, not designed content |
 | Portraits (21 PNGs in `src/assets/portraits/`) | **Placeholder** | 11 flagged bad style, 3 borderline, need regen. Per-file JSON sidecars do NOT exist — only shared `style.json` |
 | Title/death screen visuals | **Placeholder** | Will change with content overhaul |
-| History chains / degraded variants | **Not started** | Blocked on card content |
+| Card map tool (`npm run cards`) | **Settled** | D3 force graph + .md export, content tags on all cards |
+| History chains / degraded variants | **Draft** | Some exist in current cards, needs expansion |
 | Achievements / card collection | **Not started** | Deferred — only 28 cards, collection completes in ~5 runs |
 
 Status tiers: **Settled** = safe to build on. **Draft** = exists but expected to change. **Placeholder** = will be replaced. **Not started** = blocked or deferred.
@@ -38,7 +39,7 @@ Status tiers: **Settled** = safe to build on. **Draft** = exists but expected to
 
 ## Current
 
-- [ ] Card content: replace throwaway cards with real x-risk scenario cards — use `/write-cards` skill, review output via `npm run cli cards` and `#qa` page. Review format: agent generates .md listing all cards → Jörn gives feedback → agent edits cards + regenerates .md
+- [ ] Card text quality: 144 cards exist but text is agent-written placeholder quality — Jörn reviewing via `design/cards-export.md` and `public/cards-map.html`, will provide feedback for rewrites
 - [ ] Portrait regeneration: 11 portraits flagged as bad style need regen via `scripts/generate-portrait.mjs` — bad: P2(CFO), P3(Chief Scientist), P7(Deputy Dir), P9(Enforcement Chief), P11(Exec Asst), P14(Intel Analyst), P17(Legal Counsel), P20(Press Secretary); borderline: P15(Inv Journalist), P16(Junior Analyst), P18(NATO Liaison)
 - [ ] More history-triggered chains (blocked on card content)
 - [ ] More degraded variant pairs (blocked on card content)
@@ -79,6 +80,8 @@ When re-balancing after content changes, follow this process:
 
 ## Done (recent first)
 
+- [x] Card map & export tool: `npm run cards` generates `design/cards-export.md` + `public/cards-map.html` (D3 force graph with tag/state/chain edges, force+grid toggle, search, tooltips)
+- [x] Content topic tags: added `tags?: string[]` to Card type, tagged all 144 cards with 21 content topics, added tag guidance to write-cards skill
 - [x] Card system refactor: CardScript functions, deleted helpers.ts, inlined clamping, split cards into 6 files, updated docs + SKILL.md
 - [x] Stale reference audit: fixed card counts (29→28), file paths in review agent, removed helpers.ts references
 - [x] Repo cleanup: deleted 9 stale files, removed CC Web section from CLAUDE.md, fixed core thesis attribution, cleaned up TASKS.md, folded BALANCE.md, deleted stale branch
