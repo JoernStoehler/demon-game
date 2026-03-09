@@ -1,21 +1,16 @@
 import type {
+  ChoiceDirection,
   DeathInfo,
   GameState,
-  ResourceKey,
 } from "./types";
+import { RESOURCE_KEYS } from "./types";
 import { DEATH_MESSAGES } from "../data/deaths";
-
-const RESOURCE_KEYS: ResourceKey[] = [
-  "trust",
-  "funding",
-  "intel",
-  "leverage",
-];
 
 export function newGame(seed?: number): GameState {
   return {
     phase: "playing",
-    resources: { trust: 50, funding: 50, intel: 50, leverage: 50 },
+    resources: { pol: 50, int: 50, saf: 50, alg: 50 },
+    hidden: {},
     turn: 0,
     activeCard: null,
     rngState: seed ?? Date.now(),
@@ -24,14 +19,15 @@ export function newGame(seed?: number): GameState {
   };
 }
 
-
 export function applyChoice(
   state: GameState,
-  choice: "left" | "right",
+  choice: ChoiceDirection,
 ): GameState {
   if (!state.activeCard) return state;
 
-  const option = choice === "left" ? state.activeCard.left : state.activeCard.right;
+  const option = state.activeCard[choice];
+  if (option.disabled) return state;
+
   const applied = option.apply(state);
 
   const historyEntry = {
@@ -52,19 +48,19 @@ export function checkDeath(state: GameState): DeathInfo | null {
   for (const key of RESOURCE_KEYS) {
     const value = state.resources[key];
     if (value <= 0) {
-      const msgs = DEATH_MESSAGES[key].depleted;
+      const msgs = DEATH_MESSAGES[key]?.depleted;
       return {
         resource: key,
         extreme: "depleted",
-        message: msgs[state.turn % msgs.length],
+        message: msgs?.[state.turn % msgs.length] ?? `${key} depleted.`,
       };
     }
     if (value >= 100) {
-      const msgs = DEATH_MESSAGES[key].overloaded;
+      const msgs = DEATH_MESSAGES[key]?.overloaded;
       return {
         resource: key,
         extreme: "overloaded",
-        message: msgs[state.turn % msgs.length],
+        message: msgs?.[state.turn % msgs.length] ?? `${key} overloaded.`,
       };
     }
   }

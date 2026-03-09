@@ -7,35 +7,30 @@ import { generateShareText } from "./shareText";
 /** Small SVG icons matching ResourceIcons style */
 function DeathResourceIcon({ resource }: { resource: ResourceKey }) {
   const icons: Record<ResourceKey, React.JSX.Element> = {
-    trust: (
+    pol: (
       <svg width="48" height="48" viewBox="0 0 36 36" fill="#D4C8A0">
         <path d="M18 4 L30 10 L30 20 Q30 30 18 34 Q6 30 6 20 L6 10 Z" />
       </svg>
     ),
-    funding: (
-      <svg width="48" height="48" viewBox="0 0 36 36" fill="#D4C8A0">
-        <rect x="16" y="4" width="4" height="28" />
-        <rect x="10" y="10" width="16" height="4" />
-        <rect x="10" y="10" width="4" height="8" />
-        <rect x="10" y="16" width="16" height="4" />
-        <rect x="22" y="16" width="4" height="8" />
-        <rect x="10" y="22" width="16" height="4" />
-      </svg>
-    ),
-    intel: (
+    int: (
       <svg width="48" height="48" viewBox="0 0 36 36" fill="#D4C8A0">
         <path d="M4 18 Q18 6 32 18 Q18 30 4 18 Z" />
         <circle cx="18" cy="18" r="5" fill="#2A1F0F" />
         <circle cx="18" cy="18" r="2" fill="#D4C8A0" />
       </svg>
     ),
-    leverage: (
+    saf: (
       <svg width="48" height="48" viewBox="0 0 36 36" fill="#D4C8A0">
-        <rect x="16" y="6" width="4" height="24" />
-        <rect x="6" y="8" width="24" height="3" />
-        <polygon points="6,11 2,22 10,22" />
-        <polygon points="30,11 26,22 34,22" />
-        <rect x="12" y="28" width="12" height="4" />
+        <circle cx="18" cy="18" r="14" fillOpacity="0.3" />
+        <path d="M10 18 L16 24 L26 12" stroke="#D4C8A0" strokeWidth="3" fill="none" />
+      </svg>
+    ),
+    alg: (
+      <svg width="48" height="48" viewBox="0 0 36 36" fill="#D4C8A0">
+        <rect x="6" y="24" width="5" height="8" />
+        <rect x="13" y="18" width="5" height="14" />
+        <rect x="20" y="12" width="5" height="20" />
+        <rect x="27" y="6" width="5" height="26" />
       </svg>
     ),
   };

@@ -7,14 +7,15 @@ describe("newGame", () => {
   it("creates a fresh game with all bars at 50", () => {
     const state = newGame(42);
     expect(state.resources).toEqual({
-      trust: 50,
-      funding: 50,
-      intel: 50,
-      leverage: 50,
+      pol: 50,
+      int: 50,
+      saf: 50,
+      alg: 50,
     });
     expect(state.turn).toBe(0);
     expect(state.phase).toBe("playing");
     expect(state.history).toEqual([]);
+    expect(state.hidden).toEqual({});
   });
 });
 
@@ -48,19 +49,19 @@ describe("applyChoice + checkDeath", () => {
 
   it("detects death at 0", () => {
     const state = newGame(42);
-    state.resources.trust = 0;
+    state.resources.pol = 0;
     const death = checkDeath(state);
     expect(death).not.toBeNull();
-    expect(death!.resource).toBe("trust");
+    expect(death!.resource).toBe("pol");
     expect(death!.extreme).toBe("depleted");
   });
 
   it("detects death at 100", () => {
     const state = newGame(42);
-    state.resources.leverage = 100;
+    state.resources.alg = 100;
     const death = checkDeath(state);
     expect(death).not.toBeNull();
-    expect(death!.resource).toBe("leverage");
+    expect(death!.resource).toBe("alg");
     expect(death!.extreme).toBe("overloaded");
   });
 

@@ -1,21 +1,21 @@
 import type { DeathInfo, HistoryEntry, ResourceKey } from "../engine/types";
 
 const FAILURE_PHRASES: Record<ResourceKey, Record<string, string>> = {
-  trust: {
-    depleted: "Public revolt ended my tenure",
-    overloaded: "Overpromising shattered my credibility",
+  pol: {
+    depleted: "Political support collapsed — the pause ended",
+    overloaded: "Unchecked institutional power turned the world against me",
   },
-  funding: {
-    depleted: "The agency ran out of money",
-    overloaded: "A waste scandal brought it all down",
-  },
-  intel: {
+  int: {
     depleted: "I was flying blind when the threat arrived",
-    overloaded: "Surveillance overreach triggered a coalition revolt",
+    overloaded: "Total surveillance drove threats underground",
   },
-  leverage: {
-    depleted: "Without political backing, the treaty collapsed",
-    overloaded: "Unchecked power turned the world against me",
+  saf: {
+    depleted: "The lethal threshold shrank past what we could monitor",
+    overloaded: "Safety research produced the very thing we feared",
+  },
+  alg: {
+    depleted: "Algorithmic stagnation — a gift I didn't know I had",
+    overloaded: "Consumer hardware became sufficient — enforcement was designed for datacenters",
   },
 };
 

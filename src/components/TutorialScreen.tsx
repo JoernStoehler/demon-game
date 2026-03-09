@@ -25,11 +25,19 @@ export function TutorialScreen({ tutorialIndex, onAdvance, onSkip }: TutorialScr
       label: tutorial.leftLabel,
       apply: (s: GameState) => s,
       previews: [],
+      disabled: false,
     },
     right: {
       label: tutorial.rightLabel,
       apply: (s: GameState) => s,
       previews: [],
+      disabled: false,
+    },
+    down: {
+      label: "",
+      apply: (s: GameState) => s,
+      previews: [],
+      disabled: true,
     },
   }), [tutorial]);
 
@@ -56,7 +64,7 @@ export function TutorialScreen({ tutorialIndex, onAdvance, onSkip }: TutorialScr
     return () => window.removeEventListener("keydown", handler);
   }, [onSkip]);
 
-  const resources = { trust: 50, funding: 50, intel: 50, leverage: 50 };
+  const resources = { pol: 50, int: 50, saf: 50, alg: 50 };
 
   return (
     <div className="flex flex-col h-full" data-testid="tutorial-screen" role="main">

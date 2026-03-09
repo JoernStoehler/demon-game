@@ -8,12 +8,13 @@ import { CARD_SCRIPTS } from "../data/cards";
 import { DEATH_MESSAGES } from "../data/deaths";
 import { newGame } from "../engine/state";
 import type { PoolEntry, ResourceKey } from "../engine/types";
+import { RESOURCE_KEYS } from "../engine/types";
 
 const RESOURCE_LABELS: Record<ResourceKey, string> = {
-  trust: "Trust",
-  funding: "Funding",
-  intel: "Intel",
-  leverage: "Leverage",
+  pol: "Political",
+  int: "Intelligence",
+  saf: "Safety",
+  alg: "Algorithmic",
 };
 
 const LARGE_THRESHOLD = 10;
@@ -50,14 +51,14 @@ function collectAllCards(): PoolEntry[] {
     base,
     { ...base, turn: 10 },
     { ...base, turn: 20 },
-    { ...base, resources: { ...base.resources, trust: 15 } },
-    { ...base, resources: { ...base.resources, funding: 15 } },
-    { ...base, resources: { ...base.resources, intel: 15 } },
-    { ...base, resources: { ...base.resources, leverage: 15 } },
-    { ...base, resources: { ...base.resources, intel: 85 } },
-    { ...base, resources: { ...base.resources, funding: 85 } },
-    { ...base, resources: { ...base.resources, leverage: 85 } },
-    { ...base, resources: { ...base.resources, trust: 85 } },
+    { ...base, resources: { ...base.resources, pol: 15 } },
+    { ...base, resources: { ...base.resources, int: 15 } },
+    { ...base, resources: { ...base.resources, saf: 15 } },
+    { ...base, resources: { ...base.resources, alg: 15 } },
+    { ...base, resources: { ...base.resources, pol: 85 } },
+    { ...base, resources: { ...base.resources, int: 85 } },
+    { ...base, resources: { ...base.resources, saf: 85 } },
+    { ...base, resources: { ...base.resources, alg: 85 } },
     // With some history for chain cards
     { ...base, turn: 5, history: [
       { turn: 2, cardId: "whistleblower", choice: "left" as const },
@@ -95,7 +96,7 @@ function EffectBadges({ effects }: { effects: Partial<Record<ResourceKey, number
             value > 0 ? "bg-green-800 text-green-200" : "bg-red-800 text-red-200"
           }`}
         >
-          {RESOURCE_LABELS[resource]} {value > 0 ? "↑" : "↓"}
+          {RESOURCE_LABELS[resource] ?? resource} {value > 0 ? "↑" : "↓"}
           {Math.abs(value) >= LARGE_THRESHOLD ? (value > 0 ? "↑" : "↓") : ""}
         </span>
       ))}
@@ -144,14 +145,20 @@ export function QAReference() {
             <p className="text-neutral-300 mb-2 leading-relaxed">{card.text}</p>
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div className="bg-neutral-700/50 rounded p-2">
-                <div className="text-blue-300 font-bold mb-1">← {card.leftLabel}</div>
-                <EffectBadges effects={card.leftEffects} />
+                <div className="text-blue-300 font-bold mb-1">← {card.left.label}</div>
+                <EffectBadges effects={card.left.effects} />
               </div>
               <div className="bg-neutral-700/50 rounded p-2">
-                <div className="text-orange-300 font-bold mb-1">{card.rightLabel} →</div>
-                <EffectBadges effects={card.rightEffects} />
+                <div className="text-orange-300 font-bold mb-1">{card.right.label} →</div>
+                <EffectBadges effects={card.right.effects} />
               </div>
             </div>
+            {card.down && !card.down.disabled && (
+              <div className="mt-2 bg-neutral-700/50 rounded p-2 text-xs">
+                <div className="text-purple-300 font-bold mb-1">↓ {card.down.label}</div>
+                <EffectBadges effects={card.down.effects} />
+              </div>
+            )}
           </div>
         ))}
       </div>
@@ -159,8 +166,9 @@ export function QAReference() {
       {/* --- DEATH MESSAGES --- */}
       <h2 className="text-xl font-bold mb-3 border-b border-neutral-700 pb-1">Death Messages</h2>
       <div className="space-y-4 mb-10">
-        {(Object.entries(DEATH_MESSAGES) as [ResourceKey, { depleted: string[]; overloaded: string[] }][]).map(
-          ([resource, msgs]) => (
+        {RESOURCE_KEYS.map((resource) => {
+          const msgs = DEATH_MESSAGES[resource];
+          return (
             <div key={resource} className="bg-neutral-800 rounded p-3">
               <h3 className="font-bold text-amber-300 mb-2">{RESOURCE_LABELS[resource]}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
@@ -182,8 +190,8 @@ export function QAReference() {
                 </div>
               </div>
             </div>
-          ),
-        )}
+          );
+        })}
       </div>
 
       <p className="text-neutral-500 text-xs text-center pb-4">

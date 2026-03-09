@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { GameState } from "../engine/types";
+import type { ChoiceDirection, GameState } from "../engine/types";
 import type { TiltDirection } from "../hooks/useSwipe";
 import { ResourceIcons } from "./ResourceIcons";
 import { MuteButton } from "./MuteButton";
@@ -7,7 +7,7 @@ import { SwipeCard, type SwipeCardHandle } from "./SwipeCard";
 
 interface GameScreenProps {
   state: GameState;
-  onChoice: (choice: "left" | "right") => void;
+  onChoice: (choice: ChoiceDirection) => void;
 }
 
 export function GameScreen({ state, onChoice }: GameScreenProps) {

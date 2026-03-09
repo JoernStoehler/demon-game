@@ -43,12 +43,12 @@ function barStr(value: number): string {
 function printResources(state: GameState): void {
   const r = state.resources;
   console.log(
-    `Turn ${state.turn} | trust:${r.trust} funding:${r.funding} intel:${r.intel} leverage:${r.leverage}`,
+    `Turn ${state.turn} | pol:${r.pol} int:${r.int} saf:${r.saf} alg:${r.alg}`,
   );
-  console.log(`  🛡  Trust    ${barStr(r.trust)}`);
-  console.log(`  💰 Funding  ${barStr(r.funding)}`);
-  console.log(`  👁  Intel    ${barStr(r.intel)}`);
-  console.log(`  ⚖  Leverage ${barStr(r.leverage)}`);
+  console.log(`  🛡  Political ${barStr(r.pol)}`);
+  console.log(`  👁  Intel     ${barStr(r.int)}`);
+  console.log(`  ✓  Safety    ${barStr(r.saf)}`);
+  console.log(`  📈 Algorithm ${barStr(r.alg)}`);
 }
 
 function printCard(state: GameState): void {
@@ -64,6 +64,9 @@ function printCard(state: GameState): void {
   console.log(
     `← ${c.left.label.padEnd(20)} → ${c.right.label}`,
   );
+  if (!c.down.disabled) {
+    console.log(`↓ ${c.down.label}`);
+  }
   console.log("─".repeat(45));
 
   // Pool info
@@ -146,6 +149,11 @@ if (cmd === "reset" || cmd === "new") {
     console.log(`  Turn ${h.turn}: ${h.cardId} → ${h.choice}`);
   }
   console.log();
+  console.log("Hidden state:");
+  for (const [key, val] of Object.entries(s.hidden)) {
+    console.log(`  ${key}: ${val}`);
+  }
+  console.log();
   console.log("Card pool:");
   const pool = CARD_SCRIPTS.flatMap((script) => script(s));
   for (const entry of pool) {
@@ -189,10 +197,10 @@ if (cmd === "reset" || cmd === "new") {
     { label: "start", state: base },
     { label: "mid(t10)", state: { ...base, turn: 10 } },
     { label: "late(t20)", state: { ...base, turn: 20 } },
-    { label: "lowTrust", state: { ...base, resources: { ...base.resources, trust: 15 }, turn: 10 } },
-    { label: "lowFunding", state: { ...base, resources: { ...base.resources, funding: 15 }, turn: 10 } },
-    { label: "highIntel", state: { ...base, resources: { ...base.resources, intel: 85 }, turn: 10 } },
-    { label: "highLeverage", state: { ...base, resources: { ...base.resources, leverage: 85 }, turn: 10 } },
+    { label: "lowPol", state: { ...base, resources: { ...base.resources, pol: 15 }, turn: 10 } },
+    { label: "lowInt", state: { ...base, resources: { ...base.resources, int: 15 }, turn: 10 } },
+    { label: "highSaf", state: { ...base, resources: { ...base.resources, saf: 85 }, turn: 10 } },
+    { label: "highAlg", state: { ...base, resources: { ...base.resources, alg: 85 }, turn: 10 } },
   ];
 
   // Collect unique cards
@@ -237,8 +245,11 @@ if (cmd === "reset" || cmd === "new") {
         .map(([k, v]) => `${k} ${v > 0 ? "+" : ""}${v}`)
         .join(", ");
 
-    lines.push(`<- **${entry.leftLabel}** | ${formatDeltas(entry.leftEffects)}`);
-    lines.push(`-> **${entry.rightLabel}** | ${formatDeltas(entry.rightEffects)}`);
+    lines.push(`<- **${entry.left.label}** | ${formatDeltas(entry.left.effects)}`);
+    lines.push(`-> **${entry.right.label}** | ${formatDeltas(entry.right.effects)}`);
+    if (entry.down && !entry.down.disabled) {
+      lines.push(`v  **${entry.down.label}** | ${formatDeltas(entry.down.effects)}`);
+    }
     lines.push("");
     lines.push(`Weight: ${weights}`);
     lines.push("");

@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import type { GameState } from "./types";
+import type { ChoiceDirection, GameState } from "./types";
 import { newGame, applyChoice, checkDeath } from "./state";
 import { drawNextCard } from "./cards";
 import { CARD_SCRIPTS } from "../data/cards";
@@ -9,7 +9,7 @@ import { isTutorialCompleted, markTutorialCompleted } from "./tutorial";
 const STORAGE_KEY = "global-pause-state";
 // Bump this when the save format changes (e.g. new fields, restructured data).
 // Any localStorage data with a different version is discarded.
-const STORAGE_VERSION = 3;
+const STORAGE_VERSION = 4;
 
 function saveState(state: GameState): void {
   try {
@@ -98,7 +98,7 @@ export function useGame() {
   }, []);
 
   const choose = useCallback(
-    (choice: "left" | "right") => {
+    (choice: ChoiceDirection) => {
       let s = applyChoice(state, choice);
       const death = checkDeath(s);
       if (death) {

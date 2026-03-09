@@ -1,56 +1,43 @@
-// PLACEHOLDER — will be replaced in content overhaul. Do not polish or extend.
+// Draft death messages — causal autopsies that teach specific dynamics.
+// One message per bar × extreme for now. Will expand after card content settles.
 import type { ResourceKey } from "../engine/types";
 
 export const DEATH_MESSAGES: Record<
   ResourceKey,
   { depleted: string[]; overloaded: string[] }
 > = {
-  trust: {
+  pol: {
     depleted: [
-      "The public lost all faith in your agency. Protests forced your resignation. Without oversight, the labs raced ahead unchecked.",
-      "A vote of no confidence. Every nation pulled their inspectors home. The treaty exists on paper only.",
-      "Nobody believes ISIA anymore. A leaked poll shows 90% of citizens want the agency abolished. The labs don't even bother hiding.",
+      "The pause was never permanent — it was always a promise that could be broken. This election, it was.",
     ],
     overloaded: [
-      "Your promises outgrew reality. When a catastrophic AI failure occurred, the gap between expectation and truth destroyed everything.",
-      "You became the face of AI safety — and the scapegoat. When a lab breached containment, the world blamed you personally. The agency didn't survive the fallout.",
-      "Overpromised and underdelivered. The public expected you to prevent all AI risks. When one slipped through, trust collapsed overnight.",
+      "Everyone trusted the agency. Nobody checked whether it deserved that trust. When the answer turned out to be no, the trust didn't erode — it shattered.",
     ],
   },
-  funding: {
+  int: {
     depleted: [
-      "Your agency ran out of money. Inspectors went home. The labs noticed immediately.",
-      "The last paycheck bounced. Your top analysts took private-sector jobs. Within weeks, three nations withdrew from the treaty.",
-      "Budget zero. The headquarters went dark. A blog post titled 'The Day ISIA Died' went viral.",
+      "You lost sight of what mattered — literally. Somewhere in the world, a training run you couldn't see produced something that saw everything.",
     ],
     overloaded: [
-      "Billions poured in with no accountability. Politicians called it a slush fund. The backlash dismantled everything you built.",
-      "An audit revealed ISIA spending more than most nations' defense budgets. The 'defund the agency' movement became unstoppable.",
-      "Your budget grew so large it became a political target. A coalition of fiscal hawks and AI accelerationists found common cause in cutting you down.",
+      "You watched everyone so closely that the ones who mattered most learned to hide where you'd never look.",
     ],
   },
-  intel: {
+  saf: {
     depleted: [
-      "You were flying blind. By the time you noticed the rogue training run, it was already too late.",
-      "Zero visibility. A nation-state AI program reached dangerous capabilities months ago — you only found out from a news article.",
-      "Without intelligence, you couldn't tell the compliant labs from the cheaters. The treaty became meaningless.",
+      "Every year, building ASI got a little easier. You needed a solution before the problem solved itself. You didn't find one.",
     ],
     overloaded: [
-      "Your surveillance apparatus became the thing everyone feared. Nations withdrew from the treaty to escape your all-seeing eye.",
-      "Three whistleblowers. Five investigative documentaries. Your intelligence network was bigger than the NSA's. The world decided ISIA was the real threat.",
-      "Your monitoring tools could read private messages, track researchers, and predict behavior. A free society and your agency could not coexist.",
+      "The most advanced AI safety research in history produced... the most advanced AI in history. Turns out those are the same thing.",
     ],
   },
-  leverage: {
+  alg: {
     depleted: [
-      "Without political backing, your orders became suggestions. Labs ignored you openly.",
-      "You had no allies left. When a major lab announced it would resume prohibited research, no one returned your calls.",
-      "Politically invisible. The treaty signatories forgot you existed. A new international AI body was formed — without ISIA.",
+      // alg is a monotone accumulator — depleted shouldn't happen in normal play.
+      // Fallback message in case engine checks it.
+      "Algorithmic stagnation was a gift you didn't know you had. It won't last.",
     ],
     overloaded: [
-      "Your agency became more powerful than any government. A coalition formed not to stop AI, but to stop you.",
-      "The Director-General of ISIA was called 'the most dangerous person alive' — not because of AI, but because of unchecked power. The backlash was swift.",
-      "You could sanction nations, freeze assets, and override sovereignty. Eventually the world decided that was worse than the risk you were meant to prevent.",
+      "Consumer hardware is now sufficient. Your enforcement was designed for datacenters, not living rooms. The threshold dropped below what anyone can monitor.",
     ],
   },
 };

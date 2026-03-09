@@ -1,4 +1,14 @@
-import type { ActiveCard, CardScript, ChoiceOption, ChoicePreview, Effects, GameState, ResourceKey } from "./types";
+import type {
+  ActiveCard,
+  CardScript,
+  ChoiceOption,
+  ChoicePreview,
+  DirectionSpec,
+  Effects,
+  GameState,
+  ResourceKey,
+} from "./types";
+import { RESOURCE_KEYS } from "./types";
 import { weightedPick } from "./rng";
 
 const ANTI_REPEAT_WINDOW = 3;
@@ -8,6 +18,7 @@ function derivePreviews(effects: Effects): ChoicePreview[] {
   const previews: ChoicePreview[] = [];
   for (const [key, value] of Object.entries(effects)) {
     if (value === 0) continue;
+    if (!RESOURCE_KEYS.includes(key as ResourceKey)) continue;
     previews.push({
       resource: key as ResourceKey,
       direction: value > 0 ? "up" : "down",
@@ -17,29 +28,47 @@ function derivePreviews(effects: Effects): ChoicePreview[] {
   return previews;
 }
 
-function resolveChoice(label: string, effects: Effects): ChoiceOption {
+/** Build a ChoiceOption from a DirectionSpec. */
+function resolveDirection(spec: DirectionSpec): ChoiceOption {
   return {
-    label,
+    label: spec.label,
+    disabled: spec.disabled ?? false,
     apply: (s) => {
+      // Apply visible bar effects
       const resources = { ...s.resources };
-      for (const [key, delta] of Object.entries(effects)) {
+      for (const [key, delta] of Object.entries(spec.effects)) {
         const k = key as ResourceKey;
-        resources[k] = Math.max(0, Math.min(100, resources[k] + delta));
+        if (k in resources) {
+          resources[k] = Math.max(0, Math.min(100, resources[k] + delta));
+        }
       }
-      return { ...s, resources };
+      // Apply hidden state effects
+      let hidden = s.hidden;
+      if (spec.hiddenEffects) {
+        hidden = { ...hidden };
+        for (const [key, delta] of Object.entries(spec.hiddenEffects)) {
+          hidden[key] = (hidden[key] ?? 0) + delta;
+        }
+      }
+      return { ...s, resources, hidden };
     },
-    previews: derivePreviews(effects),
+    previews: derivePreviews(spec.effects),
   };
 }
+
+/** Default disabled direction (for cards that omit `down`). */
+const DISABLED_DIRECTION: DirectionSpec = {
+  label: "",
+  effects: {},
+  disabled: true,
+};
 
 export function drawNextCard(
   state: GameState,
   scripts: CardScript[],
 ): GameState {
-  // Run all scripts to populate pool
   const pool = scripts.flatMap((s) => s(state));
 
-  // Filter out recently-drawn cards
   const recentIds = new Set(
     state.history.slice(-ANTI_REPEAT_WINDOW).map((h) => h.cardId),
   );
@@ -47,19 +76,18 @@ export function drawNextCard(
   let eligible = pool.filter((e) => !recentIds.has(e.id) && e.weight > 0);
 
   if (eligible.length === 0) {
-    // Fallback: ignore anti-repeat
     eligible = pool.filter((e) => e.weight > 0);
   }
 
   if (eligible.length === 0) {
-    // Truly no cards available — force death
     return {
       ...state,
       phase: "dead",
       death: {
-        resource: "intel",
+        resource: "int",
         extreme: "depleted",
-        message: "The world fell silent. No reports, no events, no warnings. And then it was too late.",
+        message:
+          "The world fell silent. No reports, no events, no warnings. And then it was too late.",
       },
     };
   }
@@ -72,8 +100,9 @@ export function drawNextCard(
     templateId: picked.id,
     speaker: picked.speaker,
     text: picked.text,
-    left: resolveChoice(picked.leftLabel, picked.leftEffects),
-    right: resolveChoice(picked.rightLabel, picked.rightEffects),
+    left: resolveDirection(picked.left),
+    right: resolveDirection(picked.right),
+    down: resolveDirection(picked.down ?? DISABLED_DIRECTION),
     color: picked.color,
   };
 

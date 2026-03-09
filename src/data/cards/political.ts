@@ -1,41 +1,29 @@
-// PLACEHOLDER — all cards will be replaced in content overhaul. Do not polish.
+// STUB — placeholder cards so the game runs while real cards are being written.
 
 import type { CardScript } from "../../engine/types";
 
-// Source: literature/political-statements-ai-risk.md (treaty withdrawal threats)
-// Rationale: coalition fragility — nations can always leave
-// Category: political
 const treatyThreat: CardScript = (state) => {
   if (state.turn < 5) return [];
   return [{
     id: "treaty-threat",
-    speaker: "Diplomatic Attaché",
+    speaker: "Deputy Director",
     text: "A major signatory is threatening to withdraw from the treaty. They say enforcement is too aggressive. Or maybe not aggressive enough.",
-    leftLabel: "Offer concessions",
-    rightLabel: "Stand firm",
-    leftEffects: { leverage: -10, trust: -5, funding: 8 },
-    rightEffects: { leverage: 8, funding: -8 },
+    left: { label: "Offer concessions", effects: { pol: -10, int: 8 } },
+    right: { label: "Stand firm", effects: { pol: 8, int: -5 } },
     weight: 1.5,
   }];
 };
 
-// Source: literature/us-ai-executive-orders.md (congressional oversight)
-// Rationale: US funding dependency — must perform for biggest funder
-// Category: political
 const senateHearing: CardScript = (state) => {
   if (state.turn < 3) return [];
   return [{
     id: "senate-hearing",
-    speaker: "Political Advisor",
+    speaker: "Deputy Director",
     text: "The US Senate wants you to testify about ISIA effectiveness. They're skeptical. Your performance here affects American funding.",
-    leftLabel: "Show strength",
-    rightLabel: "Ask for patience",
-    leftEffects: { leverage: 10, trust: -5 },
-    rightEffects: { trust: 5, funding: -5 },
+    left: { label: "Show strength", effects: { pol: 10, int: -5 } },
+    right: { label: "Ask for patience", effects: { pol: 5, int: -3 } },
     weight: 1,
   }];
 };
 
-export const politicalScripts: CardScript[] = [
-  treatyThreat, senateHearing,
-];
+export const politicalScripts: CardScript[] = [treatyThreat, senateHearing];
