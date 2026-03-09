@@ -28,5 +28,9 @@ Thumbs.db
 test-results/
 playwright-report/
 
+# Generated exports (npm run cards)
+design/cards-export.md
+design/cards-map.html
+
 # Scratch / temp
 scratch/
