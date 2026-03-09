@@ -38,6 +38,7 @@ import type { GameState } from "../../engine/types";
 register(
   {
     id: "medical-ai-request",
+    tags: ["economic-pressure", "treaty-compliance"],
     speaker: "Diplomatic Attaché",
     text: "The WHO petitions for a training run to create a drug-discovery AI. Above current threshold but well below the ASI danger zone. Chief Scientist rates the risk as low but nonzero. Projected impact: 2 million lives saved per year. The humanitarian case is overwhelming. But every exception erodes the bright line. Last month three companies cited the WHO's request in their own threshold-exception applications. If we approve, the line moves. If we deny, we own 2 million preventable deaths annually.",
     left: {
@@ -56,6 +57,7 @@ register(
   },
   {
     id: "pharma-ai-breakthrough",
+    tags: ["economic-pressure", "dual-use-research"],
     speaker: "Chief Scientist",
     text: "A pharmaceutical consortium trained an AI at 90% of the permitted threshold and identified drugs that reverse early-stage Alzheimer's. Phase II trials confirm efficacy. Now they need 3x the threshold to extend the approach to Parkinson's and ALS — projected 8 million lives saved per year. A dying senator gave a speech: 'The ISIA is choosing to let me die to prevent a threat that has never materialized.' Patient advocacy groups are organizing rallies in 40 cities. The science is real. The lives are real. The risk is 'very probably safe but I cannot guarantee it.'",
     left: {
@@ -80,6 +82,7 @@ register(
   },
   {
     id: "brain-drain",
+    tags: ["alignment-research", "economic-pressure"],
     speaker: "Chief Scientist",
     text: "Fourteen top alignment researchers left treaty nations this quarter — eight to Singapore, six to the UAE. Both are non-party states. Our talent pool is shrinking while theirs grows. The researchers say they can't do meaningful work under our restrictions.",
     left: {
@@ -97,6 +100,7 @@ register(
   },
   {
     id: "academic-freedom-revolt",
+    tags: ["dual-use-research", "civil-liberties"],
     speaker: "Chief Scientist",
     text: "1,200 researchers across 40 countries signed 'The Right to Think: Against the Criminalization of Knowledge.' They argue our research restrictions violate academic freedom. They're not entirely wrong — some restrictions slow legitimate safety work too. But loosening them means dual-use research flows freely.",
     left: {
@@ -114,6 +118,7 @@ register(
   },
   {
     id: "university-consortium-demand",
+    tags: ["dual-use-research", "alignment-research"],
     speaker: "Chief Scientist",
     text: "Fourteen universities — MIT, Oxford, Tsinghua, ETH Zurich — published an open letter with 2,200 signatories demanding we return alignment research to academia. They cite three cases where our classification system blocked papers they call 'purely theoretical.' They want a federated model: universities run their own programs under our guidelines but without pre-publication review. I've seen the classified intelligence on how 'purely theoretical' papers were used to accelerate capability research. The academics haven't.",
     left: {

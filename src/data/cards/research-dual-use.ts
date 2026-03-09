@@ -35,6 +35,7 @@ import type { GameState } from "../../engine/types";
 register(
   {
     id: "approval-dilemma",
+    tags: ["dual-use-research", "alignment-research"],
     speaker: "Chief Scientist",
     text: "Leading alignment researcher proposes training at 5×10²³ FLOP — just below the banned threshold. Could accelerate safety by years. But Research Controls flags: the methodology could reveal capability advances. We can't separate the safety insight from the capability one. Approve and you get both. Deny and you get neither.",
     left: {
@@ -52,6 +53,7 @@ register(
   },
   {
     id: "training-run-consequence",
+    tags: ["dual-use-research", "alignment-research"],
     speaker: "Chief Scientist",
     text: "Results from the training run you approved six months ago. Good news: significant safety progress — the corrigibility findings are genuinely novel. Bad news: the model developed unexpected capabilities outside the research design. Not dangerous alone, but it advances the state of the art in reasoning and planning in ways the treaty explicitly bans. We approved research that produced banned results. Every future exception request will cite this as precedent.",
     left: {
@@ -75,6 +77,7 @@ register(
   },
   {
     id: "ai-assistant-incident",
+    tags: ["dual-use-research", "algorithmic-progress"],
     speaker: "Chief Scientist",
     text: "Our AI research assistant produced output that's — I have to be honest — uncomfortably close to a capability advance we haven't published. The system may have discovered something dual-use without instruction. We built it to accelerate alignment. It accelerated something else too.",
     left: {
@@ -93,6 +96,7 @@ register(
   },
   {
     id: "dual-use-publication",
+    tags: ["dual-use-research", "alignment-research"],
     speaker: "Chief Scientist",
     text: "University researcher published a paper on detecting deceptive alignment. Excellent safety work. Problem: the detection method implicitly teaches how to create deceptive alignment more efficiently. It's already on arXiv — 4,000 downloads in 48 hours.",
     left: {

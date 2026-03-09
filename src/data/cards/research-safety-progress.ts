@@ -32,6 +32,7 @@ import type { GameState } from "../../engine/types";
 register(
   {
     id: "safety-stall",
+    tags: ["alignment-research"],
     speaker: "Chief Scientist",
     text: "Third consecutive annual review with no meaningful progress on formal verification of alignment. The fundamental problems remain open. Our best researchers say 'we don't even know what we don't know.' Meanwhile, the algorithmic threshold keeps shrinking. We're in a race we might not be able to win.",
     left: {
@@ -50,6 +51,7 @@ register(
   },
   {
     id: "safety-dual-use",
+    tags: ["alignment-research", "dual-use-research"],
     speaker: "Chief Scientist",
     text: "Our alignment team's latest paper on reward modeling has an unintended implication — it also shows how to train more capable systems with less compute. The paper advances safety by 6 months but hands capability researchers a significant shortcut. Do we publish?",
     left: {
@@ -67,6 +69,7 @@ register(
   },
   {
     id: "biotech-proposal",
+    tags: ["alignment-research", "dual-use-research"],
     speaker: "Chief Scientist",
     text: "A biotech consortium proposes a 15-year program to genetically enhance human cognitive capabilities. Their pitch: enhanced researchers might solve alignment problems current humans fundamentally can't. The science is speculative but not impossible — recent gene-editing advances make it plausible. Timeline uncertain, success not guaranteed, ethics explosive. Religious organizations will revolt. But if alignment is genuinely too hard for unenhanced human intelligence, this might be the only path that doesn't require building the thing we're trying to prevent.",
     left: {
@@ -84,6 +87,7 @@ register(
   },
   {
     id: "airgap-large-experiment",
+    tags: ["alignment-research", "compute-monitoring"],
     speaker: "Chief Scientist",
     text: "I want to run our largest safety experiment yet — training a model at 2×10²³ FLOP to test a corrigibility hypothesis. But our airgap facility was built for experiments ten times smaller. Upgrading costs $400M and eight months. Without the upgrade, if the airgap fails, algorithmic insights leak into the broader ML community. And we're still not confident where the lethal compute threshold actually sits — our estimate has wide error bars.",
     left: {

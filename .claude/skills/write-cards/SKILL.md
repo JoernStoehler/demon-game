@@ -119,6 +119,18 @@ register(() => [{
 
 The engine auto-derives preview indicators from effects (|delta| >= 10 → large arrow, else small) and builds apply functions from effects. Hidden effects modify `state.hidden` (Record<string, number>) — use these for card interactions.
 
+### Tags
+
+Every card should have `tags: string[]` — 1-3 content topic tags that describe **what the card is about**, not how it works mechanically.
+
+**Good tags** are actors and real-world topics: `"intelligence-agencies"`, `"compute-monitoring"`, `"chip-production"`, `"civil-liberties"`, `"treaty-compliance"`, `"alignment-research"`.
+
+**Bad tags** are UX mechanics or game categories: ~~`"crisis"`~~, ~~`"3-choice"`~~, ~~`"turn-gated"`~~, ~~`"incident"`~~. These say nothing about what connects cards to each other.
+
+Tags drive the card map visualization (`npm run cards` → `public/cards-map.html`). Cards sharing a tag are pulled together in the force graph. Choose tags that express meaningful content relationships — if two cards both involve chip smuggling, they should share a tag so the graph shows that connection.
+
+Don't overthink the tag vocabulary. Use descriptive kebab-case. If a fitting tag doesn't exist yet, invent it. Consistency matters more than a fixed list.
+
 ### Text Guidelines
 
 - **50-100 words.** The card is small — text must fit.

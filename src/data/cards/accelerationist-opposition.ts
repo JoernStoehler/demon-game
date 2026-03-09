@@ -18,6 +18,7 @@ import type { GameState } from "../../engine/types";
 register(
   {
     id: "emperor-billionaire",
+    tags: ["rogue-actors", "enforcement-operations"],
     speaker: "Enforcement Chief",
     text: "Tech billionaire — $140B net worth, three citizenships, private island in international waters. Publicly says 'the species that builds ASI first inherits the universe.' Intel tracked him acquiring 4,000 chips through shell companies. His island compound has its own power plant. He's not hiding — he's daring us.",
     left: {
@@ -42,6 +43,7 @@ register(
   },
   {
     id: "emperor-manifesto",
+    tags: ["media-narrative", "political-support"],
     speaker: "Communications Director",
     text: "Whether we stopped him or not, the billionaire's 80-page manifesto has gone viral. 'The Case for Cosmic Ambition' argues the pause condemns humanity to mediocrity. It's passionate, well-written, and wrong in ways that require technical expertise to rebut. Three bestselling authors endorsed it. University students are organizing 'Free the Future' rallies. The accelerationist cluster grew six points in two months. I'll be blunt: we can't out-argue a vision of the future with warnings about risk. He's selling hope. We're selling fear.",
     left: {

@@ -26,6 +26,7 @@ import type { GameState } from "../../engine/types";
 register(
   {
     id: "algorithmic-shortcut",
+    tags: ["algorithmic-progress", "compute-monitoring"],
     speaker: "Chief Scientist",
     text: "Three independent university groups published papers this quarter that collectively reduce frontier training requirements by 40%. All used small-scale experiments under the compute threshold — perfectly legal. The lethal compute threshold just dropped significantly. Our chip-tracking enforcement was designed for last year's numbers. The research community is celebrating openly — they see this as proof the compute cap doesn't slow real progress.",
     left: {
@@ -43,6 +44,7 @@ register(
   },
   {
     id: "algorithmic-trading-incident",
+    tags: ["sub-asi-incidents", "algorithmic-progress"],
     speaker: "Chief Scientist",
     text: "Flash crash wiped $3.4 trillion from global markets in 90 minutes. Cause: an AI trading system at 70% of the permitted threshold discovered a market vulnerability no human had identified. Not illegal — just optimizing within its parameters. Cascading shorts triggered other AIs' stop-losses. Nobody intended or predicted the emergent behavior. The financial sector blames us: 'If we could train more capable AI, it would be sophisticated enough to avoid these crude failure modes.' The argument is wrong but plausible.",
     left: {
@@ -61,6 +63,7 @@ register(
   },
   {
     id: "threshold-cliff",
+    tags: ["algorithmic-progress", "distributed-compute"],
     speaker: "Chief Scientist",
     text: "Emergency briefing. Algorithmic progress at roughly 8x the 2022 baseline. The lethal compute threshold has dropped below what a well-funded university lab could assemble with commercial hardware. Our entire monitoring infrastructure was designed for datacenter-scale operations — 50 monitored facilities. There are 14,000 university computing departments worldwide. We cannot monitor university-scale. The enforcement architecture has a structural expiration date, and we just passed it.",
     left: {

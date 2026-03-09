@@ -14,6 +14,7 @@ register(
   // --- airstrike-debate ---
   {
     id: "airstrike-debate",
+    tags: ["military-ai", "enforcement-operations"],
     speaker: "NATO Liaison",
     text: "Diplomacy failed against a confirmed large-scale compute cluster in a non-treaty state. The Security Council referred it for protective action. The US Joint Chiefs have a strike plan — precision airstrikes on the facility's power infrastructure. China abstains. If it escalates into conventional conflict, does the pause survive?",
     left: {
@@ -41,6 +42,7 @@ register(
   // --- post-strike-fallout ---
   {
     id: "post-strike-fallout",
+    tags: ["military-ai", "international-diplomacy"],
     speaker: "Diplomatic Attaché",
     text: "The airstrike succeeded — the compute cluster is destroyed. But two treaty nations with ties to the target are 'reviewing their commitments.' Strike footage is on every screen worldwide. The non-aligned movement called an emergency session. Russia introduced a UN resolution condemning us. Our diplomat reports privately: 'If this is what the treaty means, three to five members never should have signed.'",
     left: {

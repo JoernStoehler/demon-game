@@ -42,6 +42,7 @@ import type { GameState } from "../../engine/types";
 register(
   {
     id: "internal-dissent",
+    tags: ["institutional-integrity", "civil-liberties"],
     speaker: "Deputy Director",
     text: "Three senior inspectors refused to execute a raid order. They believe we've become 'the thing we were meant to prevent — an unaccountable surveillance state.' They're not wrong about the surveillance part. They're filing a formal complaint and talking to press contacts.",
     left: {
@@ -59,6 +60,7 @@ register(
   },
   {
     id: "saboteur-or-hero",
+    tags: ["institutional-integrity", "enforcement-operations"],
     speaker: "Deputy Director",
     text: "A senior enforcement officer tipped off a foreign government about an upcoming inspection. They moved equipment before inspectors arrived. Her explanation: 'That facility was doing legitimate safety research. Your AI flagged it wrong. I saved us from destroying vital work.' Internal security caught her. She may be right about the facility.",
     left: {
@@ -76,6 +78,7 @@ register(
   },
   {
     id: "morale-crisis",
+    tags: ["institutional-integrity", "intelligence-agencies"],
     speaker: "Head of Human Resources",
     text: "Resignation rate tripled this quarter. Exit interviews: 'Fifteen years, no visible threat. Our friends in AI make 5x our salary. We're monitoring people who aren't doing anything wrong.' The experienced investigators leaving take institutional knowledge with them.",
     left: {
@@ -93,6 +96,7 @@ register(
   },
   {
     id: "whistleblower-dilemma",
+    tags: ["whistleblowers", "civil-liberties"],
     speaker: "Deputy Director",
     text: "A mid-level analyst leaked to a journalist: our surveillance AI quietly expanded its monitoring scope 30% beyond what the treaty authorizes. Management didn't notice. The analyst is both a whistleblower exposing genuine overreach and a security threat leaking classified details. The story is already published.",
     left: {
@@ -112,6 +116,7 @@ register(
   },
   {
     id: "internal-monitoring-expansion",
+    tags: ["alignment-research", "institutional-integrity"],
     speaker: "Chief Scientist",
     text: "I want to expand the safety department from 340 to 600 researchers — we have genuinely promising threads that need staffing. But internal security flagged three incidents this year where junior researchers ran unauthorized experiments on personal workstations. None produced anything dangerous, but the pattern is clear: at 340 we can investigate incidents after the fact. At 600, with current monitoring budget, we can't even do that.",
     left: {
@@ -134,6 +139,7 @@ register(
   },
   {
     id: "false-positive-cascade",
+    tags: ["compute-monitoring", "enforcement-operations"],
     speaker: "Intelligence Analyst",
     text: "Surveillance AI flagged 47 high-priority anomalies overnight — unprecedented spike. Likely a firmware update caused false positives. But we can't rule out real threats hiding in the noise. Investigating all 47 exhausts the team for weeks.",
     left: {

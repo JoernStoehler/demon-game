@@ -6,6 +6,7 @@ import type { GameState } from "../../engine/types";
 register(
   {
     id: "whistleblower-fallout",
+    tags: ["whistleblowers", "enforcement-operations"],
     speaker: "Deputy Director",
     text: "The lab you investigated after the whistleblower tip is suing ISIA for overreach. This could set a dangerous precedent.",
     left: { label: "Fight in court", effects: { pol: -8, int: 5 } },
@@ -20,6 +21,7 @@ register(
   },
   {
     id: "coverup-leak",
+    tags: ["whistleblowers", "media-narrative"],
     speaker: "Deputy Director",
     text: "Someone leaked that you declined to protect a whistleblower. The press is running with 'ISIA ignores insider tips.'",
     left: { label: "Deny everything", effects: { pol: -8, int: 3 } },

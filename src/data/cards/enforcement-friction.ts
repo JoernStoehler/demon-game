@@ -37,6 +37,7 @@ import type { GameState } from "../../engine/types";
 register(
   {
     id: "jurisdiction-clash",
+    tags: ["enforcement-operations", "treaty-compliance"],
     speaker: "Enforcement Chief",
     text: "We've confirmed an unauthorized compute cluster in a treaty nation. Their national intelligence service claims it's a classified domestic program and invokes national security to block our inspection. Our legal team says the treaty technically overrides domestic classification, but enforcement would require a political fight with a major ally. The longer we wait, the more time they have to relocate or sanitize the facility.",
     left: {
@@ -55,6 +56,7 @@ register(
   },
   {
     id: "heat-signature-foreign",
+    tags: ["intelligence-agencies", "enforcement-operations"],
     speaker: "Intelligence Analyst",
     text: "Satellite detected anomalous thermal output from an undeclared facility in a remote region — consistent with a mid-scale compute cluster. No declared CCC within 200 kilometers. The facility appeared in the last 90 days. We need a challenge inspection, but that requires Executive Council approval, and the nation hosting this facility has allies on the Council. Going through channels takes weeks. The facility could be dismantled in days.",
     left: {
@@ -77,6 +79,7 @@ register(
   },
   {
     id: "cops-refuse-search",
+    tags: ["civil-liberties", "enforcement-operations"],
     speaker: "Enforcement Chief",
     text: "We identified 14 addresses in the American Midwest with anomalous power draw suggesting unauthorized compute in residential basements. Local police refuse to execute search warrants. 'We're not raiding families over computer chips.' County sheriffs going on TV calling us 'the GPU Gestapo.'",
     left: {
@@ -97,6 +100,7 @@ register(
   },
   {
     id: "challenge-inspection-veto",
+    tags: ["international-diplomacy", "enforcement-operations"],
     speaker: "Intelligence Analyst",
     text: "We identified suspicious activity at a facility in a major treaty nation — thermal signatures, unusual network traffic, personnel movements consistent with a covert training operation. I invoked a challenge inspection under Article IX. The Council vote: 7-7 with one abstention. Inspection fails. Three nations that voted no have bilateral trade deals pending with the target. The intelligence goes stale within weeks — if they're running a training operation, they'll relocate once they know we suspect them.",
     left: {
@@ -122,6 +126,7 @@ register(
   },
   {
     id: "inconvenient-true-positive",
+    tags: ["military-ai", "treaty-compliance"],
     speaker: "Intelligence Analyst",
     text: "Our monitoring detected an unauthorized training run inside the US military's largest AI research facility. 4x the permitted threshold. The Pentagon says it's 'national security research exempt under Article IX.' That exemption doesn't exist. They're daring us to enforce against our biggest funder.",
     left: {

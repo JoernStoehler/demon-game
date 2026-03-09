@@ -24,6 +24,7 @@ import type { GameState } from "../../engine/types";
 register(
   {
     id: "corporate-lobbying",
+    tags: ["corporate-lobbying", "political-support"],
     speaker: "Intelligence Analyst",
     text: "Three largest AI companies formed a lobbying alliance. They publicly support the pause. A journalist contact has evidence they're privately funding anti-enforcement candidates. Publishing burns the source.",
     left: {
@@ -41,6 +42,7 @@ register(
   },
   {
     id: "acquisition-consolidation",
+    tags: ["corporate-lobbying", "treaty-compliance"],
     speaker: "Legal Counsel",
     text: "Apex AI — market cap $4.2 trillion, larger than most nations' GDP — is acquiring three mid-size compliance companies. Post-merger, they'd control 38% of all permitted AI compute in treaty nations. Their CEO's argument: 'We are the compliance layer the treaty needs. Small companies cut corners. We don't. Consolidation makes monitoring easier.' He's not wrong — monitoring 50 facilities IS easier than 5,000. But if Apex threatens non-cooperation, we lose access to a third of global AI infrastructure.",
     left: {
@@ -59,6 +61,7 @@ register(
   },
   {
     id: "hypocrisy-exposed",
+    tags: ["corporate-lobbying", "rogue-actors"],
     speaker: "Investigative Journalist",
     text: "Three-part series in the Financial Times: 'The Pause Profiteers.' Nexus AI — whose CEO chairs the 'Responsible AI Alliance' and appeared in our recruitment videos — ran a shadow program at a Singapore subsidiary. Multiple sub-threshold runs chained together for above-threshold results. Their internal memos call it 'threshold arbitrage.' They also donated $45M to anti-enforcement candidates while the CEO publicly called for stronger enforcement. But there's a complication: the shadow program produced a genuine corrigibility insight our team hadn't considered.",
     left: {

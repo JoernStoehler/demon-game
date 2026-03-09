@@ -38,6 +38,7 @@ import type { GameState } from "../../engine/types";
 register(
   {
     id: "decommission-graveyard",
+    tags: ["chip-supply-chain", "enforcement-operations"],
     speaker: "Customs Liaison",
     text: "Annual chip lifecycle audit found a discrepancy: 23,000 chips declared 'decommissioned and destroyed' over 18 months. 40% of destruction certificates came from three disposal firms — and one went bankrupt six months ago. Its warehouse in Romania contains no destroyed chips. Either 9,200 chips were destroyed before storage with no evidence, diverted to the black market, or sitting somewhere unmonitored. Every chip scheduled for destruction is a temptation.",
     left: {
@@ -61,6 +62,7 @@ register(
   },
   {
     id: "surveillance-expand",
+    tags: ["compute-monitoring", "civil-liberties"],
     speaker: "Enforcement Chief",
     text: "I'm proposing tracking firmware on ALL GPUs sold worldwide — consumer cards included. Right now we monitor roughly 50,000 chips in declared facilities. This would cover 2 million devices. Massively expands coverage. But the political advisor warns: this is mass surveillance of ordinary citizens' personal computers. Civil liberties groups will call us a surveillance state. Several nations will refuse implementation. We could close the consumer-hardware blind spot or we could keep political support. Not both.",
     left: {
@@ -80,6 +82,7 @@ register(
   },
   {
     id: "surveillance-blind-spot",
+    tags: ["compute-monitoring", "rogue-actors"],
     speaker: "Chief Scientist",
     text: "Post-incident analysis: our monitoring AI classified a rogue lab's compute as 'commercial cloud' for 18 months. The lab deliberately mimicked cloud traffic. A human tip caught them, not our AI. Emergency retrain takes 6 weeks offline — 12% of facilities unmonitored.",
     left: {
@@ -103,6 +106,7 @@ register(
   },
   {
     id: "cloud-provider-loophole",
+    tags: ["distributed-compute", "treaty-compliance"],
     speaker: "Legal Counsel",
     text: "AWS distributed a training run across 14 availability zones in 9 countries. No single facility exceeds threshold. Aggregate: well above it. Treaty language says 'per-facility.' Their lawyers are right — technically. But the run is prohibited in spirit. Fix this and cloud providers sue. Ignore it and everyone does it.",
     left: {
@@ -126,6 +130,7 @@ register(
   },
   {
     id: "inference-chip-loophole",
+    tags: ["chip-production", "compute-monitoring"],
     speaker: "Chief Scientist",
     text: "Samsung's latest inference-optimized chips have different thermal profiles and power signatures than training hardware — our monitoring was designed to detect training clusters. But algorithmic advances now allow training workloads decomposed into inference-shaped operations. 800 of these chips running distributed training disguised as batch inference would pass all our checks. Samsung argues these serve a legitimate $40B inference market. My team says the distinction between 'training chip' and 'inference chip' is becoming meaningless.",
     left: {

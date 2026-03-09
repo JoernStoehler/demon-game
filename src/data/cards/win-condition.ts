@@ -10,6 +10,7 @@ import type { GameState } from "../../engine/types";
 register(
   {
     id: "pivotal-moment",
+    tags: ["alignment-research", "international-diplomacy"],
     speaker: "Chief Scientist",
     text: "After decades, researchers present a formal proof of corrigibility for ASI-capable architectures. We can build a corrigible, low-impact ASI to monitor all compute globally. The acute risk period can end. But deployment requires the largest training run ever — orders of magnitude above the threshold. If the proof is wrong, this is the last mistake anyone makes.",
     left: {

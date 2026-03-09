@@ -51,6 +51,7 @@ import type { GameState } from "../../engine/types";
 register(
   {
     id: "ai-economy-report",
+    tags: ["economic-pressure", "treaty-compliance"],
     speaker: "Political Advisor",
     text: "New economic data: AI systems operating within treaty limits now contribute 18% of global GDP. Entire industries depend on them — logistics, finance, manufacturing, healthcare. If we tighten the threshold further, we threaten hundreds of millions of livelihoods. The economy didn't just adapt to the pause — it grew around it. Sub-threshold AI became load-bearing infrastructure. Any future restrictions are no longer about preventing growth. They're about tearing out foundations.",
     left: {
@@ -69,6 +70,7 @@ register(
   },
   {
     id: "ai-gdp-dependency",
+    tags: ["economic-pressure", "treaty-compliance"],
     speaker: "Finance Director",
     text: "New economic data: sub-threshold AI now accounts for 31% of GDP across treaty nations. Industries built around permitted AI are lobbying hard against any threshold reduction. 'You can't lower the limit without triggering a recession.' They're probably right.",
     left: {
@@ -86,6 +88,7 @@ register(
   },
   {
     id: "automation-two-speeds",
+    tags: ["economic-pressure", "political-support"],
     speaker: "Political Advisor",
     text: "The pause created a two-speed economy. Industries where sub-threshold AI suffices — logistics, customer service, basic manufacturing — are booming. AI handles 60% of work, productivity up 400%, 40 million jobs eliminated. Industries needing more compute — drug discovery, climate modeling, advanced engineering — stagnate, unable to create replacement jobs. Both groups blame the pause. Laid-off workers: 'It lets companies automate without restriction.' Stalled researchers: 'It prevents the breakthroughs that would create new industries.'",
     left: {
@@ -105,6 +108,7 @@ register(
   },
   {
     id: "non-treaty-advantage",
+    tags: ["economic-pressure", "international-diplomacy"],
     speaker: "Political Advisor",
     text: "Vietnam, which never signed the treaty, hit 14% GDP growth for three consecutive years — unrestricted AI deployment in manufacturing, logistics, and finance. Vietnamese companies are outcompeting treaty-nation firms. Factory closures in our member states are directly attributed to Vietnamese competition. 'Made in Vietnam by AI' is a bitter slogan. Three small treaty nations are openly discussing withdrawal. The lobbying group's new ads — shuttered American factories, Vietnamese boom towns — are factually accurate.",
     left: {
@@ -123,6 +127,7 @@ register(
   },
   {
     id: "econ-boom-request",
+    tags: ["economic-pressure", "compute-monitoring"],
     speaker: "Finance Director",
     text: "G7 finance ministers formally request raising the training threshold from 1e22 to 1e23 FLOP — a 10x increase. Their analysis: the current limit costs the global economy $800B annually. They're not wrong about the economics. They're wrong about what a 10x increase means for safety.",
     left: {
@@ -140,6 +145,7 @@ register(
   },
   {
     id: "labor-union-split",
+    tags: ["economic-pressure", "political-support"],
     speaker: "Political Advisor",
     text: "The International Metalworkers' Federation is fracturing over the pause. Manufacturing wing wants it lifted — non-treaty nations automate freely while their members' jobs stagnate. Logistics wing wants it strengthened — sub-threshold AI already eliminated four million warehouse and transport jobs. Both sides are lobbying hard. Both have legitimate grievances. The manufacturing wing is threatening a general strike if we don't respond.",
     left: {
@@ -158,6 +164,7 @@ register(
   },
   {
     id: "unemployment-crisis",
+    tags: ["economic-pressure", "sub-asi-incidents"],
     speaker: "Political Advisor",
     text: "Sub-threshold AI automation eliminated 12 million jobs in treaty nations in two years. All perfectly legal. Protests spreading — half blame the pause for 'not restricting AI enough,' half blame it for 'restricting the AI that could create new jobs.' Both groups are marching against ISIA.",
     left: {

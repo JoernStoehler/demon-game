@@ -43,6 +43,7 @@ import type { GameState } from "../../engine/types";
 register(
   {
     id: "chip-audit-deadline",
+    tags: ["chip-supply-chain", "treaty-compliance"],
     speaker: "Enforcement Chief",
     text: "120-day chip consolidation deadline approaching. 14% of declared facilities haven't completed inventory. Three countries requesting extensions — they say logistics, we suspect concealment in at least one case. Grant extensions and you set a precedent. Enforce strictly and you punish genuine logistical problems.",
     left: {
@@ -61,6 +62,7 @@ register(
   },
   {
     id: "chip-diversion",
+    tags: ["chip-supply-chain", "enforcement-operations"],
     speaker: "Customs Liaison",
     text: "Manifest discrepancy at the TSMC packaging facility in Kumamoto. 2,400 H100 equivalents entered testing but only 2,150 reached declared facilities. Two hundred fifty chips unaccounted for — enough for a small prohibited training run if aggregated.",
     left: {
@@ -79,6 +81,7 @@ register(
   },
   {
     id: "asml-joint-venture",
+    tags: ["chip-production", "international-diplomacy"],
     speaker: "Intelligence Analyst",
     text: "ASML is exploring a joint venture with a consortium that includes a non-treaty nation. If completed, advanced chip production capacity escapes treaty monitoring entirely. ASML's shareholders want the deal — $40B in projected revenue. The Dutch government is leaning toward approving it.",
     left: {
@@ -97,6 +100,7 @@ register(
   },
   {
     id: "custom-asic-foundry",
+    tags: ["chip-production", "rogue-actors"],
     speaker: "Intelligence Analyst",
     text: "Non-treaty nation has a domestic ASIC foundry using older lithography — no EUV, outside ASML controls. Chips are 10x less efficient than H100s but they're making thousands. Enough in aggregate for a prohibited training run. Our entire enforcement architecture assumes ASML/TSMC as chokepoints.",
     left: {
@@ -114,6 +118,7 @@ register(
   },
   {
     id: "old-chips-new-tricks",
+    tags: ["algorithmic-progress", "compute-monitoring"],
     speaker: "Chief Scientist",
     text: "Algorithmic progress at 4x 2022 efficiency means older chips — A100s, V100s, even consumer RTX 4090s — are now above the effective training threshold. Millions of unmonitored older GPUs worldwide just became potential weapons. The monitoring architecture was designed for frontier hardware only.",
     left: {
@@ -132,6 +137,7 @@ register(
   },
   {
     id: "consumer-hw-threshold",
+    tags: ["algorithmic-progress", "distributed-compute"],
     speaker: "Chief Scientist",
     text: "Algorithmic progress has reached 3.5x the 2022 baseline. At current rates, consumer gaming hardware will be sufficient for frontier training within 18 months. Our entire enforcement architecture — declared facilities, chip tracking, power monitoring — was designed for datacenter-scale compute. None of it works at consumer scale.",
     left: {
