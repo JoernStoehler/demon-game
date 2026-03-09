@@ -49,6 +49,16 @@ import "./airstrike-debate";
 import "./pharma-breakthrough";
 import "./autonomous-vehicle-massacre";
 import "./compliant-company-raid";
+import "./cloud-provider-loophole";
+import "./weight-theft";
+import "./us-china-suspicion";
+import "./vote-of-no-confidence";
+import "./morale-crisis";
+import "./saboteur-or-hero";
+import "./media-waste-story";
+import "./near-miss";
+import "./unemployment-crisis";
+import "./generational-shift";
 
 import type { CardScript } from "../../engine/types";
 import { getScripts } from "./registry";
