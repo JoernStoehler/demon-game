@@ -1,9 +1,10 @@
 import type {
   ActiveCard,
-  CardScript,
+  Card,
   ChoiceOption,
   ChoicePreview,
-  DirectionSpec,
+  ChoiceSpec,
+  Dynamic,
   Effects,
   GameState,
   ResourceKey,
@@ -13,6 +14,11 @@ import { weightedPick } from "./rng";
 
 const ANTI_REPEAT_WINDOW = 3;
 const LARGE_THRESHOLD = 10;
+
+/** Resolve a Dynamic value: if it's a function, call it; otherwise return as-is. */
+function resolve<T>(value: Dynamic<T>, state: GameState): T {
+  return typeof value === "function" ? (value as (s: GameState) => T)(state) : value;
+}
 
 function derivePreviews(effects: Effects): ChoicePreview[] {
   const previews: ChoicePreview[] = [];
@@ -28,11 +34,12 @@ function derivePreviews(effects: Effects): ChoicePreview[] {
   return previews;
 }
 
-/** Build a ChoiceOption from a DirectionSpec. */
-function resolveDirection(spec: DirectionSpec): ChoiceOption {
+/** Build a ChoiceOption from a ChoiceSpec. */
+function resolveChoice(spec: ChoiceSpec, state: GameState): ChoiceOption {
+  const enabled = spec.enabled === undefined ? true : resolve(spec.enabled, state);
   return {
-    label: spec.label,
-    disabled: spec.disabled ?? false,
+    label: resolve(spec.label, state),
+    disabled: !enabled,
     apply: (s) => {
       // Apply visible bar effects
       const resources = { ...s.resources };
@@ -56,27 +63,32 @@ function resolveDirection(spec: DirectionSpec): ChoiceOption {
   };
 }
 
-/** Default disabled direction (for cards that omit `down`). */
-const DISABLED_DIRECTION: DirectionSpec = {
+/** Default disabled choice (for cards that omit `down`). */
+const DISABLED_CHOICE: ChoiceSpec = {
   label: "",
   effects: {},
-  disabled: true,
+  enabled: false,
 };
 
 export function drawNextCard(
   state: GameState,
-  scripts: CardScript[],
+  cards: readonly Card[],
 ): GameState {
-  const pool = scripts.flatMap((s) => s(state));
+  // Evaluate pool weights
+  const pool: Array<{ card: Card; weight: number }> = [];
+  for (const card of cards) {
+    const w = card.poolWeight(state);
+    if (w > 0) pool.push({ card, weight: w });
+  }
 
   const recentIds = new Set(
     state.history.slice(-ANTI_REPEAT_WINDOW).map((h) => h.cardId),
   );
 
-  let eligible = pool.filter((e) => !recentIds.has(e.id) && e.weight > 0);
+  let eligible = pool.filter((e) => !recentIds.has(e.card.id));
 
   if (eligible.length === 0) {
-    eligible = pool.filter((e) => e.weight > 0);
+    eligible = pool;
   }
 
   if (eligible.length === 0) {
@@ -94,15 +106,15 @@ export function drawNextCard(
 
   const weights = eligible.map((e) => e.weight);
   const rng = { rngState: state.rngState };
-  const picked = weightedPick(rng, eligible, weights);
+  const picked = weightedPick(rng, eligible, weights).card;
 
   const activeCard: ActiveCard = {
     templateId: picked.id,
-    speaker: picked.speaker,
-    text: picked.text,
-    left: resolveDirection(picked.left),
-    right: resolveDirection(picked.right),
-    down: resolveDirection(picked.down ?? DISABLED_DIRECTION),
+    speaker: resolve(picked.speaker, state),
+    text: resolve(picked.text, state),
+    left: resolveChoice(picked.left, state),
+    right: resolveChoice(picked.right, state),
+    down: resolveChoice(picked.down ?? DISABLED_CHOICE, state),
     color: picked.color,
   };
 

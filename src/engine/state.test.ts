@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { newGame, applyChoice, checkDeath } from "./state";
 import { drawNextCard } from "./cards";
-import { CARD_SCRIPTS } from "../data/cards";
+import { ALL_CARDS } from "../data/cards";
 
 describe("newGame", () => {
   it("creates a fresh game with all bars at 50", () => {
@@ -22,7 +22,7 @@ describe("newGame", () => {
 describe("drawNextCard", () => {
   it("draws a card from the pool", () => {
     const state = newGame(42);
-    const withCard = drawNextCard(state, CARD_SCRIPTS);
+    const withCard = drawNextCard(state, ALL_CARDS);
     expect(withCard.activeCard).not.toBeNull();
     expect(withCard.activeCard!.speaker).toBeTruthy();
     expect(withCard.activeCard!.text).toBeTruthy();
@@ -32,7 +32,7 @@ describe("drawNextCard", () => {
 describe("applyChoice + checkDeath", () => {
   it("applies choice and pushes to history", () => {
     let state = newGame(42);
-    state = drawNextCard(state, CARD_SCRIPTS);
+    state = drawNextCard(state, ALL_CARDS);
     const before = state.resources;
     state = applyChoice(state, "left");
     expect(state.turn).toBe(1);

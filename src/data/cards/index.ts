@@ -1,7 +1,7 @@
-// Side-effect imports — each file registers its scripts via register()
-// To add a new card: create a .ts file, import { register } from "./registry", done.
+// Side-effect imports — each file registers Card objects via register()
+// To add a new card: add it to the appropriate grouped file, or create a new .ts file.
 
-// Stub scripts (placeholders while real cards are being written)
+// Stub cards (placeholders while real cards are being written)
 import "./routine";
 import "./incidents";
 import "./political";
@@ -9,134 +9,57 @@ import "./chains";
 import "./crisis";
 import "./late-game";
 
-// Individual card scripts
-import "./supreme-court-challenge";
-import "./deepfake-director";
-import "./megachurch-sermon";
-import "./labor-union-split";
-import "./algorithmic-shortcut";
-import "./thermal-anomaly";
-import "./chip-diversion";
-import "./safety-dual-use";
-import "./brain-drain";
-import "./election-reversal";
-import "./nvidia-threshold-lobby";
-import "./withdrawal-threat";
-import "./billionaire-island";
-import "./success-narrative";
-import "./internal-dissent";
-import "./taiwan-crisis";
-import "./ai-gdp-dependency";
-import "./safety-stall";
-import "./consumer-hw-threshold";
-import "./pentagon-funding";
-import "./rogue-lab-whistleblower";
-import "./ai-self-improvement";
-import "./whistleblower-dilemma";
-import "./false-positive-cascade";
-import "./power-grid-anomaly";
-import "./corporate-lobbying";
-import "./mole-discovery";
-import "./election-year";
-import "./dual-use-publication";
-import "./sanctions-evasion";
-import "./ai-refuses-order";
-import "./safety-looks-solved";
-import "./race-begins";
-import "./pivotal-moment";
-import "./compliant-defection";
-import "./airstrike-debate";
-import "./pharma-breakthrough";
-import "./autonomous-vehicle-massacre";
-import "./compliant-company-raid";
-import "./cloud-provider-loophole";
-import "./weight-theft";
-import "./us-china-suspicion";
-import "./vote-of-no-confidence";
-import "./morale-crisis";
-import "./saboteur-or-hero";
-import "./media-waste-story";
-import "./near-miss";
-import "./unemployment-crisis";
-import "./generational-shift";
-import "./datacenter-hidden";
-import "./surveillance-blind-spot";
-import "./agency-trains-ai";
-import "./success-trap";
-import "./econ-boom-request";
-import "./rogue-internal-experiment";
-import "./old-chips-new-tricks";
-import "./true-believer";
-import "./leadership-purge";
-import "./protest-that-helps";
-import "./custom-asic-foundry";
-import "./emperor-billionaire";
-import "./disposal-bribery";
-import "./budget-turf-war";
-import "./deepfake-election";
-import "./ai-assistant-incident";
-import "./approval-dilemma";
-import "./contradictory-reports";
-import "./black-market-signal";
-import "./asml-joint-venture";
-import "./north-korea-pattern";
-import "./stepping-on-toes";
-import "./chip-audit-deadline";
-import "./celebrity-endorsement";
-import "./cops-refuse-search";
-import "./inconvenient-true-positive";
-import "./academic-freedom-revolt";
-import "./review-conference";
-import "./mission-drift";
-import "./hostage-gambit";
-import "./china-hawk";
-import "./airgap-large-experiment";
-import "./internal-monitoring-expansion";
-import "./funding-deal-techbro";
-import "./senior-time-allocation";
-import "./university-consortium-demand";
-import "./government-overpromise";
-import "./mentoring-pipeline-crisis";
-import "./post-strike-fallout";
-import "./emperor-manifesto";
-import "./weight-theft-state";
-import "./china-weights-deployed";
-import "./challenge-inspection-veto";
-import "./insincere-member";
-import "./small-nation-leverage";
-import "./war-and-pause";
-import "./inference-chip-loophole";
-import "./decommission-graveyard";
-import "./network-bandwidth-trap";
-import "./cat-mouse-adapt";
-import "./pharma-ai-breakthrough";
-import "./non-treaty-advantage";
-import "./automation-two-speeds";
-import "./algorithmic-trading-incident";
-import "./ai-winter-narrative";
-import "./protest-to-legislator";
-import "./low-salience-campaign";
-import "./upload-milestone-panic";
-import "./hypocrisy-exposed";
-import "./acquisition-consolidation";
-import "./secret-capability-market";
-import "./data-center-attack";
-import "./algorithmic-progress-leak";
-import "./defector-offer";
-import "./jurisdiction-clash";
-import "./heat-signature-foreign";
-import "./smuggle-ring";
-import "./surveillance-expand";
-import "./medical-ai-request";
-import "./ai-economy-report";
-import "./empire-builder";
-import "./institutional-memory-loss";
-import "./ai-training-data-poisoned";
-import "./biotech-proposal";
-import "./training-run-consequence";
-import "./threshold-cliff";
+// Enforcement
+import "./enforcement-detection";
+import "./enforcement-supply-chain";
+import "./enforcement-costs";
+import "./enforcement-friction";
+import "./enforcement-integrity";
+import "./enforcement-monitoring";
+import "./enforcement-ai-paradox";
 
-import type { CardScript } from "../../engine/types";
-import { getScripts } from "./registry";
+// Intelligence & weight security
+import "./intelligence-networks";
+import "./weight-security";
+import "./data-center-chain";
+import "./rogue-lab-chain";
 
-export const CARD_SCRIPTS: CardScript[] = [...getScripts()];
+// International
+import "./international-coalition";
+import "./international-adversarial";
+import "./military-escalation";
+
+// Research & safety
+import "./research-dual-use";
+import "./research-scaling";
+import "./research-safety-progress";
+import "./safety-era-chain";
+
+// Institutional
+import "./institutional-internal";
+import "./institutional-leadership";
+import "./institutional-capture";
+
+// Economic & corporate
+import "./economic-costs";
+import "./corporate-response";
+import "./innovation-suppression";
+
+// Political & opinion
+import "./political-support";
+import "./opinion-dynamics";
+import "./opposition-legal";
+import "./accelerationist-opposition";
+import "./government-political";
+
+// Capability & harms
+import "./sub-asi-harms";
+import "./algorithmic-threat";
+
+// Win condition
+import "./win-condition";
+
+import type { Card } from "../../engine/types";
+import { getCards } from "./registry";
+
+export const ALL_CARDS: readonly Card[] = getCards();

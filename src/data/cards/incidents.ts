@@ -1,41 +1,57 @@
 // STUB — placeholder cards so the game runs while real cards are being written.
 
 import { register } from "./registry";
+import type { GameState } from "../../engine/types";
 
-register((state) => {
-  const highIntel = state.resources.int >= 40;
-  return [{
-    id: highIntel ? "rogue-lab-normal" : "rogue-lab-degraded",
-    speaker: highIntel ? "Deputy Director" : "Deputy Director",
-    text: highIntel
-      ? "Thermal anomaly near Shenzhen industrial zone. Signature consistent with an undeclared compute cluster running prohibited training."
-      : "There are... rumors of unauthorized compute usage somewhere in East Asia. We can't pin it down with our current intelligence.",
+register(
+  {
+    id: "rogue-lab-normal",
+    speaker: "Deputy Director",
+    text: "Thermal anomaly near Shenzhen industrial zone. Signature consistent with an undeclared compute cluster running prohibited training.",
     left: {
-      label: highIntel ? "Send inspectors" : "Expensive investigation",
-      effects: highIntel ? { pol: -3, int: 8 } : { pol: -5, int: 5 },
+      label: "Send inspectors",
+      effects: { pol: -3, int: 8 },
     },
     right: {
-      label: highIntel ? "Flag for next quarter" : "Ignore the rumors",
-      effects: highIntel ? { pol: -5, int: -3 } : { pol: -3, int: -6 },
+      label: "Flag for next quarter",
+      effects: { pol: -5, int: -3 },
     },
-    weight: 1.5,
-  }];
-});
-
-register(() => [{
-  id: "chip-smuggling",
-  speaker: "Deputy Director",
-  text: "Border agents intercepted a container with 48 H100 GPUs hidden inside networking equipment. Trail leads to a shell company.",
-  left: { label: "Full investigation", effects: { pol: 4, int: 6 } },
-  right: { label: "Seize and move on", effects: { int: -4, pol: 3 } },
-  weight: 1.5,
-}]);
-
-register(() => [{
-  id: "whistleblower",
-  speaker: "Deputy Director",
-  text: "A researcher at a major lab claims they've been running prohibited capability evaluations in secret. They want protection.",
-  left: { label: "Protect and investigate", effects: { int: 8, pol: -5 } },
-  right: { label: "Too risky, decline", effects: { pol: -8, int: -5 } },
-  weight: 1,
-}]);
+    poolWeight: (state: GameState) => {
+      if (state.resources.int < 40) return 0;
+      return 1.5;
+    },
+  },
+  {
+    id: "rogue-lab-degraded",
+    speaker: "Deputy Director",
+    text: "There are... rumors of unauthorized compute usage somewhere in East Asia. We can't pin it down with our current intelligence.",
+    left: {
+      label: "Expensive investigation",
+      effects: { pol: -5, int: 5 },
+    },
+    right: {
+      label: "Ignore the rumors",
+      effects: { pol: -3, int: -6 },
+    },
+    poolWeight: (state: GameState) => {
+      if (state.resources.int >= 40) return 0;
+      return 1.5;
+    },
+  },
+  {
+    id: "chip-smuggling",
+    speaker: "Deputy Director",
+    text: "Border agents intercepted a container with 48 H100 GPUs hidden inside networking equipment. Trail leads to a shell company.",
+    left: { label: "Full investigation", effects: { pol: 4, int: 6 } },
+    right: { label: "Seize and move on", effects: { int: -4, pol: 3 } },
+    poolWeight: () => 1.5,
+  },
+  {
+    id: "whistleblower",
+    speaker: "Deputy Director",
+    text: "A researcher at a major lab claims they've been running prohibited capability evaluations in secret. They want protection.",
+    left: { label: "Protect and investigate", effects: { int: 8, pol: -5 } },
+    right: { label: "Too risky, decline", effects: { pol: -8, int: -5 } },
+    poolWeight: () => 1,
+  },
+);

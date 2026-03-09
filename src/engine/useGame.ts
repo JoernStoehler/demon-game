@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import type { ChoiceDirection, GameState } from "./types";
 import { newGame, applyChoice, checkDeath } from "./state";
 import { drawNextCard } from "./cards";
-import { CARD_SCRIPTS } from "../data/cards";
+import { ALL_CARDS } from "../data/cards";
 import { TUTORIAL_CARDS } from "../data/tutorial";
 import { isTutorialCompleted, markTutorialCompleted } from "./tutorial";
 
@@ -34,16 +34,14 @@ function loadState(): GameState | null {
     }
     const state = parsed.state;
     // Rehydrate activeCard: JSON strips functions (apply).
-    // Re-run scripts to find the matching card and rebuild apply/previews.
+    // Find the matching card declaration and rebuild apply/previews.
     if (state.activeCard) {
-      const pool = CARD_SCRIPTS.flatMap((s) => s(state));
-      const entry = pool.find((e) => e.id === state.activeCard!.templateId);
-      if (entry) {
-        // Redraw to rebuild with proper apply functions
+      const card = ALL_CARDS.find((c) => c.id === state.activeCard!.templateId);
+      if (card) {
         const redrawn = drawNextCard(
           { ...state, activeCard: null },
-          // Single-card script to force picking this specific card
-          [() => [entry]],
+          // Single-card array to force picking this specific card
+          [{ ...card, poolWeight: () => 1 }],
         );
         state.activeCard = redrawn.activeCard;
       } else {
@@ -70,7 +68,7 @@ export function useGame() {
       setState({ ...s, phase: "tutorial" });
       setTutorialIndex(0);
     } else {
-      const withCard = drawNextCard(s, CARD_SCRIPTS);
+      const withCard = drawNextCard(s, ALL_CARDS);
       setState(withCard);
       saveState(withCard);
     }
@@ -81,7 +79,7 @@ export function useGame() {
     if (nextIndex >= TUTORIAL_CARDS.length) {
       markTutorialCompleted();
       const s = newGame();
-      const withCard = drawNextCard(s, CARD_SCRIPTS);
+      const withCard = drawNextCard(s, ALL_CARDS);
       setState(withCard);
       saveState(withCard);
     } else {
@@ -92,7 +90,7 @@ export function useGame() {
   const skipTutorial = useCallback(() => {
     markTutorialCompleted();
     const s = newGame();
-    const withCard = drawNextCard(s, CARD_SCRIPTS);
+    const withCard = drawNextCard(s, ALL_CARDS);
     setState(withCard);
     saveState(withCard);
   }, []);
@@ -104,7 +102,7 @@ export function useGame() {
       if (death) {
         s = { ...s, phase: "dead", death };
       } else {
-        s = drawNextCard(s, CARD_SCRIPTS);
+        s = drawNextCard(s, ALL_CARDS);
       }
       setState(s);
       saveState(s);
@@ -114,7 +112,7 @@ export function useGame() {
 
   const restart = useCallback(() => {
     const s = newGame();
-    const withCard = drawNextCard(s, CARD_SCRIPTS);
+    const withCard = drawNextCard(s, ALL_CARDS);
     setState(withCard);
     saveState(withCard);
   }, []);

@@ -1,13 +1,13 @@
-import type { CardScript } from "../../engine/types";
+import type { Card } from "../../engine/types";
 
-const scripts: CardScript[] = [];
+const cards: Card[] = [];
 
-/** Register one or more card scripts. Called as side effect at module load. */
-export function register(...fns: CardScript[]): void {
-  scripts.push(...fns);
+/** Register one or more card declarations. Called as side effect at module load. */
+export function register(...defs: Card[]): void {
+  cards.push(...defs);
 }
 
-/** Return all registered scripts. Call after all card modules have been imported. */
-export function getScripts(): readonly CardScript[] {
-  return scripts;
+/** Return all registered cards. Call after all card modules have been imported. */
+export function getCards(): readonly Card[] {
+  return cards;
 }

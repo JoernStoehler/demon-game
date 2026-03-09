@@ -16,7 +16,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import type { GameState } from "./engine/types";
 import { newGame, applyChoice, checkDeath } from "./engine/state";
 import { drawNextCard } from "./engine/cards";
-import { CARD_SCRIPTS } from "./data/cards";
+import { ALL_CARDS } from "./data/cards";
 import { random } from "./engine/rng";
 
 const STATE_FILE = "/tmp/pause-cli-state.json";
@@ -70,9 +70,8 @@ function printCard(state: GameState): void {
   console.log("─".repeat(45));
 
   // Pool info
-  const pool = CARD_SCRIPTS.flatMap((s) => s(state));
-  const eligible = pool.filter((e) => e.weight > 0).length;
-  console.log(`Pool: ${eligible}/${pool.length} eligible`);
+  const eligible = ALL_CARDS.filter((c) => c.poolWeight(state) > 0).length;
+  console.log(`Pool: ${eligible}/${ALL_CARDS.length} eligible`);
 }
 
 function printDeath(state: GameState): void {
@@ -90,7 +89,7 @@ function printDeath(state: GameState): void {
 
 function initGame(): GameState {
   const s = newGame();
-  return drawNextCard(s, CARD_SCRIPTS);
+  return drawNextCard(s, ALL_CARDS);
 }
 
 function step(state: GameState, choice: "left" | "right"): GameState {
@@ -99,7 +98,7 @@ function step(state: GameState, choice: "left" | "right"): GameState {
   if (death) {
     return { ...s, phase: "dead", death };
   }
-  return drawNextCard(s, CARD_SCRIPTS);
+  return drawNextCard(s, ALL_CARDS);
 }
 
 // --- Main ---
@@ -155,14 +154,15 @@ if (cmd === "reset" || cmd === "new") {
   }
   console.log();
   console.log("Card pool:");
-  const pool = CARD_SCRIPTS.flatMap((script) => script(s));
-  for (const entry of pool) {
-    if (entry.weight > 0) {
-      console.log(`  ${entry.id}: ${entry.weight}`);
+  let eligible = 0;
+  for (const card of ALL_CARDS) {
+    const w = card.poolWeight(s);
+    if (w > 0) {
+      console.log(`  ${card.id}: ${w}`);
+      eligible++;
     }
   }
-  const eligible = pool.filter((e) => e.weight > 0).length;
-  console.log(`\n${eligible}/${pool.length} eligible`);
+  console.log(`\n${eligible}/${ALL_CARDS.length} eligible`);
 } else if (cmd === "auto") {
   const turns = parseInt(process.argv[3] || "20", 10);
   let s = initGame();
@@ -203,52 +203,39 @@ if (cmd === "reset" || cmd === "new") {
     { label: "highAlg", state: { ...base, resources: { ...base.resources, alg: 85 }, turn: 10 } },
   ];
 
-  // Collect unique cards
-  const seen = new Set<string>();
-  const allCards: Array<{ entry: typeof pool[0]; weights: string }> = [];
-  const pool = CARD_SCRIPTS.flatMap((s) => s(base));
-  void pool; // used for type inference
-
-  for (const { state: sampleState } of sampleStates) {
-    for (const script of CARD_SCRIPTS) {
-      for (const entry of script(sampleState)) {
-        if (!seen.has(entry.id)) {
-          seen.add(entry.id);
-          // Compute weight at each sample state
-          const weights = sampleStates.map(({ label, state: ss }) => {
-            const entries = script(ss);
-            const match = entries.find((e) => e.id === entry.id);
-            return `${label}:${match ? match.weight : 0}`;
-          }).join("  ");
-          allCards.push({ entry, weights });
-        }
-      }
-    }
-  }
+  const formatDeltas = (effects: Partial<Record<string, number>>) =>
+    Object.entries(effects)
+      .filter(([, v]) => v !== 0)
+      .map(([k, v]) => `${k} ${v > 0 ? "+" : ""}${v}`)
+      .join(", ");
 
   lines.push("# Card Export");
   lines.push("");
-  lines.push(`${allCards.length} cards total. Generated ${new Date().toISOString().slice(0, 10)}.`);
+  lines.push(`${ALL_CARDS.length} cards total. Generated ${new Date().toISOString().slice(0, 10)}.`);
   lines.push("");
 
-  for (let i = 0; i < allCards.length; i++) {
-    const { entry, weights } = allCards[i];
-    lines.push(`## C${i + 1}: ${entry.id}`);
-    lines.push("");
-    lines.push(`**${entry.speaker}:** "${entry.text}"`);
-    lines.push("");
+  for (let i = 0; i < ALL_CARDS.length; i++) {
+    const card = ALL_CARDS[i];
+    // Compute weight at each sample state
+    const weights = sampleStates.map(({ label, state: ss }) =>
+      `${label}:${card.poolWeight(ss)}`,
+    ).join("  ");
 
-    // Choices with deltas
-    const formatDeltas = (effects: Partial<Record<string, number>>) =>
-      Object.entries(effects)
-        .filter(([, v]) => v !== 0)
-        .map(([k, v]) => `${k} ${v > 0 ? "+" : ""}${v}`)
-        .join(", ");
+    // Resolve dynamic text using base state for export
+    const speaker = typeof card.speaker === "function" ? card.speaker(base) : card.speaker;
+    const text = typeof card.text === "function" ? card.text(base) : card.text;
+    const leftLabel = typeof card.left.label === "function" ? card.left.label(base) : card.left.label;
+    const rightLabel = typeof card.right.label === "function" ? card.right.label(base) : card.right.label;
 
-    lines.push(`<- **${entry.left.label}** | ${formatDeltas(entry.left.effects)}`);
-    lines.push(`-> **${entry.right.label}** | ${formatDeltas(entry.right.effects)}`);
-    if (entry.down && !entry.down.disabled) {
-      lines.push(`v  **${entry.down.label}** | ${formatDeltas(entry.down.effects)}`);
+    lines.push(`## C${i + 1}: ${card.id}`);
+    lines.push("");
+    lines.push(`**${speaker}:** "${text}"`);
+    lines.push("");
+    lines.push(`<- **${leftLabel}** | ${formatDeltas(card.left.effects)}`);
+    lines.push(`-> **${rightLabel}** | ${formatDeltas(card.right.effects)}`);
+    if (card.down) {
+      const downLabel = typeof card.down.label === "function" ? card.down.label(base) : card.down.label;
+      lines.push(`v  **${downLabel}** | ${formatDeltas(card.down.effects)}`);
     }
     lines.push("");
     lines.push(`Weight: ${weights}`);

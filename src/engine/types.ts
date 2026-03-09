@@ -31,33 +31,34 @@ export interface ChoicePreview {
   size: PreviewSize;
 }
 
-// --- Card pool entries (produced by CardScript functions) ---
+// --- Card declarations (static data + dynamic callbacks) ---
 
-/** One direction's spec in a pool entry. */
-export interface DirectionSpec {
-  label: string;
+/** Anything that can be static or state-dependent. */
+export type Dynamic<T> = T | ((state: GameState) => T);
+
+/** One swipe direction's spec. */
+export interface ChoiceSpec {
+  label: Dynamic<string>;
   effects: Effects;
   /** Changes to hidden state variables. */
   hiddenEffects?: Record<string, number>;
-  /** When true, UX refuses swipe in this direction. */
-  disabled?: boolean;
+  /** When false (or returns false), UX refuses swipe. Default true. */
+  enabled?: Dynamic<boolean>;
 }
 
-/** A pool entry produced by a card script. */
-export interface PoolEntry {
+/** A card declaration. Registered once, evaluated every turn via poolWeight. */
+export interface Card {
   id: string;
-  speaker: string;
-  text: string;
-  left: DirectionSpec;
-  right: DirectionSpec;
+  speaker: Dynamic<string>;
+  text: Dynamic<string>;
+  left: ChoiceSpec;
+  right: ChoiceSpec;
   /** Third option (swipe down). Omit for standard 2-choice cards. */
-  down?: DirectionSpec;
-  weight: number;
+  down?: ChoiceSpec;
   color?: string;
+  /** Return 0 to exclude from pool this turn. Higher = more likely to be drawn. */
+  poolWeight: (state: GameState) => number;
 }
-
-/** A script that populates the card pool. Runs every turn. */
-export type CardScript = (state: GameState) => PoolEntry[];
 
 // --- Resolved choices (built by engine from DirectionSpec) ---
 

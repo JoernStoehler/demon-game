@@ -4,10 +4,10 @@
  */
 
 import { SpeakerPortrait } from "./SpeakerPortrait";
-import { CARD_SCRIPTS } from "../data/cards";
+import { ALL_CARDS } from "../data/cards";
 import { DEATH_MESSAGES } from "../data/deaths";
 import { newGame } from "../engine/state";
-import type { PoolEntry, ResourceKey } from "../engine/types";
+import type { Card, Dynamic, GameState, ResourceKey } from "../engine/types";
 import { RESOURCE_KEYS } from "../engine/types";
 
 const RESOURCE_LABELS: Record<ResourceKey, string> = {
@@ -44,46 +44,12 @@ const SPEAKERS = [
   "Executive Assistant",
 ];
 
-/** Collect all unique cards by running scripts with various states */
-function collectAllCards(): PoolEntry[] {
-  const base = newGame(1);
-  const states = [
-    base,
-    { ...base, turn: 10 },
-    { ...base, turn: 20 },
-    { ...base, resources: { ...base.resources, pol: 15 } },
-    { ...base, resources: { ...base.resources, int: 15 } },
-    { ...base, resources: { ...base.resources, saf: 15 } },
-    { ...base, resources: { ...base.resources, alg: 15 } },
-    { ...base, resources: { ...base.resources, pol: 85 } },
-    { ...base, resources: { ...base.resources, int: 85 } },
-    { ...base, resources: { ...base.resources, saf: 85 } },
-    { ...base, resources: { ...base.resources, alg: 85 } },
-    // With some history for chain cards
-    { ...base, turn: 5, history: [
-      { turn: 2, cardId: "whistleblower", choice: "left" as const },
-      { turn: 3, cardId: "lobby-meeting", choice: "left" as const },
-    ]},
-    { ...base, turn: 5, history: [
-      { turn: 2, cardId: "whistleblower", choice: "right" as const },
-    ]},
-  ];
-  const seen = new Set<string>();
-  const cards: PoolEntry[] = [];
-  for (const state of states) {
-    for (const script of CARD_SCRIPTS) {
-      for (const entry of script(state)) {
-        if (!seen.has(entry.id)) {
-          seen.add(entry.id);
-          cards.push(entry);
-        }
-      }
-    }
-  }
-  return cards;
+/** Resolve a Dynamic value for display using a default state. */
+function res<T>(value: Dynamic<T>, state: GameState): T {
+  return typeof value === "function" ? (value as (s: GameState) => T)(state) : value;
 }
 
-const ALL_CARDS = collectAllCards();
+const QA_STATE = newGame(1);
 
 function EffectBadges({ effects }: { effects: Partial<Record<ResourceKey, number>> }) {
   const entries = Object.entries(effects).filter(([, v]) => v !== 0) as [ResourceKey, number][];
@@ -131,31 +97,31 @@ export function QAReference() {
       {/* --- CARDS --- */}
       <h2 className="text-xl font-bold mb-3 border-b border-neutral-700 pb-1">Cards ({ALL_CARDS.length})</h2>
       <div className="space-y-4 mb-10">
-        {ALL_CARDS.map((card, i) => (
+        {ALL_CARDS.map((card: Card, i: number) => (
           <div key={card.id} className="bg-neutral-800 rounded p-3">
             <div className="flex items-start gap-2 mb-2">
               <span className="bg-amber-700 text-white text-xs px-1.5 py-0.5 rounded font-bold shrink-0">
                 C{i + 1}
               </span>
               <div>
-                <span className="font-bold text-amber-300">{card.speaker}</span>
+                <span className="font-bold text-amber-300">{res(card.speaker, QA_STATE)}</span>
                 <span className="text-neutral-500 ml-2 text-xs">({card.id})</span>
               </div>
             </div>
-            <p className="text-neutral-300 mb-2 leading-relaxed">{card.text}</p>
+            <p className="text-neutral-300 mb-2 leading-relaxed">{res(card.text, QA_STATE)}</p>
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div className="bg-neutral-700/50 rounded p-2">
-                <div className="text-blue-300 font-bold mb-1">← {card.left.label}</div>
+                <div className="text-blue-300 font-bold mb-1">← {res(card.left.label, QA_STATE)}</div>
                 <EffectBadges effects={card.left.effects} />
               </div>
               <div className="bg-neutral-700/50 rounded p-2">
-                <div className="text-orange-300 font-bold mb-1">{card.right.label} →</div>
+                <div className="text-orange-300 font-bold mb-1">{res(card.right.label, QA_STATE)} →</div>
                 <EffectBadges effects={card.right.effects} />
               </div>
             </div>
-            {card.down && !card.down.disabled && (
+            {card.down && (
               <div className="mt-2 bg-neutral-700/50 rounded p-2 text-xs">
-                <div className="text-purple-300 font-bold mb-1">↓ {card.down.label}</div>
+                <div className="text-purple-300 font-bold mb-1">↓ {res(card.down.label, QA_STATE)}</div>
                 <EffectBadges effects={card.down.effects} />
               </div>
             )}
