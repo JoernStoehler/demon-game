@@ -46,7 +46,7 @@ All bars start at 50. Every card choice nudges 1-3 bars. The player's job is to 
 
 ### Card Pool
 
-Cards are **script functions** `(state: GameState) => PoolEntry[]`. Each script runs every turn and returns zero or more entries for the pool. The engine collects all entries, filters anti-repeat, and does a weighted random pick.
+Cards are **declarative `Card` objects** registered via `register()`. Each card has a `poolWeight: (state) => number` function — return 0 to exclude from the pool, higher = more likely to be drawn. The engine collects all cards, filters anti-repeat, and does a weighted random pick.
 
 **Pool dynamics:**
 - **State-driven:** Scripts check resource levels, turn count, or history to decide whether to return entries
@@ -73,7 +73,7 @@ Runs last ~15-40 turns. Death is frequent and expected. Each death teaches somet
 ```
 src/
   engine/
-    types.ts        # GameState, PoolEntry, CardScript, Resources, ChoiceOption
+    types.ts        # GameState, Card, Resources, ChoiceOption, ChoiceSpec
     rng.ts          # Seeded PRNG (mulberry32)
     state.ts        # newGame, applyChoice, checkDeath (pure functions)
     state.test.ts   # Unit tests
@@ -81,7 +81,7 @@ src/
     useGame.ts      # React bridge: state + actions + localStorage
     tutorial.ts     # Tutorial localStorage persistence helper
   data/
-    cards/          # Card scripts (28 scripts across 6 files + examples)
+    cards/          # Card declarations (144 cards across 38 files + examples)
     deaths.ts       # Death messages per resource × extreme
     tutorial.ts     # Tutorial card content (3 cards)
   hooks/
@@ -108,7 +108,7 @@ src/
 ### Key Patterns
 
 - **Engine has zero React dependency.** `types.ts`, `state.ts`, `cards.ts`, `rng.ts` are pure TypeScript. The CLI tool uses them directly.
-- **Cards are scripts.** Each card is a `CardScript` function `(state) => PoolEntry[]` that returns zero or more entries for the card pool. The engine runs all scripts each turn, does weighted random pick, and resolves the picked entry into an `ActiveCard` for the UI.
+- **Cards are declarative.** Each card is a `Card` object with `poolWeight: (state) => number`. The engine evaluates all cards each turn, filters by weight > 0 and anti-repeat, does weighted random pick, and resolves into an `ActiveCard` for the UI.
 - **Swipe via Pointer Events.** Works for touch and mouse. CSS transforms via ref during drag (no re-renders). Spring-back on non-commit, fly-off on commit.
 - **Directional previews (Reigns-style).** On tilt, affected resource icons show small/large colored triangles. No numbers — player develops intuition.
 

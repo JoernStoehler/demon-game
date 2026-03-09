@@ -71,48 +71,56 @@ The tensions above map directly to resource conflicts:
 
 ## Card Syntax
 
-Cards use a **registry pattern**. Each file imports `register` and calls it with a card script function. No exports needed — the registry collects all scripts automatically.
+Cards use a **registry pattern**. Each file imports `register` and calls it with one or more `Card` objects. No exports needed — the registry collects all cards automatically.
 
 ```typescript
 import { register } from "./registry";
 
 // Simple card — always in the pool
-register(() => [{
+register({
   id: "kebab-case-id",          // unique, descriptive
+  tags: ["topic-a", "topic-b"], // 1-3 content topic tags
   speaker: "Role Title",        // must match a portrait in SpeakerPortrait.tsx
   text: "1-2 sentences...",     // present tense, concrete scenario
   left:  { label: "Action phrase", effects: { pol: 5, int: -8 } },
   right: { label: "Action phrase", effects: { pol: -5, int: 8 } },
-  weight: 1.5,
   color: "#ef4444",             // optional, crisis accent color
-}]);
+  poolWeight: () => 1.5,        // function: return 0 to exclude from pool
+});
 
-// State-gated card — return [] to exclude from pool
-register((state) => {
-  if (state.resources.int < 40) return [];
-  return [{ id: "...", /* ... */ weight: 1.5 }];
+// State-gated card — poolWeight returns 0 to exclude
+register({
+  id: "gated-card",
+  tags: ["topic"],
+  speaker: "Role Title",
+  text: "...",
+  left:  { label: "...", effects: { pol: -5 } },
+  right: { label: "...", effects: { int: 5 } },
+  poolWeight: (state) => state.resources.int >= 40 ? 1.5 : 0,
 });
 
 // Three-choice card — third option via swipe down
-register((state) => [{
+register({
   id: "three-way",
+  tags: ["topic"],
   speaker: "Role Title",
   text: "Scenario...",
   left:  { label: "Option A", effects: { pol: -5 } },
   right: { label: "Option B", effects: { int: -5 } },
-  down:  { label: "Option C", effects: { saf: 5 }, disabled: state.resources.int < 60 },
-  weight: 1.5,
-}]);
+  down:  { label: "Option C", effects: { saf: 5 }, enabled: (state) => state.resources.int >= 60 },
+  poolWeight: () => 1.5,
+});
 
 // Hidden state — cards can read/write shared latent variables
-register(() => [{
+register({
   id: "raid-facility",
+  tags: ["enforcement-operations"],
   speaker: "Enforcement Chief",
   text: "...",
   left:  { label: "Raid", effects: { int: -5, pol: -3 }, hiddenEffects: { enforcement_visibility: 1 } },
   right: { label: "Surveil", effects: { int: 5 } },
-  weight: 1.5,
-}]);
+  poolWeight: () => 1.5,
+});
 ```
 
 **To add a new card:** Create a `.ts` file in `src/data/cards/`, import `register`, call it. Then add a side-effect import in `index.ts`.
@@ -183,25 +191,25 @@ Low-stakes flavor cards. Quiet days, conference invites. Give the player a breat
 ## Patterns
 
 ### Degraded Variants
-Same event, different content depending on state. One script returns different cards:
+Same event, different content depending on state. Use `Dynamic<T>` fields (functions of state):
 
 ```typescript
-register((state) => {
-  const highIntel = state.resources.int >= 40;
-  return [{
-    id: highIntel ? "rogue-lab-normal" : "rogue-lab-degraded",
-    speaker: highIntel ? "Intelligence Analyst" : "Junior Analyst",
-    text: highIntel ? "Thermal anomaly detected..." : "Rumors of unauthorized compute...",
-    left: {
-      label: highIntel ? "Send inspectors" : "Expensive investigation",
-      effects: highIntel ? { pol: -3, int: 8 } : { pol: -5, int: 5 },
-    },
-    right: {
-      label: highIntel ? "Flag for next quarter" : "Ignore the rumors",
-      effects: highIntel ? { pol: -5, int: -3 } : { pol: -3, int: -6 },
-    },
-    weight: 1.5,
-  }];
+register({
+  id: "rogue-lab-detection",
+  tags: ["rogue-actors", "intelligence-gathering"],
+  speaker: (state) => state.resources.int >= 40 ? "Intelligence Analyst" : "Junior Analyst",
+  text: (state) => state.resources.int >= 40
+    ? "Thermal anomaly detected at a facility in Shenzhen..."
+    : "Rumors of unauthorized compute — but we can't confirm anything...",
+  left: {
+    label: (state) => state.resources.int >= 40 ? "Send inspectors" : "Expensive investigation",
+    effects: { pol: -3, int: 8 },
+  },
+  right: {
+    label: (state) => state.resources.int >= 40 ? "Flag for next quarter" : "Ignore the rumors",
+    effects: { pol: -5, int: -3 },
+  },
+  poolWeight: () => 1.5,
 });
 ```
 
@@ -209,27 +217,41 @@ Teaches the player: "when your Intel is low, everything is harder." Pure experie
 
 ### History Chains
 
-Card A → consequence Card B (triggered by Card A's choice). Check `state.history` directly:
+Card A → consequence Card B (triggered by Card A's choice). Use `poolWeight` to check `state.history`:
 
 ```typescript
 // Immediate follow-up (within 2 turns, very high weight)
-register((state) => {
-  const trigger = state.history.find(
-    (h) => h.cardId === "heat-signature" && h.choice === "left",
-  );
-  if (!trigger || state.turn - trigger.turn > 2) return [];
-  return [{ id: "cannabis-plantation", ..., weight: 10 }];
+register({
+  id: "cannabis-plantation",
+  tags: ["enforcement-operations"],
+  speaker: "Enforcement Chief",
+  text: "...",
+  left:  { label: "...", effects: { pol: -5 } },
+  right: { label: "...", effects: { int: -3 } },
+  poolWeight: (state) => {
+    const trigger = state.history.find(
+      (h) => h.cardId === "heat-signature" && h.choice === "left",
+    );
+    return trigger && state.turn - trigger.turn <= 2 ? 10 : 0;
+  },
 });
 
 // Delayed consequence (3-6 turns later)
-register((state) => {
-  const trigger = state.history.find(
-    (h) => h.cardId === "heat-signature" && h.choice === "left",
-  );
-  if (!trigger) return [];
-  const delay = state.turn - trigger.turn;
-  if (delay < 3 || delay > 6) return [];
-  return [{ id: "raid-diplomatic-fallout", ..., weight: 3 }];
+register({
+  id: "raid-diplomatic-fallout",
+  tags: ["international-diplomacy", "enforcement-operations"],
+  speaker: "Diplomatic Attaché",
+  text: "...",
+  left:  { label: "...", effects: { pol: -8 } },
+  right: { label: "...", effects: { int: -5 } },
+  poolWeight: (state) => {
+    const trigger = state.history.find(
+      (h) => h.cardId === "heat-signature" && h.choice === "left",
+    );
+    if (!trigger) return 0;
+    const delay = state.turn - trigger.turn;
+    return delay >= 3 && delay <= 6 ? 3 : 0;
+  },
 });
 ```
 

@@ -12,7 +12,7 @@ import type { Card, GameState } from "../../engine/types";
 // ─── ROUTINE CARD ───────────────────────────────────────────────────
 // Always in the pool. Constant poolWeight. Touch 2-3 resources per choice.
 //
-// Source: [event-map reference]
+// Source: [literature reference or "original"]
 // Rationale: [what dynamic this teaches]
 // Category: routine
 
