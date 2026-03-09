@@ -13,14 +13,14 @@ register((state) => {
   return [{
     id: "algorithmic-shortcut",
     speaker: "Chief Scientist",
-    text: "Three independent university groups published papers this quarter that collectively reduce frontier training requirements by 40%. All used small-scale experiments under the compute threshold — perfectly legal. The lethal compute threshold just dropped. Our enforcement was designed for last year's numbers.",
+    text: "Three independent university groups published papers this quarter that collectively reduce frontier training requirements by 40%. All used small-scale experiments under the compute threshold — perfectly legal. The lethal compute threshold just dropped significantly. Our chip-tracking enforcement was designed for last year's numbers. The research community is celebrating openly — they see this as proof the compute cap doesn't slow real progress.",
     left: {
       label: "Lower compute threshold",
       effects: { pol: -10, int: 5, alg: 3 },
     },
     right: {
       label: "Update monitoring only",
-      effects: { int: 3, alg: 8 },
+      effects: { pol: -3, int: 3, alg: 8 },
     },
     weight: 2,
   }];

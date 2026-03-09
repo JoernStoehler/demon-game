@@ -18,7 +18,7 @@ register((state) => {
     },
     right: {
       label: "Ignore — responding amplifies",
-      effects: { pol: -8 },
+      effects: { pol: -8, int: -3 },
       hiddenEffects: { narrative_damage: 1 },
     },
     down: {
