@@ -78,6 +78,11 @@ import "./ai-assistant-incident";
 import "./approval-dilemma";
 import "./contradictory-reports";
 import "./black-market-signal";
+import "./asml-joint-venture";
+import "./north-korea-pattern";
+import "./stepping-on-toes";
+import "./chip-audit-deadline";
+import "./celebrity-endorsement";
 
 import type { CardScript } from "../../engine/types";
 import { getScripts } from "./registry";
