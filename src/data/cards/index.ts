@@ -69,6 +69,15 @@ import "./old-chips-new-tricks";
 import "./true-believer";
 import "./leadership-purge";
 import "./protest-that-helps";
+import "./custom-asic-foundry";
+import "./emperor-billionaire";
+import "./disposal-bribery";
+import "./budget-turf-war";
+import "./deepfake-election";
+import "./ai-assistant-incident";
+import "./approval-dilemma";
+import "./contradictory-reports";
+import "./black-market-signal";
 
 import type { CardScript } from "../../engine/types";
 import { getScripts } from "./registry";
