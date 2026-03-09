@@ -19,7 +19,7 @@ register((state) => {
     },
     right: {
       label: "Focus on frontier — accept the gap",
-      effects: { alg: 5 },
+      effects: { alg: 5, int: -5 },
       hiddenEffects: { missed_threats: 1 },
     },
     weight: 2,

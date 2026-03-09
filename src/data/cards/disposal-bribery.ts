@@ -10,15 +10,15 @@ register((state) => {
   if (state.turn < 5) return [];
   return [{
     id: "disposal-bribery",
-    speaker: "Enforcement Chief",
-    text: "Internal security flagged a chip disposal officer living beyond his means. Investigation: he's been certifying destruction of chips that were actually rerouted. At least 800 'destroyed' chips are in unknown hands. The disposal pipeline — 6,000 chips per quarter — is now suspect for the last two years.",
+    speaker: "Deputy Director",
+    text: "Internal security flagged a chip disposal officer living beyond his means. His GPS tracker was disabled for 2-4 hours on eleven destruction runs this year — estimated 1,400 chips that could have been diverted instead of destroyed. He has 14 years of clean service. He processed chips alone because the two-person verification protocol was suspended six months ago to save money. That budget cut was your decision.",
     left: {
-      label: "Full disposal audit",
-      effects: { int: -8, pol: -5 },
+      label: "Arrest and prosecute publicly",
+      effects: { pol: -8, int: 3 },
     },
     right: {
-      label: "Quietly replace and patch",
-      effects: { int: -3, pol: -3 },
+      label: "Quiet removal — restore protocols",
+      effects: { pol: -3, int: -5 },
       hiddenEffects: { missed_threats: 1 },
     },
     weight: 1.5,

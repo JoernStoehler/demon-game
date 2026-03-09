@@ -9,19 +9,19 @@ import { register } from "./registry";
 register((state) => {
   if (state.turn < 6) return [];
   // More likely when surveillance is high
-  if (state.resources.int < 50) return [];
+  if (state.resources.int < 60) return [];
   return [{
     id: "supreme-court-challenge",
     speaker: "Legal Counsel",
-    text: "The ACLU is bringing a landmark case arguing our chip-tracking firmware on consumer devices violates the Fourth Amendment. Two former ISIA attorneys filed briefs supporting the challenge. If we lose, the entire consumer-hardware monitoring program collapses in the US.",
+    text: "The ACLU is bringing a landmark case: our chip-tracking firmware on consumer devices violates the Fourth Amendment. Two former ISIA attorneys filed supporting briefs — they helped design the program and now say it overreaches. The Ninth Circuit is sympathetic. If we lose, consumer-hardware monitoring collapses in the US. If we fight and win, we've set a surveillance precedent that will follow us internationally.",
     left: {
       label: "Fight the case",
-      effects: { pol: -8, int: 3 },
+      effects: { pol: -8, int: -3 },
       hiddenEffects: { civil_liberties_pressure: 1 },
     },
     right: {
-      label: "Narrow the program",
-      effects: { pol: 3, int: -10 },
+      label: "Narrow the program preemptively",
+      effects: { pol: -3, int: -10 },
     },
     weight: 1.5,
   }];
