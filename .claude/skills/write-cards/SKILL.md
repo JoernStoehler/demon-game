@@ -50,49 +50,74 @@ The Director-General can propose emergency threshold changes (implemented immedi
 
 ## Resources — What They Represent
 
-| Resource | At 0 (death) | At 100 (death) | Real-world meaning |
-|---|---|---|---|
-| **Trust** | Public revolt, agency defunded | Overpromised; visible failure shatters credibility | Public and institutional confidence in ISIA |
-| **Funding** | Can't operate, agency shuttered | Waste scandal, agency dismantled | Operational budget from member states |
-| **Intel** | Blind to threats, ASI slips through | Surveillance state, nations flee treaty | Intelligence and verification capability |
-| **Leverage** | No political power, ignored | Authoritarian backlash, coalition revolts | Political authority and enforcement power |
+Working hypothesis — may change based on what cards actually need.
 
-All start at 50. The tensions above map directly to resource conflicts:
-- Monitoring vs. sovereignty → Intel ↑ but Trust ↓ or Leverage ↓
-- Verification vs. trust → Intel ↑ but Trust ↓
-- Research suppression → Leverage ↑ but Trust ↓ and Funding ↓
-- Enforcement → Leverage ↑ but Trust ↓
+| Key | Name | At 0 (death) | At 100 (death) | Real-world meaning |
+|---|---|---|---|---|
+| **pol** | Political Power | Voted out — pause ends | Hubris — unchecked institution → capture → crash | Mandate, budget, authority, public support |
+| **int** | Intelligence | Gone dark — rogue run succeeds | Panopticon — drives threats underground | Monitoring, surveillance, information quality |
+| **saf** | Safety Progress | Running out of time — threshold shrinks past enforcement | The cure kills — safety research produced ASI | Alignment research advancement |
+| **alg** | Algorithmic Progress | (shouldn't deplete — monotone) | Consumer hardware sufficient — can't monitor living rooms | Capability knowledge, shrinking lethal threshold |
+
+All start at 50. saf and alg are monotone accumulators in the expert model (knowledge can't be undiscovered) but the engine treats them as normal 0-100 bars for now.
+
+The tensions above map directly to resource conflicts:
+- Monitoring vs. sovereignty → int ↑ but pol ↓
+- Enforcement actions → int consumed, pol ↓
+- Safety research → saf ↑ but also risks alg ↑ (cure = disease)
+- Political spending → pol ↑ but int ↓ (can't fund both)
 
 ---
 
 ## Card Syntax
 
-A card is a **script function**: `(state: GameState) => PoolEntry[]`. Each script runs every turn and returns zero or more cards for the pool. The engine picks one by weighted random selection.
+Cards use a **registry pattern**. Each file imports `register` and calls it with a card script function. No exports needed — the registry collects all scripts automatically.
 
 ```typescript
-import type { CardScript } from "../../engine/types";
+import { register } from "./registry";
 
 // Simple card — always in the pool
-const myCard: CardScript = () => [{
+register(() => [{
   id: "kebab-case-id",          // unique, descriptive
   speaker: "Role Title",        // must match a portrait in SpeakerPortrait.tsx
   text: "1-2 sentences...",     // present tense, concrete scenario
-  leftLabel: "Action phrase",
-  rightLabel: "Action phrase",
-  leftEffects: { trust: 5, intel: -8 },
-  rightEffects: { funding: 10, leverage: -5 },
+  left:  { label: "Action phrase", effects: { pol: 5, int: -8 } },
+  right: { label: "Action phrase", effects: { pol: -5, int: 8 } },
   weight: 1.5,
   color: "#ef4444",             // optional, crisis accent color
-}];
+}]);
 
 // State-gated card — return [] to exclude from pool
-const gatedCard: CardScript = (state) => {
-  if (state.resources.intel < 40) return [];
+register((state) => {
+  if (state.resources.int < 40) return [];
   return [{ id: "...", /* ... */ weight: 1.5 }];
-};
+});
+
+// Three-choice card — third option via swipe down
+register((state) => [{
+  id: "three-way",
+  speaker: "Role Title",
+  text: "Scenario...",
+  left:  { label: "Option A", effects: { pol: -5 } },
+  right: { label: "Option B", effects: { int: -5 } },
+  down:  { label: "Option C", effects: { saf: 5 }, disabled: state.resources.int < 60 },
+  weight: 1.5,
+}]);
+
+// Hidden state — cards can read/write shared latent variables
+register(() => [{
+  id: "raid-facility",
+  speaker: "Enforcement Chief",
+  text: "...",
+  left:  { label: "Raid", effects: { int: -5, pol: -3 }, hiddenEffects: { enforcement_visibility: 1 } },
+  right: { label: "Surveil", effects: { int: 5 } },
+  weight: 1.5,
+}]);
 ```
 
-The engine auto-derives preview indicators from effects (|delta| >= 10 → large arrow, else small) and builds apply functions from effects.
+**To add a new card:** Create a `.ts` file in `src/data/cards/`, import `register`, call it. Then add a side-effect import in `index.ts`.
+
+The engine auto-derives preview indicators from effects (|delta| >= 10 → large arrow, else small) and builds apply functions from effects. Hidden effects modify `state.hidden` (Record<string, number>) — use these for card interactions.
 
 ### Text Guidelines
 
@@ -149,19 +174,23 @@ Low-stakes flavor cards. Quiet days, conference invites. Give the player a breat
 Same event, different content depending on state. One script returns different cards:
 
 ```typescript
-const rogueLab: CardScript = (state) => {
-  const highIntel = state.resources.intel >= 40;
+register((state) => {
+  const highIntel = state.resources.int >= 40;
   return [{
     id: highIntel ? "rogue-lab-normal" : "rogue-lab-degraded",
     speaker: highIntel ? "Intelligence Analyst" : "Junior Analyst",
     text: highIntel ? "Thermal anomaly detected..." : "Rumors of unauthorized compute...",
-    leftLabel: highIntel ? "Send inspectors" : "Expensive investigation",
-    rightLabel: highIntel ? "Flag for next quarter" : "Ignore the rumors",
-    leftEffects: highIntel ? { funding: -8, intel: 8, leverage: 5 } : { funding: -12, intel: 5 },
-    rightEffects: highIntel ? { trust: -5, intel: -3 } : { trust: -3, intel: -6 },
+    left: {
+      label: highIntel ? "Send inspectors" : "Expensive investigation",
+      effects: highIntel ? { pol: -3, int: 8 } : { pol: -5, int: 5 },
+    },
+    right: {
+      label: highIntel ? "Flag for next quarter" : "Ignore the rumors",
+      effects: highIntel ? { pol: -5, int: -3 } : { pol: -3, int: -6 },
+    },
     weight: 1.5,
   }];
-};
+});
 ```
 
 Teaches the player: "when your Intel is low, everything is harder." Pure experiential learning.
@@ -172,16 +201,16 @@ Card A → consequence Card B (triggered by Card A's choice). Check `state.histo
 
 ```typescript
 // Immediate follow-up (within 2 turns, very high weight)
-const followUp: CardScript = (state) => {
+register((state) => {
   const trigger = state.history.find(
     (h) => h.cardId === "heat-signature" && h.choice === "left",
   );
   if (!trigger || state.turn - trigger.turn > 2) return [];
   return [{ id: "cannabis-plantation", ..., weight: 10 }];
-};
+});
 
 // Delayed consequence (3-6 turns later)
-const delayedConsequence: CardScript = (state) => {
+register((state) => {
   const trigger = state.history.find(
     (h) => h.cardId === "heat-signature" && h.choice === "left",
   );
@@ -189,7 +218,7 @@ const delayedConsequence: CardScript = (state) => {
   const delay = state.turn - trigger.turn;
   if (delay < 3 || delay > 6) return [];
   return [{ id: "raid-diplomatic-fallout", ..., weight: 3 }];
-};
+});
 ```
 
 Best chains have different consequences for left vs. right choice on the parent card.

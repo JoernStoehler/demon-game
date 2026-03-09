@@ -1,8 +1,8 @@
 // STUB — placeholder cards so the game runs while real cards are being written.
 
-import type { CardScript } from "../../engine/types";
+import { register } from "./registry";
 
-const whistleblowerFallout: CardScript = (state) => {
+register((state) => {
   const trigger = state.history.find(
     (h) => h.cardId === "whistleblower" && h.choice === "left",
   );
@@ -15,9 +15,9 @@ const whistleblowerFallout: CardScript = (state) => {
     right: { label: "Settle quietly", effects: { pol: -5, int: -3 } },
     weight: 3,
   }];
-};
+});
 
-const coverupLeak: CardScript = (state) => {
+register((state) => {
   const trigger = state.history.find(
     (h) => h.cardId === "whistleblower" && h.choice === "right",
   );
@@ -30,6 +30,4 @@ const coverupLeak: CardScript = (state) => {
     right: { label: "Full transparency", effects: { pol: -3, int: -5 } },
     weight: 3,
   }];
-};
-
-export const chainScripts: CardScript[] = [whistleblowerFallout, coverupLeak];
+});

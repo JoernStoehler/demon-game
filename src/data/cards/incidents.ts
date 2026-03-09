@@ -1,8 +1,8 @@
 // STUB — placeholder cards so the game runs while real cards are being written.
 
-import type { CardScript } from "../../engine/types";
+import { register } from "./registry";
 
-const rogueLab: CardScript = (state) => {
+register((state) => {
   const highIntel = state.resources.int >= 40;
   return [{
     id: highIntel ? "rogue-lab-normal" : "rogue-lab-degraded",
@@ -20,24 +20,22 @@ const rogueLab: CardScript = (state) => {
     },
     weight: 1.5,
   }];
-};
+});
 
-const chipSmuggling: CardScript = () => [{
+register(() => [{
   id: "chip-smuggling",
   speaker: "Deputy Director",
   text: "Border agents intercepted a container with 48 H100 GPUs hidden inside networking equipment. Trail leads to a shell company.",
   left: { label: "Full investigation", effects: { pol: 4, int: 6 } },
   right: { label: "Seize and move on", effects: { int: -4, pol: 3 } },
   weight: 1.5,
-}];
+}]);
 
-const whistleblower: CardScript = () => [{
+register(() => [{
   id: "whistleblower",
   speaker: "Deputy Director",
   text: "A researcher at a major lab claims they've been running prohibited capability evaluations in secret. They want protection.",
   left: { label: "Protect and investigate", effects: { int: 8, pol: -5 } },
   right: { label: "Too risky, decline", effects: { pol: -8, int: -5 } },
   weight: 1,
-}];
-
-export const incidentScripts: CardScript[] = [rogueLab, chipSmuggling, whistleblower];
+}]);

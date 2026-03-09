@@ -1,8 +1,8 @@
 // STUB — placeholder cards so the game runs while real cards are being written.
 
-import type { CardScript } from "../../engine/types";
+import { register } from "./registry";
 
-const capabilityJump: CardScript = (state) => {
+register((state) => {
   if (state.turn < 10) return [];
   return [{
     id: "capability-jump",
@@ -12,9 +12,9 @@ const capabilityJump: CardScript = (state) => {
     right: { label: "Let it circulate", effects: { alg: 10, saf: 3 } },
     weight: 1,
   }];
-};
+});
 
-const undergroundNetwork: CardScript = (state) => {
+register((state) => {
   if (state.turn < 15) return [];
   return [{
     id: "underground-network",
@@ -24,9 +24,9 @@ const undergroundNetwork: CardScript = (state) => {
     right: { label: "Propose treaty amendment", effects: { pol: 5, int: -3 } },
     weight: 2.5,
   }];
-};
+});
 
-const safetyBreakthrough: CardScript = (state) => {
+register((state) => {
   if (state.resources.saf < 70) return [];
   return [{
     id: "safety-breakthrough",
@@ -36,6 +36,4 @@ const safetyBreakthrough: CardScript = (state) => {
     right: { label: "Too dangerous", effects: { pol: 5, saf: -3 } },
     weight: 2,
   }];
-};
-
-export const lateGameScripts: CardScript[] = [capabilityJump, undergroundNetwork, safetyBreakthrough];
+});

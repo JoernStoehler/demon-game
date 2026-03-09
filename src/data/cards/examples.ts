@@ -1,14 +1,21 @@
 /**
  * REFERENCE ONLY — not wired into the card pool.
  *
- * Read this file to see every card pattern with annotations.
+ * Shows every card pattern using the register() API.
  * Copy-paste and modify to create new cards.
+ *
+ * Real cards: import { register } from "./registry"; then call register().
+ * This file uses CardScript type directly to avoid actually registering.
  */
 
 import type { CardScript, GameState } from "../../engine/types";
 
 // ─── ROUTINE CARD ───────────────────────────────────────────────────
 // Always in the pool. Constant weight. Touch 2-3 resources per choice.
+//
+// In a real card file:
+//   import { register } from "./registry";
+//   register(() => [{ ... }]);
 
 // Source: [event-map reference]
 // Rationale: [what dynamic this teaches]

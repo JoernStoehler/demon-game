@@ -1,8 +1,8 @@
 // STUB — placeholder cards so the game runs while real cards are being written.
 
-import type { CardScript } from "../../engine/types";
+import { register } from "./registry";
 
-const polCrisisLow: CardScript = (state) => {
+register((state) => {
   if (state.resources.pol >= 20) return [];
   return [{
     id: "pol-crisis-low",
@@ -13,9 +13,9 @@ const polCrisisLow: CardScript = (state) => {
     weight: 5,
     color: "#ef4444",
   }];
-};
+});
 
-const intCrisisLow: CardScript = (state) => {
+register((state) => {
   if (state.resources.int >= 20) return [];
   return [{
     id: "int-crisis-low",
@@ -26,9 +26,9 @@ const intCrisisLow: CardScript = (state) => {
     weight: 5,
     color: "#ef4444",
   }];
-};
+});
 
-const intCrisisHigh: CardScript = (state) => {
+register((state) => {
   if (state.resources.int <= 80) return [];
   return [{
     id: "int-crisis-high",
@@ -39,9 +39,9 @@ const intCrisisHigh: CardScript = (state) => {
     weight: 5,
     color: "#f97316",
   }];
-};
+});
 
-const polCrisisHigh: CardScript = (state) => {
+register((state) => {
   if (state.resources.pol <= 80) return [];
   return [{
     id: "pol-crisis-high",
@@ -52,8 +52,4 @@ const polCrisisHigh: CardScript = (state) => {
     weight: 5,
     color: "#f97316",
   }];
-};
-
-export const crisisScripts: CardScript[] = [
-  polCrisisLow, intCrisisLow, intCrisisHigh, polCrisisHigh,
-];
+});

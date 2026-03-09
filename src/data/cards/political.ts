@@ -1,8 +1,8 @@
 // STUB — placeholder cards so the game runs while real cards are being written.
 
-import type { CardScript } from "../../engine/types";
+import { register } from "./registry";
 
-const treatyThreat: CardScript = (state) => {
+register((state) => {
   if (state.turn < 5) return [];
   return [{
     id: "treaty-threat",
@@ -12,9 +12,9 @@ const treatyThreat: CardScript = (state) => {
     right: { label: "Stand firm", effects: { pol: 8, int: -5 } },
     weight: 1.5,
   }];
-};
+});
 
-const senateHearing: CardScript = (state) => {
+register((state) => {
   if (state.turn < 3) return [];
   return [{
     id: "senate-hearing",
@@ -24,6 +24,4 @@ const senateHearing: CardScript = (state) => {
     right: { label: "Ask for patience", effects: { pol: 5, int: -3 } },
     weight: 1,
   }];
-};
-
-export const politicalScripts: CardScript[] = [treatyThreat, senateHearing];
+});
