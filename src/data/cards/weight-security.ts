@@ -27,6 +27,7 @@ register(
   {
     id: "weight-theft",
     tags: ["intelligence-agencies", "rogue-actors"],
+    idea: "frontier model weights stolen by state intelligence, can't un-copy data",
     speaker: "Intelligence Analyst",
     text: "A frontier lab reports catastrophic breach — their latest model's weights exfiltrated. NSA assessment: state intelligence operation, likely China. Weights from a legal training run, now in the hands of a government with no transparency obligations. You can't un-copy data.",
     left: {
@@ -52,6 +53,7 @@ register(
   {
     id: "weight-theft-state",
     tags: ["intelligence-agencies", "international-diplomacy"],
+    idea: "China's MSS exfiltrates most capable model weights from compliant lab",
     speaker: "Intelligence Analyst",
     text: "A treaty-compliant frontier lab reports a catastrophic security breach. Their latest model's weights — product of a legally sanctioned training run — have been exfiltrated. Joint forensics with NSA confirm: this was a state intelligence service operation, almost certainly China's MSS. The weights represent the most capable AI system in existence. China denies everything. The weights are just data. Once copied, they cannot be un-copied. China now has them.",
     left: {
@@ -77,6 +79,7 @@ register(
   {
     id: "china-weights-deployed",
     tags: ["treaty-compliance", "international-diplomacy"],
+    idea: "follow-up: China deploys stolen weights for inference, technically not a violation",
     speaker: "Intelligence Analyst",
     text: "Six months after the weight theft. China has deployed the stolen model internally — not for further training, but as an analysis and planning tool across military and economic applications. They haven't violated the training threshold. Our legal team is split: 'Possessing stolen weights isn't explicitly prohibited — the treaty regulates training runs, not inference.' China's position: 'Running an existing model isn't a treaty violation.' They're technically correct.",
     left: {

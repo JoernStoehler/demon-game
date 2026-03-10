@@ -18,6 +18,7 @@ register(
   {
     id: "data-center-attack",
     tags: ["intelligence-agencies", "compute-monitoring"],
+    idea: "NSA delayed reporting a foreign attack on monitored data center",
     speaker: "Intelligence Analyst",
     text: "The NSA director just forwarded a report — six months late. A US data center was attacked by a foreign actor. Our compute monitoring tools were disabled for roughly one week. It's possible a training run occurred during the gap. The NSA sat on this for months because they don't take ASI seriously enough to report promptly. It reached us only because the president's office intervened. We have no idea what happened during that week.",
     left: {
@@ -42,6 +43,7 @@ register(
   {
     id: "algorithmic-progress-leak",
     tags: ["intelligence-agencies", "algorithmic-progress"],
+    idea: "follow-up: foreign actor completed training run during monitoring gap",
     speaker: "Intelligence Analyst",
     text: "Follow-up on the data center attack. Analysis suggests the foreign actor did complete a training run during the monitoring gap. Results unknown — but checkpoint files and training data now exist somewhere in a foreign intelligence service. Not ASI-level, but the algorithmic knowledge can't be un-created. The threshold just got a little lower and we can't tell anyone why without revealing how we found out.",
     left: {

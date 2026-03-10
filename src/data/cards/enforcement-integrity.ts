@@ -31,6 +31,7 @@ register(
   {
     id: "disposal-bribery",
     tags: ["chip-supply-chain", "institutional-integrity"],
+    idea: "chip disposal officer bribed, diverting chips from destruction",
     speaker: "Deputy Director",
     text: "Internal security flagged a chip disposal officer living beyond his means. His GPS tracker was disabled for 2-4 hours on eleven destruction runs this year — estimated 1,400 chips that could have been diverted instead of destroyed. He has 14 years of clean service. He processed chips alone because the two-person verification protocol was suspended six months ago to save money. That budget cut was your decision.",
     left: {
@@ -50,6 +51,7 @@ register(
   {
     id: "mole-discovery",
     tags: ["institutional-integrity", "corporate-lobbying"],
+    idea: "senior official passing enforcement schedules to former employer",
     speaker: "Deputy Director",
     text: "Internal security found a senior official passing enforcement schedules to a corporation they previously worked for. The company timed chip transfers around our inspection windows. Quiet removal avoids scandal but doesn't deter. Public prosecution deters but damages credibility.",
     left: {
@@ -68,6 +70,7 @@ register(
   {
     id: "ai-training-data-poisoned",
     tags: ["institutional-integrity", "compute-monitoring"],
+    idea: "former employee poisoned monitoring AI training data before leaving for industry",
     speaker: "Enforcement Chief",
     text: "Our monitoring AI suddenly started missing detections it previously caught. Internal security investigation: a former employee — left six months ago for an AI company — introduced subtle biases into the training data before departing. The poisoning creates blind spots matching the new employer's compute patterns. The AI has been compromised for months. Every 'clean' result during that period is now suspect. She had the skills to do this precisely because we hired the best ML engineers — who are also the most valuable to the companies we monitor.",
     left: {
@@ -88,6 +91,7 @@ register(
   {
     id: "true-believer",
     tags: ["civil-liberties", "institutional-integrity"],
+    idea: "zealous officer conducted illegal surveillance out of mission conviction",
     speaker: "Legal Counsel",
     text: "Senior enforcement officer — deeply committed to the pause — conducted unauthorized surveillance of university researchers. No violation found. The surveillance was illegal under domestic law. Civil liberties organizations are demanding arrest. She says she had credible intelligence that didn't meet the formal threshold.",
     left: {

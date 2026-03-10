@@ -30,6 +30,7 @@ register(
   {
     id: "protest-to-legislator",
     tags: ["civil-liberties", "political-support"],
+    idea: "street protests escalate to legislation stripping surveillance authority",
     speaker: "Political Advisor",
     text: "Street protests against ISIA surveillance in Berlin, London, and Washington crossed a threshold. Three European parliamentary caucuses and a bipartisan US Senate group introduced coordinated legislation to strip our domestic surveillance authority. 40% poll approval. The surveillance powers being challenged are genuinely important for enforcement. The people challenging them have genuinely legitimate civil liberties concerns. Democracy is functioning correctly — and it might kill everyone.",
     left: {
@@ -55,6 +56,7 @@ register(
   {
     id: "protest-that-helps",
     tags: ["sub-asi-incidents", "media-narrative"],
+    idea: "drone swarm incident creates momentum, exploit or correct the narrative",
     speaker: "Political Advisor",
     text: "Autonomous drone swarm malfunction killed 6 people in a military exercise. Sub-threshold AI, nothing to do with ASI. Massive protests — not about existential risk, but the public doesn't distinguish. Momentum for stronger enforcement is surging. I can push through measures we've wanted for years.",
     left: {
@@ -74,6 +76,7 @@ register(
   {
     id: "supreme-court-challenge",
     tags: ["civil-liberties", "compute-monitoring"],
+    idea: "ACLU challenges chip-tracking firmware as Fourth Amendment violation",
     speaker: "Legal Counsel",
     text: "The ACLU is bringing a landmark case: our chip-tracking firmware on consumer devices violates the Fourth Amendment. Two former ISIA attorneys filed supporting briefs — they helped design the program and now say it overreaches. The Ninth Circuit is sympathetic. If we lose, consumer-hardware monitoring collapses in the US. If we fight and win, we've set a surveillance precedent that will follow us internationally.",
     left: {
@@ -95,6 +98,7 @@ register(
   {
     id: "vote-of-no-confidence",
     tags: ["political-support", "institutional-integrity"],
+    idea: "council members table no-confidence motion over refused corporate exemptions",
     speaker: "Deputy Director",
     text: "Three council members tabled a no-confidence motion. Publicly: 'operational failures.' Privately: you refused their corporations compute exemptions. Vote in 72 hours. If it passes, you're replaced — and they choose your successor.",
     left: {

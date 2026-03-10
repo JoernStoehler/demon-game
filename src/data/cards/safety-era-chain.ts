@@ -18,6 +18,7 @@ register(
   {
     id: "safety-looks-solved",
     tags: ["alignment-research", "political-support"],
+    idea: "sub-ASI alignment breakthrough mistaken for full solution, pressure to relax treaty",
     speaker: "Chief Scientist",
     text: "Formal verification breakthrough for sub-ASI systems. Every major outlet: 'Alignment is solved.' My assessment: we solved the easy part. Sub-ASI alignment and ASI alignment are categorically different problems. But three nations are already lobbying to relax the treaty based on the headlines.",
     left: {
@@ -40,6 +41,7 @@ register(
   {
     id: "race-begins",
     tags: ["treaty-compliance", "rogue-actors"],
+    idea: "follow-up: nations start 'defensive ASI programs' claiming alignment is solved",
     speaker: "Diplomatic Attaché",
     text: "Two major nations have begun 'defensive ASI programs' — claiming alignment is solved so the treaty is outdated. Programs technically violate the treaty. They're daring us to enforce. If we don't, the pause is over. If we do, it's the biggest international crisis since the treaty signing.",
     left: {

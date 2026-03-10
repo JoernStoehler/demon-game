@@ -7,6 +7,7 @@ register(
   {
     id: "rogue-lab-normal",
     tags: ["rogue-actors", "compute-monitoring"],
+    idea: "detect illegal data center via heat signature near Shenzhen",
     speaker: "Deputy Director",
     text: "Thermal anomaly near Shenzhen industrial zone. Signature consistent with an undeclared compute cluster running prohibited training.",
     left: {
@@ -25,6 +26,7 @@ register(
   {
     id: "rogue-lab-degraded",
     tags: ["rogue-actors", "intelligence-agencies"],
+    idea: "detect illegal compute via rumors when intel is low",
     speaker: "Deputy Director",
     text: "There are... rumors of unauthorized compute usage somewhere in East Asia. We can't pin it down with our current intelligence.",
     left: {
@@ -43,6 +45,7 @@ register(
   {
     id: "chip-smuggling",
     tags: ["chip-supply-chain", "enforcement-operations"],
+    idea: "detect illegal chip sale via border agents, hidden in networking equipment",
     speaker: "Deputy Director",
     text: "Border agents intercepted a container with 48 H100 GPUs hidden inside networking equipment. Trail leads to a shell company.",
     left: { label: "Full investigation", effects: { pol: 4, int: 6 } },
@@ -52,6 +55,7 @@ register(
   {
     id: "whistleblower",
     tags: ["whistleblowers", "rogue-actors"],
+    idea: "lab researcher claims prohibited capability evaluations, wants protection",
     speaker: "Deputy Director",
     text: "A researcher at a major lab claims they've been running prohibited capability evaluations in secret. They want protection.",
     left: { label: "Protect and investigate", effects: { int: 8, pol: -5 } },

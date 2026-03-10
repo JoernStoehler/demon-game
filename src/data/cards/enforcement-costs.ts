@@ -46,6 +46,7 @@ register(
   {
     id: "cat-mouse-adapt",
     tags: ["chip-supply-chain", "enforcement-operations"],
+    idea: "smuggling networks adapt after raid, splitting into smaller resilient cells",
     speaker: "Enforcement Chief",
     text: "After last quarter's raid on the chip smuggling ring — 2,000 chips seized, six arrests — we expected deterrence. Instead, networks adapted within weeks. Chips now arrive with serial numbers ground off, firmware reflashed with fake IDs. Routes shifted from commercial freight to private aviation and diplomatic pouches. One network breaks chips into individual units, ships through consumer electronics channels disguised as gaming GPUs, reassembles at destination. We disrupted one network and created three smaller, more resilient ones.",
     left: {
@@ -64,6 +65,7 @@ register(
   {
     id: "smuggle-ring",
     tags: ["chip-supply-chain", "enforcement-operations"],
+    idea: "chip smuggling network found, seize now or map full organization",
     speaker: "Customs Liaison",
     text: "Interpol identified a chip smuggling network — 2,000 H100-equivalents unaccounted for across five countries, moved through shell companies. Enough for a serious training run if concentrated. We can seize the chips now by raiding the warehouses, but that alerts the network and they scatter. Or we let some chips move while we map the full organization — buyers, routes, financiers. Every day we wait, chips get closer to wherever they're going.",
     left: {
@@ -84,6 +86,7 @@ register(
   {
     id: "network-bandwidth-trap",
     tags: ["compute-monitoring", "enforcement-operations"],
+    idea: "monitoring AI flags suspicious traffic that might be a film studio",
     speaker: "Enforcement Chief",
     text: "Our network monitoring AI flagged coordinated high-bandwidth traffic across four Southeast Asian countries — 94% confidence it's a distributed training run. I've mobilized raid teams in Thailand, Vietnam, Malaysia, and Indonesia. $2M operation, two weeks of enforcement capacity. Then network analysis raised a concern: the traffic pattern also matches a new distributed rendering farm for a Vietnamese film studio. Our AI's training data didn't include cross-border creative industry patterns.",
     left: {
@@ -108,6 +111,7 @@ register(
   {
     id: "compliant-company-raid",
     tags: ["enforcement-operations", "treaty-compliance"],
+    idea: "anomaly detection flags cooperative partner, inspecting erodes trust",
     speaker: "Enforcement Chief",
     text: "Anomaly detection flagged Anthropic's declared facility — thermal patterns suggest undisclosed compute. They're one of our most cooperative partners. If we inspect and find nothing, we've just told every compliant company that cooperation doesn't protect you from raids.",
     left: {
@@ -128,6 +132,7 @@ register(
   {
     id: "defector-offer",
     tags: ["intelligence-agencies", "rogue-actors"],
+    idea: "anonymous defector offers intel on secret state ASI program for asylum and cash",
     speaker: "Intelligence Analyst",
     text: "Anonymous contact inside a foreign intelligence service claims their government is secretly funding ASI research through a front company. Demands asylum and $5 million. Our assessment: plausible but unverified. If genuine, this is the biggest lead in years — a state-sponsored program we didn't know existed. If it's a setup, we've been played and the money is gone. The contact says we have 48 hours before they go to a different buyer.",
     left: {
@@ -147,6 +152,7 @@ register(
   {
     id: "billionaire-island",
     tags: ["rogue-actors", "enforcement-operations"],
+    idea: "tech CEO built compute facility on private island claiming sovereignty",
     speaker: "Enforcement Chief",
     text: "Former tech CEO bought a private island and built an underground facility. Satellite thermal signatures suggest prohibited-scale compute. He's in a treaty nation but claiming the island is sovereign territory. Legal ambiguity aside — if we raid, we show exactly how we detect these operations.",
     left: {

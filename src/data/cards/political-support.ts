@@ -30,6 +30,7 @@ register(
   {
     id: "election-year",
     tags: ["political-support", "treaty-compliance"],
+    idea: "elections in treaty nations with 'AI freedom' candidates running",
     speaker: "Political Advisor",
     text: "Three major treaty nations hold elections this cycle. 'AI freedom' candidates are running in two of them — promising to revoke treaty commitments for AI-driven economic growth. Polling shows them competitive. We could stay neutral or quietly run risk-information campaigns.",
     left: {
@@ -51,6 +52,7 @@ register(
   {
     id: "election-reversal",
     tags: ["political-support", "treaty-compliance"],
+    idea: "US election with leading 'AI freedom' candidate threatening treaty withdrawal",
     speaker: "Political Advisor",
     text: "Elections in the US this cycle. The leading candidate ran on 'AI freedom' — promising to withdraw from the treaty and 'unleash American innovation.' Polling has them at 48%. Our current posture is being used as campaign ammunition either way.",
     left: {
@@ -71,6 +73,7 @@ register(
   {
     id: "success-trap",
     tags: ["political-support", "media-narrative"],
+    idea: "eight years without incident used to justify 40% budget cut",
     speaker: "Political Advisor",
     text: "Senate coalition proposes 40% budget cut. 'Eight years, zero serious incidents. The threat was clearly exaggerated.' You know about three near-misses they don't — all classified. Declassifying would justify the budget but burn sources that caught the threats.",
     left: {
@@ -90,6 +93,7 @@ register(
   {
     id: "success-narrative",
     tags: ["media-narrative", "political-support"],
+    idea: "bestselling book argues ASI threat was manufactured to justify ISIA budget",
     speaker: "Investigative Journalist",
     text: "My new book argues the ASI threat was manufactured to justify ISIA's budget. Ten years, no rogue AI, no near-misses the public can see. 'The agency that prevents invisible threats conveniently can never prove they exist.' It's climbing the bestseller lists.",
     left: {

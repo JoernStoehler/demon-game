@@ -25,6 +25,7 @@ register(
   {
     id: "thermal-anomaly",
     tags: ["compute-monitoring", "enforcement-operations"],
+    idea: "detect illegal data center via heat signature",
     speaker: "Intelligence Analyst",
     text: "Satellite imagery shows a thermal anomaly near Shenzhen — consistent with an undeclared compute cluster. Power draw analysis suggests prohibited-scale training. We have a 72-hour window before they can reconfigure.",
     left: {
@@ -42,6 +43,7 @@ register(
   {
     id: "thermal-anomaly-degraded",
     tags: ["compute-monitoring", "intelligence-agencies"],
+    idea: "detect illegal data center via rumors when intel is low",
     speaker: "Junior Analyst",
     text: "There are... rumors from a secondary source about unusual power consumption somewhere in the Pearl River Delta. It could be an undeclared training run, or it could be a new factory. We can't tell from what we have.",
     left: {
@@ -60,6 +62,7 @@ register(
   {
     id: "power-grid-anomaly",
     tags: ["compute-monitoring", "distributed-compute"],
+    idea: "detect illegal training via power grid anomaly disguised as crypto mining",
     speaker: "Intelligence Analyst",
     text: "A decommissioned smelter in Norway has drawn 12 MW continuously for six weeks. Listed as cryptocurrency mining — legal and common. But its 400 Gbps internet upgrade is overkill for crypto, consistent with distributed training. Your analyst says 70% chance it's a training run.",
     left: {
@@ -82,6 +85,7 @@ register(
   {
     id: "datacenter-hidden",
     tags: ["distributed-compute", "rogue-actors"],
+    idea: "detect training hidden inside monitored datacenter via encrypted side channel",
     speaker: "Intelligence Analyst",
     text: "Whistleblower at a cloud provider: a customer renting 'inference capacity' at an ISIA-monitored datacenter is actually running distributed training. Hidden inside thousands of independent inference jobs sharing gradients through an encrypted side channel. The training is happening inside our own monitored facility.",
     left: {

@@ -46,6 +46,7 @@ register(
   {
     id: "leadership-purge",
     tags: ["institutional-integrity", "political-support"],
+    idea: "government demands replacement of competent officials with political appointees",
     speaker: "Deputy Director",
     text: "New government demands replacement of three senior ISIA officials deemed 'too aggressive.' Threatens to withhold treaty funding. The officials are competent — the real objection is political. Lose them and we lose decades of institutional knowledge. Keep them and we lose a major funder.",
     left: {
@@ -64,6 +65,7 @@ register(
   {
     id: "empire-builder",
     tags: ["institutional-integrity", "enforcement-operations"],
+    idea: "enforcement division quietly grew into agency-within-agency via empire building",
     speaker: "Deputy Director",
     text: "The enforcement division quietly expanded from 200 to 1,800 staff over eight years. Division chief argues every expansion was justified. But a leaked org chart shows: enforcement now has its own intelligence unit, its own communications team, its own political liaisons — duplicating central functions. It's become an agency within the agency. The division chief isn't corrupt. She's a genuine believer who thinks enforcement is the only thing that matters and didn't trust the rest of us to prioritize it.",
     left: {
@@ -83,6 +85,7 @@ register(
   {
     id: "mission-drift",
     tags: ["institutional-integrity", "enforcement-operations"],
+    idea: "bureaucratic drift: compliance paperwork crowding out actual enforcement",
     speaker: "Ethics Watchdog",
     text: "Internal audit after 12 years. Findings: 40% of enforcement staff now spend most time on compliance paperwork for permitted AI — not detecting unauthorized training. Budget for monitoring rogue actors is down 25% while compliance grew 300%. We're becoming a rubber-stamp agency by institutional drift.",
     left: {
@@ -101,6 +104,7 @@ register(
   {
     id: "institutional-memory-loss",
     tags: ["institutional-integrity", "intelligence-agencies"],
+    idea: "third-generation staff lost institutional knowledge via generational turnover",
     speaker: "Deputy Director",
     text: "Third generation of staff. The founding cohort who lived through the crisis retired years ago. Second generation learned from them. Now the third generation learned from the second. Institutional knowledge has degraded like telephone. A routine inspection team just missed a suspicious chip configuration that any founding-era inspector would have caught instantly — chips arranged for distributed training across 'innocent' facilities. An old hand in intel caught it by chance. She's retiring next month.",
     left: {
@@ -124,6 +128,7 @@ register(
   {
     id: "rogue-internal-experiment",
     tags: ["institutional-integrity", "alignment-research"],
+    idea: "junior researchers ran unauthorized experiment, produced genuine result",
     speaker: "Enforcement Chief",
     text: "Internal security caught four junior researchers who ran an unauthorized experiment overnight — 200 consumer GPUs cobbled from a university partnership, below any compute threshold, perfectly safe in isolation. Their team leader is defiant: 'The classification review takes nine months. The alignment problem doesn't wait for bureaucracy.' The experiment was small enough to be safe. But if four juniors can do this, so can forty. And not all will be as careful. The finding they produced is, by initial assessment, genuinely significant.",
     left: {
@@ -148,6 +153,7 @@ register(
   {
     id: "funding-deal-techbro",
     tags: ["institutional-integrity", "economic-pressure"],
+    idea: "billionaire ex-CEO offers huge endowment with hidden strings attached",
     speaker: "Chief Scientist",
     text: "A billionaire former lab CEO offers a $500M endowment for our safety research. No strings attached, he says. But intelligence flagged something: his family office holds $4B in AI investments that skyrocket if the pause ends. Three researchers he's recommending we hire are his former capability employees. Assessment: 60% genuine philanthropy, 40% long-term play to embed people who'll eventually argue alignment is 'close enough.'",
     left: {

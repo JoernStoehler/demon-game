@@ -45,6 +45,7 @@ register(
   {
     id: "withdrawal-threat",
     tags: ["international-diplomacy", "treaty-compliance"],
+    idea: "India files treaty withdrawal notice citing asymmetric enforcement",
     speaker: "Diplomatic Attaché",
     text: "India has filed a 12-month withdrawal notice from the treaty. Their stated reason: 'asymmetric enforcement.' Three other nations are watching — if India leaves cleanly, they'll follow. India's compute infrastructure is growing fast. In 12 months they'll be outside our jurisdiction entirely.",
     left: {
@@ -64,6 +65,7 @@ register(
   {
     id: "review-conference",
     tags: ["international-diplomacy", "treaty-compliance"],
+    idea: "five-year treaty review conference, seven nations want weakening",
     speaker: "Diplomatic Attaché",
     text: "Five-year treaty review conference. Seven nations propose weakening enforcement provisions. Three want strengthening. The rest want no changes. Consensus required for any amendment. No consensus means the current text stands — but the seven dissatisfied nations may reduce cooperation informally.",
     left: {
@@ -83,6 +85,7 @@ register(
   {
     id: "insincere-member",
     tags: ["rogue-actors", "treaty-compliance"],
+    idea: "treaty member running secret program since day one, joined insincerely",
     speaker: "Intelligence Analyst",
     text: "A mid-sized treaty nation — joined with great fanfare six years ago — has been running a shadow program the entire time. Signed the treaty for technology-sharing provisions and prestige, never intended to comply. Our evidence: chips diverted from declared facilities, parallel procurement through non-treaty intermediaries, military-classified research team beyond ISIA access. Evidence is strong but not airtight. They fund us significantly and host two regional offices. If we confront them, they may withdraw and encourage other wavering members.",
     left: {
@@ -109,6 +112,7 @@ register(
   {
     id: "small-nation-leverage",
     tags: ["international-diplomacy", "enforcement-operations"],
+    idea: "small nation hosting critical infrastructure demands unrelated concessions",
     speaker: "Diplomatic Attaché",
     text: "A small but strategically located treaty nation — hosts a critical undersea cable junction and a regional monitoring station covering 40% of South Asian compute traffic — is demanding concessions unrelated to AI. Debt relief, a Council seat, trade preferences. Their leverage: 'We could withdraw. We've had very interesting conversations with a non-treaty nation about hosting their data centers.' They're not threatening to build ASI. They're threatening to create an enforcement gap for others to exploit.",
     left: {
@@ -128,6 +132,7 @@ register(
   {
     id: "hostage-gambit",
     tags: ["international-diplomacy", "rogue-actors"],
+    idea: "non-aligned nation threatens AI development unless given semiconductor tech",
     speaker: "Diplomatic Attaché",
     text: "Major non-aligned nation announces large-scale AI training unless treaty nations share semiconductor technology. Framing it as 'technological sovereignty.' Intel suggests they're years from actual capability — this is a negotiating tactic, not an imminent threat. But calling the bluff risks being wrong.",
     left: {
@@ -146,6 +151,7 @@ register(
   {
     id: "us-china-suspicion",
     tags: ["international-diplomacy", "intelligence-agencies"],
+    idea: "US and China each demand inspection of the other, using ISIA as weapon",
     speaker: "Diplomatic Attaché",
     text: "US ambassador wants a challenge inspection of a Chinese facility in Xinjiang — won't share intelligence sources. Two days later, China requests inspection of a US facility in Nevada — same terms. Both accusing the other. If either accusation is true, the treaty is in crisis. If neither is, both powers are using you as a weapon.",
     left: {

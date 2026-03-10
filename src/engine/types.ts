@@ -56,8 +56,10 @@ export interface Card {
   /** Third option (swipe down). Omit for standard 2-choice cards. */
   down?: ChoiceSpec;
   color?: string;
-  /** Developer tags for categorization (e.g. "crisis", "incident", "routine"). Shown in card map. */
+  /** Developer tags for categorization. Shown in card map. */
   tags?: string[];
+  /** One-line concept: the generating idea behind this card. Shown in cards-export.md. */
+  idea?: string;
   /** Return 0 to exclude from pool this turn. Higher = more likely to be drawn. */
   poolWeight: (state: GameState) => number;
 }

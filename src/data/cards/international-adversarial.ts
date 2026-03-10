@@ -25,6 +25,7 @@ register(
   {
     id: "china-hawk",
     tags: ["international-diplomacy", "institutional-integrity"],
+    idea: "deputy director privately undermining China negotiations from conviction",
     speaker: "Deputy Director",
     text: "Our deputy director — former military intelligence — has been privately undermining China negotiations. He believes cooperation with China is naive. The Chinese diplomat threatens to withdraw from talks unless he's removed. The deputy is competent, experienced, and may be right about China.",
     left: {
@@ -43,6 +44,7 @@ register(
   {
     id: "taiwan-crisis",
     tags: ["chip-supply-chain", "international-diplomacy"],
+    idea: "Taiwan Strait escalation threatens TSMC, 73% of advanced chip production",
     speaker: "NATO Liaison",
     text: "Military escalation in the Taiwan Strait. TSMC has activated contingency plans — if fighting starts, they'll disable the fabs. That's 73% of advanced AI chip production. Our entire supply-chain monitoring program depends on chips we can track from fabrication. No fabs, no new chips to track.",
     left: {
@@ -61,6 +63,7 @@ register(
   {
     id: "war-and-pause",
     tags: ["international-diplomacy", "enforcement-operations"],
+    idea: "conventional war between treaty nations, both suspend inspections",
     speaker: "Diplomatic Attaché",
     text: "Conventional war between two treaty nations over a territorial dispute unrelated to AI. Both demand we suspend inspections — 'We can't have international inspectors in active military zones.' Both accuse the other of using the war as cover for unauthorized training. Our satellite data shows unusual compute activity in both countries but can't distinguish military AI from forbidden training runs. The treaty says nothing about what happens during a war between members.",
     left: {

@@ -17,6 +17,7 @@ register(
   {
     id: "rogue-lab-whistleblower",
     tags: ["whistleblowers", "rogue-actors"],
+    idea: "whistleblower reports secret training at Nexus Computing, raid or verify",
     speaker: "Enforcement Chief",
     text: "Whistleblower inside Nexus Computing claims they're running unauthorized training at night using undeclared chips hidden in a legitimate datacenter. She's credible — senior engineer, no grudge, terrified of retaliation. But if we raid and she's wrong, we've burned inspection methods and credibility on a false alarm.",
     left: {
@@ -33,6 +34,7 @@ register(
   {
     id: "near-miss",
     tags: ["rogue-actors", "enforcement-operations"],
+    idea: "follow-up: raid found near-ASI run, classify or declassify the close call",
     speaker: "Chief Scientist",
     text: "The raid found it. 800 undeclared chips, partially completed run at 2×10²³ FLOP. My estimate: 15% chance it would have produced ASI. Nobody outside the agency knows how close this was. Classify it and it's another 'nothing happened.' Declassify and you prove the threat — but burn every source that led here.",
     left: {

@@ -39,6 +39,7 @@ register(
   {
     id: "low-salience-campaign",
     tags: ["media-narrative", "political-support"],
+    idea: "38% of population indifferent to AI, awareness campaign risks creating skeptics",
     speaker: "Communications Director",
     text: "38% of treaty-nation populations are in the indifferent cluster — AI is not a topic they think about. They vote on other issues. Politicians know their AI-indifferent constituents won't punish them for cutting our budget. I have two proposals: a $200M personal-relevance campaign framing ASI risk through things people already care about — their children, their savings. Or we do nothing. The indifferent cluster has no reason to oppose us. But activating them might produce more skeptics than supporters.",
     left: {
@@ -58,6 +59,7 @@ register(
   {
     id: "generational-shift",
     tags: ["media-narrative", "political-support"],
+    idea: "new generation has no memory of AI crisis, 'Free AI' is their slogan",
     speaker: "Political Advisor",
     text: "New polling data. The median voter in key treaty nations was 12 when the pause began. No memory of the crisis that created ISIA. ASI risk is 'something old people worry about.' Youth movements are overwhelmingly anti-pause. 'Free AI' is the slogan of a generation that never knew why it was restricted.",
     left: {
@@ -77,6 +79,7 @@ register(
   {
     id: "upload-milestone-panic",
     tags: ["dual-use-research", "media-narrative"],
+    idea: "mouse brain upload milestone activates public fear about uploading, not ASI",
     speaker: "Chief Scientist",
     text: "A Zurich team successfully uploaded a functional mouse brain simulation — 1:1 fidelity, ran 48 hours, cover of Nature. Three reactions hit simultaneously. Safety researchers: cautiously optimistic, whole-brain emulation could let researchers work millions of times faster. Religious organizations: horrified, 'they're copying souls,' threatening to withdraw political support. General public: terrified about their own brains being copied. People who never cared about AI suddenly care — but about uploading, not ASI.",
     left: {
@@ -95,6 +98,7 @@ register(
   {
     id: "megachurch-sermon",
     tags: ["political-support", "media-narrative"],
+    idea: "megachurch pastor rallies millions for permanent ban, not safe AI",
     speaker: "Communications Director",
     text: "A megachurch pastor's sermon goes viral — 'Building a mind greater than God's is the sin of Babel.' Ninety million views. Evangelical organizations across three continents adopt anti-ASI positions. Millions of new pause supporters — but they want a permanent ban, not a bridge to safe AI. They'd block our safety research.",
     left: {
@@ -113,6 +117,7 @@ register(
   {
     id: "celebrity-endorsement",
     tags: ["media-narrative", "political-support"],
+    idea: "celebrity endorses pause with conspiracy theories attached",
     speaker: "Communications Director",
     text: "A globally popular musician — 300M followers — made the pause their personal cause. 'Pause World Tour,' $50M donation, apocalypse music video. Millions of new supporters. Problem: they're spreading conspiracy theories alongside real risk. Opponents now call us 'the celebrity agency.' Embrace and gain support with toxic baggage, or distance and lose the momentum.",
     left: {

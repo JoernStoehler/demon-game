@@ -24,6 +24,7 @@ register(
   {
     id: "compliant-defection",
     tags: ["economic-pressure", "treaty-compliance"],
+    idea: "poster-child compliant company relocates to non-treaty nation over costs",
     speaker: "Finance Director",
     text: "Helios Systems — the poster child of compliance — is relocating to Vietnam. Their CEO's letter: '$6B spent on compliance. Competitors in non-treaty nations spent zero. Our board answers to shareholders, not to you.' If Helios defects, other compliant companies follow within months.",
     left: {
@@ -48,6 +49,7 @@ register(
   {
     id: "nvidia-threshold-lobby",
     tags: ["corporate-lobbying", "compute-monitoring"],
+    idea: "NVIDIA lobbies parliaments to raise compute threshold 10x",
     speaker: "Political Advisor",
     text: "NVIDIA's CEO is testifying before three parliaments this week. Their proposal: raise the compute threshold by 10x, 'freeing innovation while maintaining safety.' Twelve treaty nations are co-sponsoring the amendment. The economic argument is strong — treaty nations are losing market share.",
     left: {
@@ -66,6 +68,7 @@ register(
   {
     id: "pharma-breakthrough",
     tags: ["economic-pressure", "dual-use-research"],
+    idea: "pharma needs above-threshold compute for cancer drug, 40,000 lives at stake",
     speaker: "Chief Scientist",
     text: "Novartis researchers need 2x the compute threshold for a cancer drug discovery model. Their projections: 40,000 lives saved per year if approved. The compute cap is the only barrier. 'You're killing people to prevent a hypothetical threat.' They're bringing families of terminal patients to the press conference.",
     left: {

@@ -32,6 +32,7 @@ register(
   {
     id: "government-overpromise",
     tags: ["political-support", "alignment-research"],
+    idea: "politician publicly overpromises alignment timeline, creating sunset pressure",
     speaker: "Political Advisor",
     text: "The German Chancellor announced to the Bundestag: 'Thanks to ISIA, we are within five years of solving alignment.' Your Chief Scientist is furious — her actual assessment is that core ASI problems are no closer to solution. The Chancellor's office telephone-gamed a sub-problem timeline into 'five years to solve everything.' Six nations are now lobbying for a sunset date on the pause. Two AI companies announced 'post-pause readiness programs.' The public has a countdown clock in their heads.",
     left: {
@@ -51,6 +52,7 @@ register(
   {
     id: "pentagon-funding",
     tags: ["military-ai", "alignment-research"],
+    idea: "Pentagon offers massive funding for safety research with military strings",
     speaker: "Finance Director",
     text: "The US Department of Defense is offering $2.8 billion for ISIA's alignment research program — triple our current budget. The catch: they want access to intermediate results, priority hiring of their nominees, and a seat on the research steering committee. It's the most money anyone has ever offered for safety research.",
     left: {
@@ -70,6 +72,7 @@ register(
   {
     id: "budget-turf-war",
     tags: ["alignment-research", "enforcement-operations"],
+    idea: "annual budget split: enforcement vs safety research, zero-sum",
     speaker: "Deputy Director",
     text: "Annual budget allocation. Enforcement Chief: 'Evasion techniques are outpacing us — 60% for monitoring.' Chief Scientist: 'We're three years from a safety breakthrough — 60% for research.' Both are right. Both need the money. You can't fund both at the level they need.",
     left: {
@@ -88,6 +91,7 @@ register(
   {
     id: "media-waste-story",
     tags: ["media-narrative", "political-support"],
+    idea: "journalist exposes spending while successes are classified",
     speaker: "Investigative Journalist",
     text: "My outlet is running 'Inside the Black Hole: How ISIA Spends Your Billions.' A $180M experiment that produced null results. A $2.1M retreat in Switzerland for 40 researchers. Your top scientist's $4.2M salary. The story is well-researched and mostly accurate. What it doesn't mention are your actual successes — because those are classified for dual-use reasons. Three congressional committees are requesting hearings.",
     left: {

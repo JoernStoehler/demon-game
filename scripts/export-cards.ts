@@ -56,8 +56,9 @@ for (const [file, cards] of groups) {
   md.push(`## ${file}`);
   md.push("");
   for (const card of cards) {
-    md.push(`**${card.id}** — ${res(card.speaker)}`);
-    md.push(`> ${res(card.text)}`);
+    const idea = card.idea ? ` — *${card.idea}*` : "";
+    md.push(`**${card.id}**${idea}`);
+    md.push(`${res(card.speaker)}: ${res(card.text)}`);
     md.push(`← ${res(card.left.label)}: ${fmtFx(card.left.effects)}`);
     md.push(`→ ${res(card.right.label)}: ${fmtFx(card.right.effects)}`);
     if (card.down) {

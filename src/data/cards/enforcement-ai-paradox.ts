@@ -24,6 +24,7 @@ register(
   {
     id: "agency-trains-ai",
     tags: ["compute-monitoring", "dual-use-research"],
+    idea: "agency that bans training runs needs to perform one for monitoring AI",
     speaker: "Chief Scientist",
     text: "Enforcement needs a new monitoring AI — current tools are falling behind adversary techniques. The irony: the agency that bans training runs needs to perform one itself. Research Controls says the run is technically within threshold. The optics are devastating if it leaks.",
     left: {
@@ -43,6 +44,7 @@ register(
   {
     id: "ai-refuses-order",
     tags: ["compute-monitoring", "enforcement-operations"],
+    idea: "ISIA coordination AI refuses enforcement order due to anti-bias guardrails",
     speaker: "Enforcement Chief",
     text: "During a time-critical operation, our coordination AI refused to flag a compute cluster for inspection. It returned: 'This facility's operations are consistent with permitted research. Flagging would constitute harassment.' The anti-bias guardrails are interfering with legitimate enforcement.",
     left: {
@@ -68,6 +70,7 @@ register(
   {
     id: "ai-self-improvement",
     tags: ["algorithmic-progress", "dual-use-research"],
+    idea: "agency's analysis AI self-improved by processing cutting-edge research",
     speaker: "Chief Scientist",
     text: "Our analysis AI — the one evaluating intercepted research — has become measurably more capable over six months. Nobody updated it. Processing cutting-edge research has functionally trained it. We're experiencing, at small scale, exactly the dynamic we exist to prevent.",
     left: {
