@@ -29,7 +29,7 @@ test-results/
 playwright-report/
 
 # Generated exports (npm run cards)
-design/cards-export.md
+# design/cards-export.md is tracked — Jörn edits it for card feedback
 public/cards-map.html
 
 # Scratch / temp
