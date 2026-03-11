@@ -193,6 +193,14 @@ Summing up my musings:
 
 The core tension from the core message: capability knowledge grows as researchers publish and AI tools improve, and short-horizon incentives (profit, competitive pressure) push actors to break the pause. The player is keeping at bay a superexponential process while racing to finish the safety homework.
 
+## Known gap: corruption and institutional capture
+
+The current model treats geopolitics as "nations and corporations exert pressure on ISIA through public channels" — lobbying, elections, treaty negotiations. This is the naive model. In reality, corruption is a primary mechanism through which adversaries affect policy, enforcement, and export controls. This is well-established in political science and directly observable in arms control (IAEA), nuclear nonproliferation (A.Q. Khan network), sanctions evasion (Russia/Iran/North Korea), and current AI chip export controls (NVIDIA/US government).
+
+Corruption isn't a separate topic — it's a dynamic that runs *through* existing topics: chip supply chains get subverted, enforcement gets blinded, political support gets bought, intelligence gets leaked. The current card content has a few corruption-adjacent cards (disposal-bribery, mole-discovery, insincere-member) but doesn't model corruption as a systemic force operating over 30-year timescales.
+
+**Status:** Researching geopolitics mechanisms from arms control, nonproliferation, and regulatory capture literature. Results will feed into expert model sections and card concepts.
+
 ---
 
 ## Appendix: Jorn's verbatim messages

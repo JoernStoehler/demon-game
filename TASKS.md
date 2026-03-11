@@ -30,6 +30,8 @@ What's settled vs. placeholder — read this before polishing or building on any
 | Portraits (21 PNGs in `src/assets/portraits/`) | **Placeholder** | 11 flagged bad style, 3 borderline, need regen. Per-file JSON sidecars do NOT exist — only shared `style.json` |
 | Title/death screen visuals | **Placeholder** | Will change with content overhaul |
 | Card map tool (`npm run cards`) | **Settled** | D3 force graph + .md export, content tags on all cards |
+| Domain model (`design/domain-model.md`) | **Settled** | 10-dimension expert model, clean rewrite, game-state mapping |
+| Card concepts (`design/card-concepts.md`) | **Settled** | 144 ideas by topic, duplicate flags, upstream design artifact |
 | History chains / degraded variants | **Draft** | Some exist in current cards, needs expansion |
 | Achievements / card collection | **Not started** | Deferred — only 28 cards, collection completes in ~5 runs |
 
@@ -39,12 +41,30 @@ Status tiers: **Settled** = safe to build on. **Draft** = exists but expected to
 
 ## Current
 
-- [ ] Card text quality: 144 cards exist but text is agent-written placeholder quality — Jörn reviewing via `design/cards-export.md` and `public/cards-map.html`, will provide feedback for rewrites
-- [ ] Portrait regeneration: 11 portraits flagged as bad style need regen via `scripts/generate-portrait.mjs` — bad: P2(CFO), P3(Chief Scientist), P7(Deputy Dir), P9(Enforcement Chief), P11(Exec Asst), P14(Intel Analyst), P17(Legal Counsel), P20(Press Secretary); borderline: P15(Inv Journalist), P16(Junior Analyst), P18(NATO Liaison)
+### Geopolitics content gap (in progress)
+
+Jörn identified that the game's geopolitical model is naive — treats corruption, institutional capture, and adversary influence as edge cases when they're primary mechanisms. This is well-established in arms control, nonproliferation, and export control literature.
+
+**Why:** Without this, the game won't feel realistic to anyone who knows how geopolitics works. Corruption isn't a card topic — it's a dynamic that runs through chip supply chains, enforcement, political support, and intelligence.
+
+**Steps:**
+1. [x] Flag gap in domain-model.md
+2. [x] Agent research: 4 reports in `design/research/` (arms control, sanctions evasion, regulatory capture, 30yr geopolitics) — agent-written, cited, need expert validation
+3. [x] Fetch cited source documents → `literature/geopolitics/` (in progress)
+4. [ ] Synthesis: extract ~15-20 mechanisms, map to current card coverage → `design/geopolitics-synthesis.md` (in progress)
+5. [ ] Jörn reviews synthesis, corrects misunderstandings, adds expert context
+6. [ ] Update domain-model.md with validated geopolitics model
+7. [ ] Derive new card concepts from updated model
+8. [ ] Implement cards in TypeScript
+
+### Other (blocked on content decisions)
+
+- [ ] Card text quality: 144 cards exist but text is agent-written placeholder quality — Jörn reviewing via `design/cards-export.md` and `public/cards-map.html`
+- [ ] Portrait regeneration: 11 bad, 3 borderline — blocked on card content
 - [ ] More history-triggered chains (blocked on card content)
 - [ ] More degraded variant pairs (blocked on card content)
 - [ ] Re-balance after content pass
-- [ ] Title/death screen polish: animations, icon sizes, layout feel clunky on mobile — defer until after card content pass sets the mood
+- [ ] Title/death screen polish — defer until after card content pass
 
 ### Balance Tuning Process
 
@@ -80,6 +100,9 @@ When re-balancing after content changes, follow this process:
 
 ## Done (recent first)
 
+- [x] Domain model rewrite: `design/domain-model.md` — full rewrite, stripped stale agent commentary, added game-state mapping + content pipeline
+- [x] Card concepts file: `design/card-concepts.md` — 144 card ideas grouped by 21 topics, duplicate flags, upstream design artifact for Jörn
+- [x] Idea field: added `idea?: string` to all 144 cards for concept-level review in cards-export.md
 - [x] Card map & export tool: `npm run cards` generates `design/cards-export.md` + `public/cards-map.html` (D3 force graph with tag/state/chain edges, force+grid toggle, search, tooltips)
 - [x] Content topic tags: added `tags?: string[]` to Card type, tagged all 144 cards with 21 content topics, added tag guidance to write-cards skill
 - [x] Card system refactor: CardScript functions, deleted helpers.ts, inlined clamping, split cards into 6 files, updated docs + SKILL.md
