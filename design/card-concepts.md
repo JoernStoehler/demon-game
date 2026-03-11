@@ -252,6 +252,68 @@ Insider tips, protection dilemmas, and the leaker-vs-security tension.
 - analyst leaks that surveillance AI exceeded authorized scope by 30% -- whistleblower-dilemma
 - crisis: intelligence network gone dark, emergency recruitment -- int-crisis-low
 
+## Geopolitics (NEW — from synthesis pipeline)
+
+New card concepts derived from `design/geopolitics-synthesis.md` mechanisms. Each traces to a specific mechanism (M1-M17). Pending Jörn's review before implementation.
+
+### A. Verification and Detection Gaps
+
+- NEW (M1): proposal to fund satellite thermal scanning and power-grid analysis for undeclared facilities — expensive, high false-positive rate, politically toxic vs staying blind to anything outside declared envelope -- undeclared-detection-program
+- NEW (M1): all declared facilities pass inspection with perfect scores; deputy warns this means either total compliance or total blindness — publicize the ambiguity or take the win? -- perfect-compliance-paradox
+- NEW (M1): residential neighborhood reports unusual heat and noise; raiding a private home for GPUs with thin evidence vs ignoring and hoping declared monitoring suffices -- residential-cluster-tip
+- NEW (M2): treaty member caught with 200 undeclared chips, confesses immediately — accept the win or demand full-facility access suspecting a larger hidden program -- partial-confession
+- NEW (M2): follow-up to partial-confession: deeper investigation finds 2,000 more chips; member reveals a "second oversight" and offers permanent inspectors — escalate to Security Council or accept expanded access -- salami-slice-two
+- NEW (M2): follow-up: intelligence suggests a third undisclosed site but evidence is circumstantial; coalition allies urge you to stop pushing because member is "cooperating in good faith" -- salami-slice-three
+- NEW (M3): three simultaneous smuggling operations on three continents; inspection teams to cover one — which region, knowing the other two become free corridors? -- triage-three-continents
+
+### B. Smuggling and Supply Chain Evasion
+
+- NEW (M4): broker offers sovereign client a complete training-ready facility — chips, software, engineers, cooling — collapse ASI timeline from years to months; raid delivery site or trace supplier? -- turnkey-package
+- NEW (M4): ex-industry engineer recruiting former colleagues to provide hands-on ASI consultation to rogue clients; arrest risks exposing informant -- turnkey-consultants
+- NEW (M5): forty new shell companies registered this quarter, each ordering just below monitored threshold; propose mandatory compute-purchase KYC (angers industry + privacy groups) or keep chasing individually -- shell-company-flood
+- NEW (M6): small treaty nation's chip imports tripled without new data centers; confront them (risk them leaving) or impose quiet secondary monitoring (spend intel) -- transshipment-hub
+- NEW (M7): chip smuggling network shares infrastructure with weapons trafficking that allied intelligence is monitoring; shut down chip pipeline (blind allies to weapons flows) or leave it open -- shared-smuggling-network
+- NEW (M7): same Dubai broker handles chip laundering, crypto theft proceeds, and centrifuge parts; joint operation with Interpol (slow, leaks likely) or ISIA solo raid (fast, partial) -- convergent-broker
+- NEW (M7): after disrupting a smuggling node, traffic reroutes within weeks through shared financial infrastructure; invest in cross-agency financial intelligence fusion (long-term, expensive) or accept node-level disruption is a treadmill -- network-hydra
+
+### C. Institutional and Political Dysfunction
+
+- NEW (M8): Council tables your noncompliance report for "further review" while violator's training run continues — watch capability mature during committee debate -- noncompliance-slow-walk
+- NEW (M8): three allied nations propose "voluntary compliance framework" instead of sanctions; violator agrees to suspend (not dismantle) while secretly checkpointing weights -- voluntary-compliance-trap
+- NEW (M8): evidence package sat in committee for 14 months; violator completed and distributed training run checkpoints before sanctions arrived — sanctioning an empty facility -- sanctions-too-late
+- NEW (M9): protected violator openly scales up compute after patron signals it will block any Council action — two-tier enforcement now visible to all treaty members -- shielded-escalation
+- NEW (M10): second nation files withdrawal notice citing first nation's clean exit; withdrawal is contagious, 12 months before monitoring access expires in both -- withdrawal-contagion
+
+### D. Regulatory Capture and Institutional Decay
+
+- NEW (M11): cloud provider's "ISIA-certified monitor" hasn't flagged a violation in 3 years — investigate the monitor or accept the clean record -- delegated-monitor-silence
+- NEW (M11): national inspector program survey reveals 40% of monitors report employer pressure to soften findings -- monitor-pressure-survey
+- NEW (M11): proposal to replace delegated monitors with direct ISIA inspectors at major facilities — allies object to sovereignty cost -- direct-inspection-mandate
+- NEW (M12): largest treaty funder demands "consultation rights" before any enforcement action against its companies -- funder-consultation-demand
+- NEW (M12): budget review: 60% of ISIA funding comes from three nations you're actively investigating -- funding-enforcement-conflict
+- NEW (M12): small nation proposes independent ISIA funding via global compute tax — major funders threaten withdrawal -- compute-tax-independence
+- NEW (M13): new chief inspector spent 15 years at DeepMind, still co-authors papers with former colleagues -- revolving-door-hire
+- NEW (M13): senior technical staff recommend raising compute threshold based on "improved safety understanding" — or is it industry worldview absorption? -- threshold-creep-internal
+- NEW (M13): propose strict post-employment cooling-off period for industry hires — half your technical leads threaten to resign -- cooling-off-policy
+- NEW (M14): internal audit finds monitoring system's false-negative rate is 30%, disclosure would trigger political crisis -- suppressed-audit
+- NEW (M14): safety division's flagship result doesn't replicate, but treaty review is in 3 months -- non-replication-crisis
+- NEW (M14): inspector who flagged problems with ISIA's own operations passed over for promotion three times, now talking to journalists -- internal-whistleblower-retaliation
+
+### E. Cyber and Asymmetric Evasion
+
+- NEW (M15): sanctioned nation funds black-market chip purchases through $800M crypto heist, financial monitoring saw nothing -- cyber-funded-evasion
+- NEW (M15): cyber team that stole funds also planted false readings in ISIA's compute monitoring network, months of data unreliable -- cyber-monitoring-compromise
+- NEW (M15): IT workers with deepfake identities discovered inside ISIA contractor, unclear how long they had access -- infiltrator-deepfake
+- NEW (M16): treaty member's domestic monitoring conveniently missed university lab training above threshold for two years -- willful-blindness
+- NEW (M16): proposal to mandate minimum monitoring standards for all treaty members, seven nations threaten to block at review conference -- monitoring-standards-fight
+- NEW (M16): whistleblower from member nation's regulatory agency reveals they were told "don't look too hard" at compute usage -- dont-look-whistleblower
+
+### F. Sanctions Fatigue and Escalation
+
+- NEW (M17): ISIA sanctions list hits 4,000 entities across 50 countries but field teams can only actively monitor 12%; triage to top 200 threats vs maintain full list for credibility -- sanctions-triage
+- NEW (M17): annual enforcement report reframes "failed to prevent" as "raised cost of evasion by 340%"; lead with this framing or bury it -- cost-imposition-pivot
+- NEW (M17): small treaty nation complains its fishing fleet got sanctioned by mistake via bulk entity-list matching; demands review of all 600 sanctions or walks -- sanctions-overreach
+
 ---
 
 ## Summary: Card Count by Topic
@@ -279,4 +341,5 @@ Insider tips, protection dilemmas, and the leaker-vs-security tension.
 | Sub-ASI Incidents | 1 | 1 |
 | Treaty Compliance | 3 | 3 |
 | Whistleblowers | 2 | 2 |
-| **Total** | **144** | **~124 distinct ideas** |
+| Geopolitics (NEW) | 40 | 40 (pending review) |
+| **Total** | **184** | **~164 distinct ideas** |
