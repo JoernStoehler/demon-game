@@ -118,6 +118,69 @@ These are flavor for narrative events. Can be mutually exclusive within a run fo
 
 This matters for the pause because it shapes the loss condition threshold (D7) and determines what enforcement should monitor. It also bounds how much AI tools can accelerate safety research (D3/D5).
 
+### Chip lifecycle and supply chain (sub-model of D2/D10)
+
+<jörn>
+Here's the simplified model of chip production that a player *can* learn from the game, via events, though ofc mostly the advisors do the heavy lifting and the player is presented with explained/broken down/concrete proposals that they can weigh.
+- there's different chip types, not just with regards to "total compute per chip" or "compute per dollar market price" or "compute per watt" but also with regards to e.g. networking bandwidth, software drivers, and most importantly i suppose, hardware monitoring ; basically, my simplified model is
+  - there's ai-ready chips that can be used for large training experiments, and there's non-ai-ready chips that can be used for inference or small experiments.
+  - there's chips with or without hardware monitoring technology of some generation/version
+  - adversaries might find ways to disable hardware-side monitoring physically or via software, in which case ISIA at most learns about the disabling and perhaps not even that
+  - the power draw of the chips is pretty much immutable
+  - there's software drivers for chips, and sometimes software driver development can make previously non-ai-ready chips ai-ready
+  - we basically factor network devices, memory, power supplies, disks etc into the chips here, since those are way way harder to control anyway
+  - we can call the ai-ready chips sloppily GPUs even though TPUs and other architectures can also be ai-ready and GPUs have very little to do with graphics these days. probably better to say "AI Chips" or something like that.
+- there's chip supply chains that produce chips; for non-ai-ready chips there's by now several chains without strong chokepoints *afaik*, but for *ai-ready* chips there are a few chokepoints:
+  - chip factories are large and few (tsmc)
+  - chip design companies are large and few (nvidia, amd, arm, google)
+  - chip factories require specialized equipment from a single company (asml)
+  - chip software teams are large and few (nvidia, meta, google)
+  - the basic know-how for running the above is concentrated in the existing teams and not trivial to acquire i.e. it seems that China failed repeatedly to build a domestic ai chip supply chain.
+- not chokepoints:
+  - raw materials
+  - packaging
+  - installation
+  - usage
+  - power supply
+  - networking
+- there are two main constellations for how ai chips are arranged into dangerous training runs
+  - centralized: chips are spatially close with specialized (but readily available) networking equipment wired up between them for high-bandwidth distributed training
+  - distributed: chips are spatially distributed in smaller clusters, and conventional networking equipment (perhaps even masked as normal traffic) exchanges compressed training progress ; locally, chips are still 100% utilized since any leftover compute can be used for better compression or more useful artifacts.
+  - One direction of algorithmic progress is towards reducing the overhead from using a distributed algorithm. Concrete papers here are:
+    - gradient compression for exchange between nodes
+    - sparsely active weights s.t. gradients are sparse/short even though the full model intelligence and compute cost remains constant
+    - continuous learning s.t. operations are more robust against disruptions e.g. changes in how many nodes contribute
+  - To enable distributed training under the eyes of ISIA, standard security stuff has to happen e.g. encryption, masking of traffic, cooling to hide thermal signatures, white noise to hide fans, import/export control circumvention, making the tech stack more open-source (ofc ai chips cannot be produced without a factory, but nvidia drivers may be spyware — i.e. software that monitors the system via unannounced methods actively optimized for evading detection by adversaries)
+- politically, there is some institutions/knowledge/accepted geopolitical strategy we can build upon / have to pivot away form:
+  - the Netherlands (and the US via pressure on the Netherlands) strongly control what ASML can do wrt export of machines, and wrt sharing knowledge ; the Netherlands still are a democracy with fundamental freedom for citizens, so e.g. travel is not restricted legally, just financially (it can cost your job)
+  - the US and China pay attention to the chip supply chains
+  - NVidia has bribed openly the US president & allies to buy favorable policy
+  - NVidia has pushed a rhetoric of US vs China to ensure chip supply chains are not regulated as much in the US (since that would mean falling behind China) and has bribed its way into selling chips freely to China (since government officials personally profit from this). Nvidia ofc profits from both (less overhead from regulation and taxation, and more customers globally)
+  - the US gov has passed chip export controls and is extracting bribes from Nvidia to relax them again and again
+  - a lot of companies and academia do research into better chip technology to continue past anticipated bottlenecks when it comes to miniaturization and power demands and bit-flip rates etc.
+
+Summing up my musings:
+- there are "ai chips" and "non-ai chips"
+  - though progress can mean previous non-ai chips become ai chips
+  - ai chips are needed for large training experiments
+- the at least moderately robust bottlenecks of the chip supply chain / the chip lifecycle are:
+  - Knowledge:
+    - How to build photlithography machines (ASML)
+    - How to run a chip factory (TMSC)
+    - How to design ai chips (NVidia, Google, AMD, ARM, ...)
+  - Infrastructure:
+    - Photolithography machine factories (ASML)
+    - Chip factories (TMSC)
+  - Monitoring:
+    - Knowledge is currently stored as public documents, classified documents, and human knowledge ; censorship and travel/communication restrictions and information security and surveillance and legal threats can help but are likely not going to be robust against motivated actors
+    - Factories are large and leave traces one can follow
+    - The produced chips can have hardware-side monitoring built in that is moderately difficult to disable without destroying the chip, and rather difficult to override and fake monitoring signals from ; main function here must be to restrict access to chips to slow down reverse engineering
+    - Packaging and raw material input can be accounted and chip movement be traced
+- ai chips can be arranged as centralized or distributed training runs
+  - there's an effective compute penalty for distributed runs, but it is shrinking due to research progress that's specifically done to help with distribtued runs
+  - distribtued runs can circumvent certain monitoring/enforcement strategies, e.g. one can give up a compromised cluster, or move clusters less conspiciously, etc.
+</jörn>
+
 ## Key causal links
 
 - Salience + valence -> mandate

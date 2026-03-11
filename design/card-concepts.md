@@ -43,11 +43,13 @@ The lethal threshold keeps shrinking -- uncontrollable progress from papers, sma
 
 ## Chip Production
 
-Manufacturing chokepoints and their erosion.
+Manufacturing chokepoints and their erosion. (Expert model moved to domain-model.md.)
 
 - ASML joint venture would move chip production outside treaty monitoring -- asml-joint-venture
 - non-treaty nation builds domestic ASIC foundry outside ASML chokepoint -- custom-asic-foundry
 - inference chips can now run training workloads, monitoring architecture blind to them -- inference-chip-loophole
+
+
 
 ## Chip Supply Chain
 
