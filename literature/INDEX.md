@@ -28,6 +28,8 @@
 | future-of-life-ai-regulation-survey-2025.md | The U.S. Public Wants Regulation (or Prohibition) of Expert-Level and Superhuman AI | Future of Life Institute | 2025 | No |
 | gallup-ai-concerns-2024.md | Americans Express Real Concerns About Artificial Intelligence | Gallup | 2024 | No |
 | gallup-ai-safety-data-security-2025.md | Americans Prioritize AI Safety and Data Security | Gallup | 2025 | No |
+| heim-governing-through-cloud-2024.md | Governing Through the Cloud: The Intermediary Role of Compute Providers in AI Regulation | Lennart Heim, Tim Fist, Janet Egan, Sihao Huang, Stephen Zekany, Robert Trager, Michael Osborne, Noa Zilberman | 2024 | No |
+| heim-training-compute-thresholds-2024.md | Training Compute Thresholds: Features and Functions in AI Regulation | Lennart Heim, Leonie Koessler | 2024 | No |
 | gwern-acre.md | The Ones Who Walk Towards Acre | Gwern Branwen | 2024 | No |
 | gwern-clippy-takeover.md | It Looks Like You're Trying To Take Over The World | Gwern Branwen | 2024 | No |
 | gwern-fermi-paradox.md | A Fermi Paradox Story | Gwern Branwen | 2011 | No |
