@@ -19,11 +19,13 @@
 | apollo-incontext-scheming.md | Frontier Models are Capable of In-Context Scheming | Apollo Research | 2024 | No |
 | brookings-public-opinion-ai-governance-2024.md | What the Public Thinks About AI and the Implications for Governance | Brookings Institution | 2024 | No |
 | carnegie-california-ai-survey-2025.md | Carnegie California AI Survey | Carnegie Endowment for International Peace | 2025 | No |
+| cnas-secure-governable-chips-2024.md | Secure, Governable Chips: Using On-Chip Mechanisms to Manage National Security Risks from AI & Advanced Computing | Onni Aarne, Tim Fist, Caleb Withers | 2024 | No |
 | cotra-ai-defeat-all-combined.md | AI Could Defeat All Of Us Combined | Holden Karnofsky | 2022 | No |
 | cotra-ai-takeover-default.md | Without specific countermeasures, the easiest path to transformative AI likely leads to AI takeover | Ajeya Cotra | 2022 | No |
 | dario-amodei-machines-of-loving-grace.md | Machines of Loving Grace | Dario Amodei | 2024 | No |
 | diloco-distributed-training-2024.md | DiLoCo: Distributed Low-Communication Training of Language Models | Arthur Douillard, Qixuan Feng, Andrei A. Rusu, et al. (Google DeepMind) | 2024 | No |
 | deepmind-frontier-safety-framework-v3-2025.md | Google DeepMind Frontier Safety Framework v3 | Google DeepMind | 2025 | No |
+| epoch-algorithmic-progress-lm-2024.md | Algorithmic Progress in Language Models | Anson Ho, Tamay Besiroglu, Ege Erdil, David Owen, Robi Rahman, Zifan Carl Guo, David Atkinson, Neil Thompson, Jaime Sevilla | 2024 | No |
 | eu-ai-act-summary.md | EU AI Act: Comprehensive Summary | European Commission / European Parliament | 2024 | No |
 | future-of-life-ai-regulation-survey-2025.md | The U.S. Public Wants Regulation (or Prohibition) of Expert-Level and Superhuman AI | Future of Life Institute | 2025 | No |
 | gallup-ai-concerns-2024.md | Americans Express Real Concerns About Artificial Intelligence | Gallup | 2024 | No |
@@ -56,6 +58,7 @@
 | miri-corrigibility-2015.md | Corrigibility | Nate Soares, Benja Fallenstein, Eliezer Yudkowsky, Stuart Armstrong | 2015 | No |
 | miri-death-with-dignity.md | MIRI announces new 'Death With Dignity' strategy | Eliezer Yudkowsky | 2022 | No |
 | openai-preparedness-framework-v2-2025.md | OpenAI Preparedness Framework v2 | OpenAI | 2025 | No |
+| pollack-principal-agent-international-delegation-2007.md | Principal-Agent Analysis and International Delegation: Red Herrings, Theoretical Clarifications, and Empirical Disputes | Mark A. Pollack | 2007 | No |
 | pew-ai-global-views-2025.md | How People Around the World View AI | Pew Research Center | 2025 | No |
 | pew-ai-public-vs-expert-views-2025.md | How the US Public and AI Experts View Artificial Intelligence | Pew Research Center | 2025 | No |
 | political-statements-ai-risk.md | Key Political Statements on AI Risk (2023-2025) | Various government officials and international bodies | 2023-2025 | No |
