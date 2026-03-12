@@ -17,6 +17,7 @@
 | anthropic-rsp-v2-2024.md | Anthropic Responsible Scaling Policy v2 | Anthropic | 2024 | No |
 | anthropic-sleeper-agents.md | Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training | Evan Hubinger, Carson Denison, Jesse Mu, et al. | 2024 | No |
 | apollo-incontext-scheming.md | Frontier Models are Capable of In-Context Scheming | Apollo Research | 2024 | No |
+| barnett-finnemore-io-pathologies-1999.md | The Politics, Power, and Pathologies of International Organizations | Michael N. Barnett and Martha Finnemore | 1999 | Yes |
 | brookings-public-opinion-ai-governance-2024.md | What the Public Thinks About AI and the Implications for Governance | Brookings Institution | 2024 | No |
 | carnegie-california-ai-survey-2025.md | Carnegie California AI Survey | Carnegie Endowment for International Peace | 2025 | No |
 | cnas-secure-governable-chips-2024.md | Secure, Governable Chips: Using On-Chip Mechanisms to Manage National Security Risks from AI & Advanced Computing | Onni Aarne, Tim Fist, Caleb Withers | 2024 | No |
