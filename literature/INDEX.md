@@ -17,10 +17,13 @@
 | anthropic-rsp-v2-2024.md | Anthropic Responsible Scaling Policy v2 | Anthropic | 2024 | No |
 | anthropic-sleeper-agents.md | Sleeper Agents: Training Deceptive LLMs that Persist Through Safety Training | Evan Hubinger, Carson Denison, Jesse Mu, et al. | 2024 | No |
 | apollo-incontext-scheming.md | Frontier Models are Capable of In-Context Scheming | Apollo Research | 2024 | No |
+| azoulay-arpa-model-2019.md | Funding Breakthrough Research: Promises and Challenges of the "ARPA Model" | Pierre Azoulay, Erica Fuchs, Anna Goldstein, Michael Kearney | 2019 | No |
 | barnett-finnemore-io-pathologies-1999.md | The Politics, Power, and Pathologies of International Organizations | Michael N. Barnett and Martha Finnemore | 1999 | Yes |
 | brookings-public-opinion-ai-governance-2024.md | What the Public Thinks About AI and the Implications for Governance | Brookings Institution | 2024 | No |
 | carnegie-california-ai-survey-2025.md | Carnegie California AI Survey | Carnegie Endowment for International Peace | 2025 | No |
 | cnas-secure-governable-chips-2024.md | Secure, Governable Chips: Using On-Chip Mechanisms to Manage National Security Risks from AI & Advanced Computing | Onni Aarne, Tim Fist, Caleb Withers | 2024 | No |
+| controlai-moratorium-failure-modes-2025.md | Perfect Implementation Isn't Enough: Four Ways an ASI Moratorium Could Fail | Damin Curtis | 2025 | No |
+| controlai-narrow-path-2025.md | A Narrow Path: How to Secure Our Future | Andrea Miotti, Tolga Bilge, Dave Kasten, James Newport (ControlAI) | 2025 | No |
 | cotra-ai-defeat-all-combined.md | AI Could Defeat All Of Us Combined | Holden Karnofsky | 2022 | No |
 | cotra-ai-takeover-default.md | Without specific countermeasures, the easiest path to transformative AI likely leads to AI takeover | Ajeya Cotra | 2022 | No |
 | dario-amodei-machines-of-loving-grace.md | Machines of Loving Grace | Dario Amodei | 2024 | No |
@@ -53,14 +56,17 @@
 | iabied-resources-part2.md | IABIED Online Resources: Part II - One Extinction Scenario | Eliezer Yudkowsky, Nate Soares | 2025 | No |
 | iabied-treaty.md | A Tentative Draft of a Treaty, with Annotations | Eliezer Yudkowsky, Nate Soares, MIRI Technical Governance Team | 2025 | No |
 | intellect1-decentralized-training-2024.md | INTELLECT-1: Launching the First Decentralized Training of a 10B Parameter Model | Sami Jaghouar, Jack Min Ong, Johannes Hagemann, Manveer Basra, et al. (Prime Intellect) | 2024 | No |
+| ist-sl5-standard-2025.md | SL5 Novel Recommendations: A Blueprint for Achieving Security Level 5 in Frontier AI | Lisa Thiergart, Luis Cosio, Yoav Tzfati, Peter Wagstaff, Philip Reiner (IST SL5 Task Force) | 2025 | No |
 | jan-leike-openai-departure-2024.md | Jan Leike's Departure from OpenAI | Jan Leike (public statements) | 2024 | No |
 | kasperson-social-amplification-risk-1988.md | The Social Amplification of Risk: A Conceptual Framework | Roger E. Kasperson, Ortwin Renn, Paul Slovic, et al. | 1988 | No |
 | kreuder-sonnen-io-emergency-authority-2019.md | International authority and the emergency problematique: IO empowerment through crises | Christian Kreuder-Sonnen | 2019 | No |
+| marchau-deep-uncertainty-2019.md | Decision Making under Deep Uncertainty: From Theory to Practice | Vincent A. W. J. Marchau, Warren E. Walker, Pieter J. T. M. Bloemen, Steven W. Popper (Eds.) | 2019 | No |
 | mccright-dunlap-climate-polarization-2011.md | The Politicization of Climate Change and Polarization in the American Public's Views of Global Warming, 2001–2010 | Aaron M. McCright, Riley E. Dunlap | 2011 | Yes |
 | metr-gpt5-eval.md | METR's Evaluation of OpenAI GPT-5 | METR (Model Evaluation & Threat Research) | 2025 | No |
 | miri-agent-foundations-agenda-2014.md | Agent Foundations for Aligning Machine Intelligence with Human Interests: A Technical Research Agenda | Nate Soares, Benya Fallenstein | 2014 | No |
 | miri-communications-strategy-2024.md | MIRI Communications Strategy and Approach | MIRI / Eliezer Yudkowsky / Nate Soares | 2024 | No |
 | miri-corrigibility-2015.md | Corrigibility | Nate Soares, Benja Fallenstein, Eliezer Yudkowsky, Stuart Armstrong | 2015 | No |
+| miri-tech-governance-treaty-2025.md | An International Agreement to Prevent the Premature Creation of Artificial Superintelligence | Aaron Scher, David Abecassis, Peter Barnett, Brian Abeyta | 2025 | No |
 | miri-death-with-dignity.md | MIRI announces new 'Death With Dignity' strategy | Eliezer Yudkowsky | 2022 | No |
 | openai-preparedness-framework-v2-2025.md | OpenAI Preparedness Framework v2 | OpenAI | 2025 | No |
 | pew-ai-global-views-2025.md | How People Around the World View AI | Pew Research Center | 2025 | No |

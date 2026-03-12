@@ -1,10 +1,10 @@
 # Literature Gap Assessment
 
-Generated 2026-03-12 by systematic audit of ~85 literature files against the 10-dimension domain model.
+Generated 2026-03-12, updated 2026-03-12 after downloading 6 additional papers (SL5/pause proposals, research management, deep uncertainty).
 
 ## Summary
 
-The literature collection is **strong on AI safety/alignment, public opinion snapshots, and geopolitics analogs**, but **weak on enforcement mechanics, institutional dynamics, and long-horizon opinion change**. The biggest gaps are exactly where the game most needs grounding: how enforcement actually works day-to-day, and how public opinion evolves over decades (not just what it looks like today).
+The literature collection is now **strong across most dimensions**. Previous gaps in enforcement mechanics, institutional dynamics, and long-horizon opinion change have been substantially filled. The remaining true gaps are inherently novel (no one has written about running ISIA) and will be grounded by Jörn's domain expertise rather than literature searches.
 
 ---
 
@@ -14,7 +14,7 @@ The literature collection is **strong on AI safety/alignment, public opinion sna
 
 | Dimension | Files | Assessment |
 |-----------|-------|------------|
-| **D1: ISIA Mandate & Treaty** | ~8 | IABIED treaty draft, EU AI Act, SB1047, executive orders, RSPs. Solid grounding for what a treaty looks like. |
+| **D1: ISIA Mandate & Treaty** | ~12 | IABIED treaty draft, EU AI Act, SB1047, executive orders, RSPs, **+ ControlAI "A Narrow Path" (20-year moratorium with IASC/GUARD/IAT institutions), MIRI tech governance treaty (US-China executive council + CTB), moratorium failure modes (4 evasion vectors)**. Now the strongest dimension — multiple detailed treaty designs to draw from. |
 | **D5: Safety Knowledge** | ~15 | Alignment faking, sleeper agents, reward hacking, corrigibility, MIRI agenda, scheming. Deep coverage of why alignment is hard. |
 | **D9: AI Behavior** | ~8 | Apollo scheming, Anthropic alignment faking/reward hacking, METR evals. Good coverage of emergent misbehavior. |
 | **D4: Public Sentiment (snapshots)** | ~10 | Pew, Gallup, Brookings, Carnegie, FLI, Public Citizen surveys. Excellent cross-section of current opinion. But see gap below for *dynamics*. |
@@ -23,13 +23,13 @@ The literature collection is **strong on AI safety/alignment, public opinion sna
 
 **Recommendation:** No further searches needed for these areas. Diminishing returns.
 
-### ADEQUATELY COVERED (targeted searches only if specific card needs grounding)
+### ADEQUATELY COVERED → NOW WELL-COVERED
 
 | Dimension | Files | Assessment |
 |-----------|-------|------------|
-| **D2: Enforcement Resources** | ~5 | Wasil verification methods, RAND model weights, CNAS chip smuggling. Covers *what* to enforce but thin on *how* (operational details of chip tracking, inspection protocols). |
-| **D3: Safety Resources** | ~3 | Covered indirectly by safety knowledge papers. Thin on research management/funding dynamics specifically. |
-| **D8: Cat-and-Mouse** | ~4 | Sanctions evasion cases, Khan network. Good analogs but no formal treatment of adversarial dynamics in compute monitoring. |
+| **D2: Enforcement Resources** | ~8 | Wasil verification methods, RAND model weights, CNAS chips, **+ IST SL5 Standard (5 security domains, nation-state defense requirements), ControlAI defense-in-depth (6 layers)**. Now covers both *what* and *how*. |
+| **D3: Safety Resources** | ~5 | Safety knowledge papers **+ Azoulay ARPA model (program director discretion, right-tail funding, milestone management), Marchau deep uncertainty (DMDU frameworks, signposts/triggers, adaptation tipping points)**. Research management under Knightian uncertainty is now well-grounded. |
+| **D8: Cat-and-Mouse** | ~6 | Sanctions evasion, Khan network, **+ moratorium failure modes (regulatory havens, distributed GPU swarms, covert state supercomputers, offshore proxies), RAND game theory**. Now has both analogs and formal adversarial analysis. |
 
 ### GAPS (high search value — new this session)
 
@@ -68,40 +68,51 @@ The game needs quantitative anchors for "the clock is ticking" — how fast does
 
 **Remaining gap:** INTELLECT-1 (open distributed training demo) — download may still be pending. Also: no formal model of threshold erosion rates combining algorithmic + hardware progress. May need to derive this ourselves from the Epoch data.
 
-### 3. Public Opinion Dynamics (D4) — DOWNLOADS PENDING
+### 3. Public Opinion Dynamics (D4) — FILLED (prior session)
 
-We have 10 surveys showing *what people think now*. We have zero on *how opinions change over decades*. For a 30-year game, this is critical. The search identified classic frameworks:
+- **Social amplification of risk** (Kasperson 1988): 7 amplification stations, ripple effects — DONE
+- **Psychic numbing** (Slovic 2007): "the more who die, the less we care" — DONE
+- **Climate polarization** (McCright & Dunlap 2011): polarization increases despite scientific consensus — DONE
+- **Issue-attention cycle** (Downs 1972): UNAVAILABLE (content filter blocks download; 1972 methodology likely superseded by Kasperson framework anyway)
 
-- **Issue-attention cycle** (Downs 1972): 5-stage model of how issues rise and fade from public attention
-- **Social amplification of risk** (Kasperson 1988): How risk events get amplified or dampened by media, institutions, activist groups
-- **Psychic numbing** (Slovic 2007): Why threats to billions feel less urgent than threats to identifiable individuals
-- **Climate polarization** (McCright & Dunlap 2011): How political polarization on a technical issue can *increase* despite growing scientific consensus — the strongest analog for AI risk over 30 years
+### 4. Institutional Dynamics — FILLED
 
-**Status:** Papers identified and downloads launched. Once available, these will ground the "opinion cluster" mechanics and long-horizon political dynamics.
+- **Treaty effectiveness** (Hoffman 2022): most treaties fail to achieve intended effects — DONE
+- **IO pathologies** (Barnett & Finnemore 1999): 5 pathologies of international organizations — DONE
+- **Principal-agent delegation** (Pollack 2007): how member states control IOs — DONE
 
-### 4. Institutional Dynamics — DOWNLOADS PENDING
+### 5. ASI Moratorium Design (NEW) — FILLED
 
-ISIA is an international organization. How do IOs actually behave over decades? The search found:
+This gap wasn't identified in the original audit because no published moratorium proposals existed when we started. Now we have three:
 
-- **Treaty effectiveness** (Hoffman 2022): Meta-analysis showing most treaties fail to achieve intended effects — downloaded
-- **IO pathologies** (Barnett & Finnemore 1999): IOs develop autonomous interests and dysfunctional behaviors — download pending
-- **Principal-agent delegation** (Pollack 2007): How member states control (or fail to control) international agencies — download pending
+- **"A Narrow Path"** (ControlAI 2025): 20-year moratorium, IASC/GUARD/IAT institutional design, 6-layer defense-in-depth, two-tier licensing, hardware tracking — the most detailed published proposal
+- **MIRI Tech Governance treaty** (Scher et al. 2025): US-China executive council, Coalition Technical Body, 10^24/10^22 FLOP thresholds, chip cluster tracking, enforcement ladder
+- **"Four Ways a Moratorium Could Fail"** (Curtis 2025): Red-team of the above — regulatory havens, GPU swarms, covert state programs, offshore proxies
 
-**Status:** These will ground the "institutional rot" and "mandate creep" card dynamics.
+These three papers together provide the strongest grounding for ISIA's institutional design and the specific failure modes the player must navigate.
+
+### 6. Research Management Under Deep Uncertainty (NEW) — FILLED
+
+- **Azoulay ARPA model** (2019): Program director discretion, right-tail funding, milestone management, failure modes of the DARPA approach
+- **Marchau deep uncertainty** (2019): DMDU frameworks (RDM, DAP, DAPP), signposts and triggers, adaptation tipping points — the theoretical foundation for managing alignment research where timelines and costs are genuinely unknowable
+
+### 7. Facility Security (NEW) — FILLED
+
+- **IST SL5 Standard** (2025): 5 security domains (supply chain, network, machine, physical, personnel), specific requirements for defending against nation-state adversaries — what ISIA-supervised facilities would actually look like
 
 ---
 
 ## Remaining True Gaps (no good literature exists)
 
-These are areas where expert literature is thin or nonexistent, and we'll need to rely on Jörn's domain expertise:
+These are areas where expert literature is thin or nonexistent, and we'll rely on Jörn's domain expertise:
 
-1. **ISIA-specific enforcement operations.** No one has written about how a hypothetical ASI pause agency would actually run day-to-day. We extrapolate from IAEA + compute governance papers, but the specific combination is novel.
+1. **ISIA-specific enforcement operations.** No one has written about how a hypothetical ASI pause agency would actually run day-to-day. We now have strong analogs (IAEA, "A Narrow Path" IASC, MIRI CTB) and detailed compute governance mechanics, but the specific ISIA synthesis is novel.
 
-2. **AI-assisted enforcement paradox.** The idea that the agency must use AI tools that are themselves potentially dangerous — this is discussed in IABIED but not formalized anywhere.
+2. **AI-assisted enforcement paradox.** The agency must use AI tools that are themselves potentially dangerous. Discussed in IABIED but not formalized. "A Narrow Path" partially addresses this via GUARD (the only lab permitted to work at the frontier).
 
-3. **Alignment research management.** How do you run a research program on a problem where the expertise doesn't exist yet, you can't parallelize, and your best tool is also your biggest risk? No management science literature covers this specific case.
+3. **30-year political economy of a technology ban.** No technology has been successfully banned at this scale for this duration. The closest analogs (nuclear nonproliferation, CFC ban) are imperfect. The moratorium failure modes paper identifies specific political failure vectors but doesn't model 30-year dynamics.
 
-4. **30-year political economy of a technology ban.** No technology has been successfully banned at this scale for this duration. The closest analogs (nuclear nonproliferation, CFC ban) are imperfect. This is inherently speculative territory.
+Note: "Alignment research management" was previously listed here but is now partially grounded by Azoulay (ARPA model) + Marchau (DMDU frameworks) + Jörn's domain expertise on cost uncertainty, positive/negative results, and containment.
 
 ---
 
@@ -117,10 +128,17 @@ These are areas where expert literature is thin or nonexistent, and we'll need t
 | RAND, Compute Governance Game Theory | rand-compute-governance-game-theory-2025 | DONE |
 | Hoffman et al., Treaties Failed Intended Effects | hoffman-treaties-failed-intended-effects-2022 | DONE |
 | DiLoCo, Distributed Training | diloco-distributed-training-2024 | DONE |
-| Epoch AI, Algorithmic Progress in LMs | epoch-algorithmic-progress-2024 | PENDING |
-| Downs, Issue-Attention Cycle | downs-issue-attention-cycle-1972 | PENDING |
-| Kasperson et al., Social Amplification of Risk | kasperson-social-amplification-risk-1988 | PENDING |
-| Slovic, Psychic Numbing | slovic-psychic-numbing-2007 | PENDING |
-| McCright & Dunlap, Climate Polarization | mccright-dunlap-climate-polarization-2011 | PENDING |
-| Barnett & Finnemore, IO Pathologies | barnett-finnemore-io-pathologies-1999 | PENDING |
-| Pollack, PA and International Delegation | pollack-principal-agent-international-delegation-2007 | DONE (from prior session) |
+| Epoch AI, Algorithmic Progress in LMs | epoch-algorithmic-progress-lm-2024 | DONE (existed already) |
+| Kasperson et al., Social Amplification of Risk | kasperson-social-amplification-risk-1988 | DONE |
+| Slovic, Psychic Numbing | slovic-psychic-numbing-2007 | DONE (encrypted) |
+| McCright & Dunlap, Climate Polarization | mccright-dunlap-climate-polarization-2011 | DONE (encrypted) |
+| Barnett & Finnemore, IO Pathologies | barnett-finnemore-io-pathologies-1999 | DONE (encrypted) |
+| Pollack, PA and International Delegation | pollack-principal-agent-international-delegation-2007 | DONE |
+| INTELLECT-1, Decentralized Training | intellect1-decentralized-training-2024 | DONE |
+| ControlAI, A Narrow Path | controlai-narrow-path-2025 | DONE |
+| Curtis, Four Ways a Moratorium Could Fail | controlai-moratorium-failure-modes-2025 | DONE |
+| MIRI Tech Governance Treaty | miri-tech-governance-treaty-2025 | DONE |
+| IST SL5 Standard | ist-sl5-standard-2025 | DONE |
+| Marchau et al., Decision Making under Deep Uncertainty | marchau-deep-uncertainty-2019 | DONE |
+| Azoulay et al., ARPA Model | azoulay-arpa-model-2019 | DONE |
+| Downs, Issue-Attention Cycle | — | UNAVAILABLE (content filter) |
