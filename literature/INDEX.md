@@ -28,6 +28,7 @@
 | future-of-life-ai-regulation-survey-2025.md | The U.S. Public Wants Regulation (or Prohibition) of Expert-Level and Superhuman AI | Future of Life Institute | 2025 | No |
 | gallup-ai-concerns-2024.md | Americans Express Real Concerns About Artificial Intelligence | Gallup | 2024 | No |
 | gallup-ai-safety-data-security-2025.md | Americans Prioritize AI Safety and Data Security | Gallup | 2025 | No |
+| hoffman-treaties-failed-intended-effects-2022.md | International treaties have mostly failed to produce their intended effects | Steven J. Hoffman, Mathieu J.P. Poirier, et al. | 2022 | No |
 | heim-governing-through-cloud-2024.md | Governing Through the Cloud: The Intermediary Role of Compute Providers in AI Regulation | Lennart Heim, Tim Fist, Janet Egan, Sihao Huang, Stephen Zekany, Robert Trager, Michael Osborne, Noa Zilberman | 2024 | No |
 | heim-training-compute-thresholds-2024.md | Training Compute Thresholds: Features and Functions in AI Regulation | Lennart Heim, Leonie Koessler | 2024 | No |
 | gwern-acre.md | The Ones Who Walk Towards Acre | Gwern Branwen | 2024 | No |
@@ -61,6 +62,7 @@
 | public-citizen-voter-support-ai-regulation-2025.md | Years of Polling Show Overwhelming Voter Support for a Crackdown on AI | Public Citizen | 2025 | No |
 | rand-ai-model-weight-security-2024.md | Securing AI Model Weights | RAND Corporation | 2024 | No |
 | rand-compute-governance-game-theory-2025.md | Strategies and Detection Gaps in a Game-Theoretic Model of Compute Governance | Alvin Moon, Padmaja Vedula, Jesse Geneson, Simon Bar-on | 2025 | No |
+| sastry-heim-compute-governance-2024.md | Computing Power and the Governance of Artificial Intelligence | Girish Sastry, Lennart Heim, Haydn Belfield, et al. | 2024 | No |
 | sb1047-analysis.md | California SB 1047 Analysis | Various (Carnegie Endowment, Brookings, legal analyses) | 2024 | No |
 | us-ai-executive-orders.md | US Executive Orders on AI | The White House / US Government | 2023-2025 | No |
 | wasil-verification-methods-ai-agreements-2024.md | Verification Methods for International AI Agreements | Akash R. Wasil, Tom Reed, Jack William Miller, Peter Barnett | 2024 | No |
