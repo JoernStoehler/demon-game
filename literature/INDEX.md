@@ -58,7 +58,9 @@
 | political-statements-ai-risk.md | Key Political Statements on AI Risk (2023-2025) | Various government officials and international bodies | 2023-2025 | No |
 | public-citizen-voter-support-ai-regulation-2025.md | Years of Polling Show Overwhelming Voter Support for a Crackdown on AI | Public Citizen | 2025 | No |
 | rand-ai-model-weight-security-2024.md | Securing AI Model Weights | RAND Corporation | 2024 | No |
+| rand-compute-governance-game-theory-2025.md | Strategies and Detection Gaps in a Game-Theoretic Model of Compute Governance | Alvin Moon, Padmaja Vedula, Jesse Geneson, Simon Bar-on | 2025 | No |
 | sb1047-analysis.md | California SB 1047 Analysis | Various (Carnegie Endowment, Brookings, legal analyses) | 2024 | No |
 | us-ai-executive-orders.md | US Executive Orders on AI | The White House / US Government | 2023-2025 | No |
+| wasil-verification-methods-ai-agreements-2024.md | Verification Methods for International AI Agreements | Akash R. Wasil, Tom Reed, Jack William Miller, Peter Barnett | 2024 | No |
 | yudkowsky-agi-ruin-lethalities.md | AGI Ruin: A List of Lethalities | Eliezer Yudkowsky | 2022 | No |
 | yudkowsky-time-shut-it-down.md | Pausing AI Developments Isn't Enough. We Need to Shut It All Down | Eliezer Yudkowsky (TIME) | 2023 | No |
