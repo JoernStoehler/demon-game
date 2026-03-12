@@ -52,6 +52,7 @@
 | iabied-resources-part2.md | IABIED Online Resources: Part II - One Extinction Scenario | Eliezer Yudkowsky, Nate Soares | 2025 | No |
 | iabied-treaty.md | A Tentative Draft of a Treaty, with Annotations | Eliezer Yudkowsky, Nate Soares, MIRI Technical Governance Team | 2025 | No |
 | jan-leike-openai-departure-2024.md | Jan Leike's Departure from OpenAI | Jan Leike (public statements) | 2024 | No |
+| kreuder-sonnen-io-emergency-authority-2019.md | International authority and the emergency problematique: IO empowerment through crises | Christian Kreuder-Sonnen | 2019 | No |
 | metr-gpt5-eval.md | METR's Evaluation of OpenAI GPT-5 | METR (Model Evaluation & Threat Research) | 2025 | No |
 | miri-agent-foundations-agenda-2014.md | Agent Foundations for Aligning Machine Intelligence with Human Interests: A Technical Research Agenda | Nate Soares, Benya Fallenstein | 2014 | No |
 | miri-communications-strategy-2024.md | MIRI Communications Strategy and Approach | MIRI / Eliezer Yudkowsky / Nate Soares | 2024 | No |
