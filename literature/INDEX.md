@@ -22,6 +22,7 @@
 | cotra-ai-defeat-all-combined.md | AI Could Defeat All Of Us Combined | Holden Karnofsky | 2022 | No |
 | cotra-ai-takeover-default.md | Without specific countermeasures, the easiest path to transformative AI likely leads to AI takeover | Ajeya Cotra | 2022 | No |
 | dario-amodei-machines-of-loving-grace.md | Machines of Loving Grace | Dario Amodei | 2024 | No |
+| diloco-distributed-training-2024.md | DiLoCo: Distributed Low-Communication Training of Language Models | Arthur Douillard, Qixuan Feng, Andrei A. Rusu, et al. (Google DeepMind) | 2024 | No |
 | deepmind-frontier-safety-framework-v3-2025.md | Google DeepMind Frontier Safety Framework v3 | Google DeepMind | 2025 | No |
 | eu-ai-act-summary.md | EU AI Act: Comprehensive Summary | European Commission / European Parliament | 2024 | No |
 | future-of-life-ai-regulation-survey-2025.md | The U.S. Public Wants Regulation (or Prohibition) of Expert-Level and Superhuman AI | Future of Life Institute | 2025 | No |
