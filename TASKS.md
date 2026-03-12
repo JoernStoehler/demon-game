@@ -33,7 +33,7 @@ What's settled vs. placeholder — read this before polishing or building on any
 | Domain model (`design/domain-model.md`) | **Settled** | 10-dimension expert model, clean rewrite, game-state mapping |
 | Card concepts (`design/card-concepts.md`) | **Settled** | 144 ideas by topic, duplicate flags, upstream design artifact |
 | History chains / degraded variants | **Draft** | Some exist in current cards, needs expansion |
-| Achievements / card collection | **Not started** | Deferred — only 28 cards, collection completes in ~5 runs |
+| Achievements / card collection | **Not started** | Deferred — revisit after content overhaul |
 
 Status tiers: **Settled** = safe to build on. **Draft** = exists but expected to change. **Placeholder** = will be replaced. **Not started** = blocked or deferred.
 
@@ -50,11 +50,11 @@ Jörn identified that the game's geopolitical model is naive — treats corrupti
 **Steps:**
 1. [x] Flag gap in domain-model.md
 2. [x] Agent research: 4 reports in `design/research/` (arms control, sanctions evasion, regulatory capture, 30yr geopolitics) — agent-written, cited, need expert validation
-3. [x] Fetch cited source documents → `literature/geopolitics/` (in progress)
-4. [ ] Synthesis: extract ~15-20 mechanisms, map to current card coverage → `design/geopolitics-synthesis.md` (in progress)
+3. [x] Fetch cited source documents → `literature/` (16 geopolitics sources added to literature root)
+4. [x] Synthesis: 17 mechanisms extracted → `design/geopolitics-synthesis.md`
 5. [ ] Jörn reviews synthesis, corrects misunderstandings, adds expert context
-6. [ ] Update domain-model.md with validated geopolitics model
-7. [ ] Derive new card concepts from updated model
+6. [x] Update domain-model.md with validated geopolitics model (M1–M17 ISIA scenario model)
+7. [x] Derive new card concepts from updated model → 40 geopolitics card concepts in `design/card-concepts.md`
 8. [ ] Implement cards in TypeScript
 
 ### Other (blocked on content decisions)
@@ -84,16 +84,16 @@ When re-balancing after content changes, follow this process:
 
 5. **Re-simulate after changes.** Check: (a) death types spread across 5+ of 8 causes, (b) turn counts 15-40, (c) no card appears more than once every 4 turns.
 
-**Last balance state (28 cards, 24 death messages):** 6/8 death types observed. Still rare: intel-depleted (intel trends up), leverage-depleted (rescued by crisis card). Only random-play tested — no human playtesting yet.
+**Last balance state (144 cards, 8 death messages):** STALE — balance stats are from the old 28-card set. Needs re-simulation after content overhaul.
 
 ---
 
 ### Considered but deferred
 
-- Achievements / card collection: only 28 cards — collection completes in ~5 runs. Revisit after content overhaul
+- Achievements / card collection: revisit after content overhaul
 - Settings screen: nothing to configure. Add if tutorial needs skip toggle or accessibility needs arise
 - Better desktop layout: mobile is primary, current max-w-md phone-app look works fine
-- Different starts + immersive selection screen: massive scope, premature with 28 cards
+- Different starts + immersive selection screen: massive scope, premature before content overhaul
 - framer-motion migration: AnimatePresence would properly sequence card enter/exit (currently setTimeout + key remount)
 
 ---

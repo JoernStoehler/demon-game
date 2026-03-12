@@ -25,7 +25,7 @@ literature/
 - `carlsmith-scheming-report.md` — Joe Carlsmith's scheming report
 - `aisi-international-framework.md` — AISI international framework paper
 
-**No nesting.** Flat directory. Subdirectories only if we hit 30+ files (unlikely).
+**No nesting.** Flat directory. ~90 files and growing, but the flat structure still works fine with INDEX.md as the navigation layer.
 
 ---
 

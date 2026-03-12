@@ -33,16 +33,16 @@ literature/            # Reference materials on AI x-risk (see literature/CLAUDE
 
 ## Game Mechanics
 
-### Resource Bars (die at 0 or 100) [Draft — may change in content overhaul]
+### Resource Bars (die at 0 or 100) [Draft — content overhaul may adjust]
 
-| Bar | Icon | At 0 | At 100 |
-|---|---|---|---|
-| **Trust** | Shield | Public revolt, agency defunded | Overpromised; visible failure shatters credibility |
-| **Funding** | Coin | Can't operate, agency shuttered | Waste scandal, agency dismantled |
-| **Intel** | Eye | Blind to threats, ASI slips through | Surveillance state, nations flee treaty |
-| **Leverage** | Gavel | No political power, ignored | Authoritarian backlash, coalition revolts |
+| Key | Bar | Icon | At 0 | At 100 |
+|---|---|---|---|---|
+| `pol` | **Political Power** | Shield | Voted out — political support collapsed, pause ends | Hubris — unchecked institution, capture, crash |
+| `int` | **Intelligence** | Eye | Gone dark — lost surveillance, rogue run succeeds | Panopticon — total surveillance drives threats underground |
+| `saf` | **Safety Progress** | Checkmark | Running out of time — threshold shrunk past enforcement | The cure kills — safety research produced ASI |
+| `alg` | **Algorithmic Progress** | Rising bars | (monotone accumulator, shouldn't deplete) | Consumer hardware sufficient — enforcement can't monitor living rooms |
 
-All bars start at 50. Every card choice nudges 1-3 bars. The player's job is to keep all four bars away from both extremes. This is intentionally difficult — the bars pull against each other.
+All bars start at 50. `pol` and `int` bounce (spendable); `saf` and `alg` are monotone accumulators. Every card choice nudges 1-3 bars. The player's job is to keep bars away from extremes.
 
 ### Card Pool
 
@@ -143,7 +143,7 @@ src/
 - Choice labels: text-sm bold, below speaker name, both always visible
 
 **Resource icons:**
-- 48×48 SVG icons: shield (Trust), dollar (Funding), eye (Intel), scales (Leverage)
+- 48×48 SVG icons: shield (pol), eye (int), checkmark (saf), rising-bars (alg)
 - Single color (#D4C8A0), compact row at top of screen
 - Preview indicators on tilt: small colored triangles (green ↑ / red ↓, single or double for magnitude)
 
