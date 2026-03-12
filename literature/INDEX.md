@@ -23,19 +23,19 @@
 | cotra-ai-defeat-all-combined.md | AI Could Defeat All Of Us Combined | Holden Karnofsky | 2022 | No |
 | cotra-ai-takeover-default.md | Without specific countermeasures, the easiest path to transformative AI likely leads to AI takeover | Ajeya Cotra | 2022 | No |
 | dario-amodei-machines-of-loving-grace.md | Machines of Loving Grace | Dario Amodei | 2024 | No |
-| diloco-distributed-training-2024.md | DiLoCo: Distributed Low-Communication Training of Language Models | Arthur Douillard, Qixuan Feng, Andrei A. Rusu, et al. (Google DeepMind) | 2024 | No |
 | deepmind-frontier-safety-framework-v3-2025.md | Google DeepMind Frontier Safety Framework v3 | Google DeepMind | 2025 | No |
+| diloco-distributed-training-2024.md | DiLoCo: Distributed Low-Communication Training of Language Models | Arthur Douillard, Qixuan Feng, Andrei A. Rusu, et al. (Google DeepMind) | 2024 | No |
 | epoch-algorithmic-progress-lm-2024.md | Algorithmic Progress in Language Models | Anson Ho, Tamay Besiroglu, Ege Erdil, David Owen, Robi Rahman, Zifan Carl Guo, David Atkinson, Neil Thompson, Jaime Sevilla | 2024 | No |
 | eu-ai-act-summary.md | EU AI Act: Comprehensive Summary | European Commission / European Parliament | 2024 | No |
 | future-of-life-ai-regulation-survey-2025.md | The U.S. Public Wants Regulation (or Prohibition) of Expert-Level and Superhuman AI | Future of Life Institute | 2025 | No |
 | gallup-ai-concerns-2024.md | Americans Express Real Concerns About Artificial Intelligence | Gallup | 2024 | No |
 | gallup-ai-safety-data-security-2025.md | Americans Prioritize AI Safety and Data Security | Gallup | 2025 | No |
-| hoffman-treaties-failed-intended-effects-2022.md | International treaties have mostly failed to produce their intended effects | Steven J. Hoffman, Mathieu J.P. Poirier, et al. | 2022 | No |
-| heim-governing-through-cloud-2024.md | Governing Through the Cloud: The Intermediary Role of Compute Providers in AI Regulation | Lennart Heim, Tim Fist, Janet Egan, Sihao Huang, Stephen Zekany, Robert Trager, Michael Osborne, Noa Zilberman | 2024 | No |
-| heim-training-compute-thresholds-2024.md | Training Compute Thresholds: Features and Functions in AI Regulation | Lennart Heim, Leonie Koessler | 2024 | No |
 | gwern-acre.md | The Ones Who Walk Towards Acre | Gwern Branwen | 2024 | No |
 | gwern-clippy-takeover.md | It Looks Like You're Trying To Take Over The World | Gwern Branwen | 2024 | No |
 | gwern-fermi-paradox.md | A Fermi Paradox Story | Gwern Branwen | 2011 | No |
+| heim-governing-through-cloud-2024.md | Governing Through the Cloud: The Intermediary Role of Compute Providers in AI Regulation | Lennart Heim, Tim Fist, Janet Egan, Sihao Huang, Stephen Zekany, Robert Trager, Michael Osborne, Noa Zilberman | 2024 | No |
+| heim-training-compute-thresholds-2024.md | Training Compute Thresholds: Features and Functions in AI Regulation | Lennart Heim, Leonie Koessler | 2024 | No |
+| hoffman-treaties-failed-intended-effects-2022.md | International treaties have mostly failed to produce their intended effects | Steven J. Hoffman, Mathieu J.P. Poirier, et al. | 2022 | No |
 | iabied-book.md | If Anyone Builds It, Everyone Dies | Eliezer Yudkowsky, Nate Soares | 2025 | Yes |
 | iabied-errata.md | If Anyone Builds It, Everyone Dies - Errata | Eliezer Yudkowsky, Nate Soares | 2025 | No |
 | iabied-resources-ch1.md | IABIED Online Resources: Chapter 1 - Humanity's Special Power | Eliezer Yudkowsky, Nate Soares | 2025 | No |
@@ -51,23 +51,27 @@
 | iabied-resources-intro.md | IABIED Online Resources: Introduction | Eliezer Yudkowsky, Nate Soares | 2025 | No |
 | iabied-resources-part2.md | IABIED Online Resources: Part II - One Extinction Scenario | Eliezer Yudkowsky, Nate Soares | 2025 | No |
 | iabied-treaty.md | A Tentative Draft of a Treaty, with Annotations | Eliezer Yudkowsky, Nate Soares, MIRI Technical Governance Team | 2025 | No |
+| intellect1-decentralized-training-2024.md | INTELLECT-1: Launching the First Decentralized Training of a 10B Parameter Model | Sami Jaghouar, Jack Min Ong, Johannes Hagemann, Manveer Basra, et al. (Prime Intellect) | 2024 | No |
 | jan-leike-openai-departure-2024.md | Jan Leike's Departure from OpenAI | Jan Leike (public statements) | 2024 | No |
+| kasperson-social-amplification-risk-1988.md | The Social Amplification of Risk: A Conceptual Framework | Roger E. Kasperson, Ortwin Renn, Paul Slovic, et al. | 1988 | No |
 | kreuder-sonnen-io-emergency-authority-2019.md | International authority and the emergency problematique: IO empowerment through crises | Christian Kreuder-Sonnen | 2019 | No |
+| mccright-dunlap-climate-polarization-2011.md | The Politicization of Climate Change and Polarization in the American Public's Views of Global Warming, 2001–2010 | Aaron M. McCright, Riley E. Dunlap | 2011 | Yes |
 | metr-gpt5-eval.md | METR's Evaluation of OpenAI GPT-5 | METR (Model Evaluation & Threat Research) | 2025 | No |
 | miri-agent-foundations-agenda-2014.md | Agent Foundations for Aligning Machine Intelligence with Human Interests: A Technical Research Agenda | Nate Soares, Benya Fallenstein | 2014 | No |
 | miri-communications-strategy-2024.md | MIRI Communications Strategy and Approach | MIRI / Eliezer Yudkowsky / Nate Soares | 2024 | No |
 | miri-corrigibility-2015.md | Corrigibility | Nate Soares, Benja Fallenstein, Eliezer Yudkowsky, Stuart Armstrong | 2015 | No |
 | miri-death-with-dignity.md | MIRI announces new 'Death With Dignity' strategy | Eliezer Yudkowsky | 2022 | No |
 | openai-preparedness-framework-v2-2025.md | OpenAI Preparedness Framework v2 | OpenAI | 2025 | No |
-| pollack-principal-agent-international-delegation-2007.md | Principal-Agent Analysis and International Delegation: Red Herrings, Theoretical Clarifications, and Empirical Disputes | Mark A. Pollack | 2007 | No |
 | pew-ai-global-views-2025.md | How People Around the World View AI | Pew Research Center | 2025 | No |
 | pew-ai-public-vs-expert-views-2025.md | How the US Public and AI Experts View Artificial Intelligence | Pew Research Center | 2025 | No |
 | political-statements-ai-risk.md | Key Political Statements on AI Risk (2023-2025) | Various government officials and international bodies | 2023-2025 | No |
+| pollack-principal-agent-international-delegation-2007.md | Principal-Agent Analysis and International Delegation: Red Herrings, Theoretical Clarifications, and Empirical Disputes | Mark A. Pollack | 2007 | No |
 | public-citizen-voter-support-ai-regulation-2025.md | Years of Polling Show Overwhelming Voter Support for a Crackdown on AI | Public Citizen | 2025 | No |
 | rand-ai-model-weight-security-2024.md | Securing AI Model Weights | RAND Corporation | 2024 | No |
 | rand-compute-governance-game-theory-2025.md | Strategies and Detection Gaps in a Game-Theoretic Model of Compute Governance | Alvin Moon, Padmaja Vedula, Jesse Geneson, Simon Bar-on | 2025 | No |
 | sastry-heim-compute-governance-2024.md | Computing Power and the Governance of Artificial Intelligence | Girish Sastry, Lennart Heim, Haydn Belfield, et al. | 2024 | No |
 | sb1047-analysis.md | California SB 1047 Analysis | Various (Carnegie Endowment, Brookings, legal analyses) | 2024 | No |
+| slovic-psychic-numbing-2007.md | "If I look at the mass I will never act": Psychic numbing and genocide | Paul Slovic | 2007 | Yes |
 | us-ai-executive-orders.md | US Executive Orders on AI | The White House / US Government | 2023-2025 | No |
 | wasil-verification-methods-ai-agreements-2024.md | Verification Methods for International AI Agreements | Akash R. Wasil, Tom Reed, Jack William Miller, Peter Barnett | 2024 | No |
 | yudkowsky-agi-ruin-lethalities.md | AGI Ruin: A List of Lethalities | Eliezer Yudkowsky | 2022 | No |
