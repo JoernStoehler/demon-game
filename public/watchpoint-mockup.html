@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WATCHPOINT — Layout Mockup</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #1a1a2e;
+    color: #e0d8c0;
+    font-family: 'Courier New', monospace;
+    width: 390px;
+    height: 844px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #333;
+  }
+
+  /* Status bar */
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    height: 44px;
+    background: #0d0d1a;
+    font-size: 11px;
+    gap: 8px;
+  }
+  .status-bar .year { font-weight: bold; font-size: 13px; }
+  .race-bars { display: flex; gap: 6px; flex: 1; }
+  .race-bar {
+    flex: 1;
+    height: 14px;
+    background: #2a2a3e;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+  }
+  .race-bar .fill {
+    height: 100%;
+    border-radius: 3px;
+  }
+  .race-bar .fill.safety { background: #4a7; width: 35%; }
+  .race-bar .fill.alg { background: #a44; width: 55%; }
+  .race-bar .label {
+    position: absolute;
+    top: 1px;
+    left: 4px;
+    font-size: 9px;
+    color: #ccc;
+  }
+
+  /* Schematic area */
+  .schematic {
+    position: relative;
+    height: 520px;
+    padding: 10px;
+  }
+  .schematic svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Signal readout */
+  .signal-readout {
+    background: #16213e;
+    border: 1px solid #2a3a5e;
+    margin: 0 10px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 1.4;
+    height: 70px;
+    overflow: hidden;
+  }
+  .signal-readout .signal-icon { color: #e8a; }
+
+  /* Tool palette */
+  .tool-palette {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 8px 10px;
+    height: 56px;
+    background: #0d0d1a;
+    gap: 4px;
+  }
+  .tool-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    font-size: 9px;
+    color: #999;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 4px;
+    border: 1px solid #333;
+    min-width: 52px;
+  }
+  .tool-btn .icon { font-size: 18px; }
+  .tool-btn.active { border-color: #6a6; color: #cdc; }
+
+  /* Response buttons */
+  .response-bar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 6px 10px;
+    height: 44px;
+  }
+  .response-btn {
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-family: inherit;
+    cursor: pointer;
+    border: 1px solid #444;
+    background: #1a1a2e;
+    color: #e0d8c0;
+  }
+  .response-btn.investigate { border-color: #4a7; }
+  .response-btn.act { border-color: #a44; }
+
+  /* Phase labels */
+  .phase-label {
+    position: absolute;
+    top: 8px;
+    right: 20px;
+    font-size: 10px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Node styles */
+  .node-circle {
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .node-circle:hover { filter: brightness(1.3); }
+  .node-label {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    fill: #ccc;
+    text-anchor: middle;
+    pointer-events: none;
+  }
+  .edge-line {
+    stroke: #3a3a5e;
+    stroke-width: 2;
+    fill: none;
+  }
+  .edge-line.smuggling {
+    stroke: #a44;
+    stroke-dasharray: 6 3;
+    opacity: 0.7;
+  }
+  .tool-icon {
+    font-size: 14px;
+    text-anchor: middle;
+    pointer-events: none;
+  }
+  .tool-icon.degraded { opacity: 0.4; }
+
+  /* Threat pulse */
+  @keyframes pulse {
+    0%, 100% { r: 22; opacity: 0.3; }
+    50% { r: 28; opacity: 0.6; }
+  }
+  .threat-pulse {
+    fill: #a44;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  /* Council timer */
+  .council-timer {
+    font-size: 10px;
+    fill: #ea8;
+    text-anchor: middle;
+  }
+
+  /* Distributed cluster dots */
+  .distributed-dot {
+    fill: #a44;
+    opacity: 0.6;
+  }
+
+  /* Tab indicator for current mockup */
+  .mockup-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    padding: 6px;
+    background: #0a0a16;
+  }
+  .mockup-tab {
+    padding: 4px 10px;
+    font-size: 10px;
+    font-family: inherit;
+    border: 1px solid #333;
+    background: #1a1a2e;
+    color: #999;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .mockup-tab.active { border-color: #6a6; color: #cdc; }
+</style>
+</head>
+<body>
+
+<!-- Tabs to switch between session complexities -->
+<div class="mockup-tabs">
+  <button class="mockup-tab active" onclick="showPhase('early')">Session 1 (3 nodes)</button>
+  <button class="mockup-tab" onclick="showPhase('mid')">Session 3 (6 nodes)</button>
+  <button class="mockup-tab" onclick="showPhase('late')">Session 7 (8 nodes)</button>
+</div>
+
+<!-- Status bar -->
+<div class="status-bar">
+  <span class="year">2032</span>
+  <div class="race-bars">
+    <div class="race-bar">
+      <div class="fill safety"></div>
+      <span class="label">Safety</span>
+    </div>
+    <div class="race-bar">
+      <div class="fill alg"></div>
+      <span class="label">Alg. Progress</span>
+    </div>
+  </div>
+  <span style="font-size:11px">Cap: 3/5</span>
+</div>
+
+<!-- Schematic -->
+<div class="schematic">
+  <span class="phase-label" id="phase-label">Foundation</span>
+
+  <!-- Session 1: 3 nodes -->
+  <svg id="phase-early" viewBox="0 0 370 500">
+    <!-- Edges -->
+    <line x1="100" y1="140" x2="185" y2="260" class="edge-line"/>
+    <line x1="185" y1="260" x2="270" y2="380" class="edge-line"/>
+
+    <!-- Chip flow dots -->
+    <circle cx="130" cy="180" r="3" fill="#4a7" opacity="0.6"/>
+    <circle cx="150" cy="210" r="3" fill="#4a7" opacity="0.5"/>
+    <circle cx="165" cy="230" r="3" fill="#4a7" opacity="0.4"/>
+
+    <!-- Nodes -->
+    <circle cx="100" cy="140" r="28" fill="#2a3a2e" stroke="#4a7" stroke-width="2" class="node-circle"/>
+    <text x="100" y="144" class="node-label">FACTORY</text>
+    <text x="100" y="115" class="node-label" style="font-size:8px;fill:#666">TSMC (only one)</text>
+
+    <circle cx="185" cy="260" r="28" fill="#2a2a3e" stroke="#556" stroke-width="2" class="node-circle"/>
+    <text x="185" y="264" class="node-label">SHIPPING</text>
+    <!-- Chip tracker tool on edge -->
+    <text x="155" y="195" class="tool-icon">📍</text>
+    <text x="155" y="208" style="font-size:8px;fill:#6a6;text-anchor:middle">2400/2100</text>
+
+    <circle cx="270" cy="380" r="28" fill="#2a2a3e" stroke="#556" stroke-width="2" class="node-circle"/>
+    <text x="270" y="384" class="node-label">DATA CENTER</text>
+
+    <!-- Unknown node appearing -->
+    <line x1="185" y1="260" x2="80" y2="400" class="edge-line smuggling"/>
+    <circle cx="80" cy="400" r="22" fill="none" stroke="#a44" stroke-width="2" stroke-dasharray="5 3" class="node-circle"/>
+    <text x="80" y="404" class="node-label" style="fill:#a44">???</text>
+    <circle cx="80" cy="400" r="22" class="threat-pulse"/>
+  </svg>
+
+  <!-- Session 3: 6 nodes -->
+  <svg id="phase-mid" viewBox="0 0 370 500" style="display:none">
+    <!-- Edges -->
+    <line x1="60" y1="70" x2="185" y2="120" class="edge-line"/>
+    <line x1="185" y1="120" x2="185" y2="210" class="edge-line"/>
+    <line x1="185" y1="210" x2="100" y2="320" class="edge-line"/>
+    <line x1="185" y1="210" x2="280" y2="320" class="edge-line"/>
+    <!-- Smuggling route -->
+    <line x1="185" y1="210" x2="310" y2="180" class="edge-line smuggling"/>
+    <line x1="310" y1="180" x2="280" y2="320" class="edge-line smuggling"/>
+
+    <!-- ASML -->
+    <circle cx="60" cy="70" r="24" fill="#2a3a2e" stroke="#4a7" stroke-width="2" class="node-circle"/>
+    <text x="60" y="68" class="node-label" style="font-size:9px">ASML</text>
+    <text x="60" y="78" class="node-label" style="font-size:7px;fill:#666">(machines)</text>
+
+    <!-- Factory -->
+    <circle cx="185" cy="120" r="26" fill="#2a3a2e" stroke="#4a7" stroke-width="2" class="node-circle"/>
+    <text x="185" y="124" class="node-label">FACTORY</text>
+    <!-- Satellite tool -->
+    <text x="215" y="108" class="tool-icon">🛰</text>
+
+    <!-- Shipping -->
+    <circle cx="185" cy="210" r="24" fill="#2a2a3e" stroke="#556" stroke-width="2" class="node-circle"/>
+    <text x="185" y="214" class="node-label" style="font-size:9px">SHIPPING</text>
+    <!-- Chip tracker -->
+    <text x="175" y="168" class="tool-icon">📍</text>
+
+    <!-- Shell company (smuggling) -->
+    <circle cx="310" cy="180" r="22" fill="#3a2a2e" stroke="#a44" stroke-width="1.5" class="node-circle"/>
+    <text x="310" y="177" class="node-label" style="font-size:8px;fill:#e88">SHELL</text>
+    <text x="310" y="187" class="node-label" style="font-size:8px;fill:#e88">CO</text>
+    <!-- Financial monitor on smuggling edge -->
+    <text x="255" y="190" class="tool-icon">📊</text>
+
+    <!-- Region A -->
+    <circle cx="100" cy="320" r="26" fill="#2a2a3e" stroke="#556" stroke-width="2" class="node-circle"/>
+    <text x="100" y="318" class="node-label" style="font-size:9px">REGION</text>
+    <text x="100" y="328" class="node-label" style="font-size:9px">A</text>
+    <!-- Inspector -->
+    <text x="128" y="312" class="tool-icon">👤</text>
+
+    <!-- Region B with distributed cluster -->
+    <circle cx="280" cy="320" r="26" fill="#2a2a3e" stroke="#556" stroke-width="2" class="node-circle"/>
+    <text x="280" y="318" class="node-label" style="font-size:9px">REGION</text>
+    <text x="280" y="328" class="node-label" style="font-size:9px">B</text>
+    <!-- Distributed dots inside -->
+    <circle cx="270" cy="340" r="3" class="distributed-dot"/>
+    <circle cx="280" cy="345" r="3" class="distributed-dot"/>
+    <circle cx="290" cy="338" r="3" class="distributed-dot"/>
+    <circle cx="275" cy="350" r="3" class="distributed-dot"/>
+    <circle cx="288" cy="348" r="3" class="distributed-dot"/>
+    <circle cx="280" cy="320" r="26" class="threat-pulse" style="opacity:0.15"/>
+
+    <!-- Power analyzer on Region B -->
+    <text x="310" y="340" class="tool-icon">⚡</text>
+  </svg>
+
+  <!-- Session 7: 8 nodes with decay -->
+  <svg id="phase-late" viewBox="0 0 370 500" style="display:none">
+    <!-- Edges -->
+    <line x1="50" y1="55" x2="165" y2="90" class="edge-line"/>
+    <line x1="165" y1="90" x2="165" y2="170" class="edge-line"/>
+    <line x1="165" y1="170" x2="80" y2="265" class="edge-line"/>
+    <line x1="165" y1="170" x2="260" y2="265" class="edge-line"/>
+    <!-- Smuggling routes -->
+    <line x1="165" y1="170" x2="320" y2="140" class="edge-line smuggling"/>
+    <line x1="320" y1="140" x2="320" y2="265" class="edge-line smuggling"/>
+    <line x1="80" y1="265" x2="80" y2="370" class="edge-line"/>
+    <line x1="260" y1="265" x2="320" y2="370" class="edge-line smuggling"/>
+
+    <!-- ASML -->
+    <circle cx="50" cy="55" r="20" fill="#2a3a2e" stroke="#4a7" stroke-width="1.5" class="node-circle"/>
+    <text x="50" y="58" class="node-label" style="font-size:8px">ASML</text>
+
+    <!-- Factory -->
+    <circle cx="165" cy="90" r="22" fill="#2a3a2e" stroke="#4a7" stroke-width="2" class="node-circle"/>
+    <text x="165" y="93" class="node-label" style="font-size:9px">FACTORY</text>
+    <text x="192" y="80" class="tool-icon">🛰</text>
+
+    <!-- Shipping -->
+    <circle cx="165" cy="170" r="20" fill="#2a2a3e" stroke="#556" stroke-width="1.5" class="node-circle"/>
+    <text x="165" y="173" class="node-label" style="font-size:8px">SHIPPING</text>
+    <text x="165" y="140" class="tool-icon">📍</text>
+
+    <!-- Shell Co -->
+    <circle cx="320" cy="140" r="18" fill="#3a2a2e" stroke="#a44" stroke-width="1.5" class="node-circle"/>
+    <text x="320" y="138" class="node-label" style="font-size:7px;fill:#e88">SHELL</text>
+    <text x="320" y="147" class="node-label" style="font-size:7px;fill:#e88">CO</text>
+    <text x="248" y="150" class="tool-icon">📊</text>
+
+    <!-- Region A -->
+    <circle cx="80" cy="265" r="22" fill="#2a2a3e" stroke="#556" stroke-width="1.5" class="node-circle"/>
+    <text x="80" y="263" class="node-label" style="font-size:8px">REGION</text>
+    <text x="80" y="273" class="node-label" style="font-size:8px">A</text>
+    <!-- Degraded inspector -->
+    <text x="108" y="258" class="tool-icon degraded">👤</text>
+    <text x="108" y="270" style="font-size:8px;fill:#a44;text-anchor:middle">?</text>
+
+    <!-- Region B with distributed -->
+    <circle cx="260" cy="265" r="22" fill="#2a2a3e" stroke="#556" stroke-width="1.5" class="node-circle"/>
+    <text x="260" y="263" class="node-label" style="font-size:8px">REGION</text>
+    <text x="260" y="273" class="node-label" style="font-size:8px">B</text>
+    <circle cx="253" cy="280" r="2.5" class="distributed-dot"/>
+    <circle cx="260" cy="283" r="2.5" class="distributed-dot"/>
+    <circle cx="267" cy="279" r="2.5" class="distributed-dot"/>
+    <text x="288" y="275" class="tool-icon">⚡</text>
+
+    <!-- Broker (convergent network - M7) -->
+    <circle cx="320" cy="265" r="18" fill="#3a2a2a" stroke="#a44" stroke-width="1.5" class="node-circle"/>
+    <text x="320" y="263" class="node-label" style="font-size:7px;fill:#e88">BROKER</text>
+    <text x="320" y="272" class="node-label" style="font-size:7px;fill:#e88">NET</text>
+    <circle cx="320" cy="265" r="18" class="threat-pulse" style="opacity:0.2"/>
+
+    <!-- Declared Lab -->
+    <circle cx="80" cy="370" r="22" fill="#2a3a2e" stroke="#4a7" stroke-width="1.5" class="node-circle"/>
+    <text x="80" y="368" class="node-label" style="font-size:8px">DECLARED</text>
+    <text x="80" y="378" class="node-label" style="font-size:8px">LAB</text>
+    <text x="108" y="365" class="tool-icon">👤</text>
+    <!-- Council timer -->
+    <text x="80" y="398" class="council-timer">&#9201; 2 turns</text>
+
+    <!-- Rogue Lab -->
+    <circle cx="320" cy="370" r="22" fill="#3a1a1a" stroke="#a44" stroke-width="2" class="node-circle"/>
+    <text x="320" y="368" class="node-label" style="font-size:8px;fill:#e88">ROGUE</text>
+    <text x="320" y="378" class="node-label" style="font-size:8px;fill:#e88">LAB</text>
+    <circle cx="320" cy="370" r="22" class="threat-pulse"/>
+    <!-- Accumulation bar -->
+    <rect x="302" y="396" width="36" height="6" fill="#2a2a3e" rx="2"/>
+    <rect x="302" y="396" width="24" height="6" fill="#a44" rx="2"/>
+    <text x="320" y="414" style="font-size:7px;fill:#a44;text-anchor:middle">67%</text>
+
+    <!-- Informant -->
+    <text x="48" y="310" class="tool-icon">👁</text>
+    <text x="48" y="322" style="font-size:7px;fill:#666;text-anchor:middle">informant</text>
+  </svg>
+</div>
+
+<!-- Signal readout -->
+<div class="signal-readout">
+  <span class="signal-icon">&#9888;</span>
+  <span id="signal-text">Thermal anomaly at Region A — but Inspector reports "compliant." Satellite and inspector disagree. Which instrument do you trust?</span>
+</div>
+
+<!-- Tool palette -->
+<div class="tool-palette">
+  <div class="tool-btn active"><span class="icon">🛰</span>Satellite</div>
+  <div class="tool-btn active"><span class="icon">👤</span>Inspector</div>
+  <div class="tool-btn active"><span class="icon">📍</span>Tracker</div>
+  <div class="tool-btn"><span class="icon">📊</span>Finance</div>
+  <div class="tool-btn"><span class="icon">⚡</span>Power</div>
+  <div class="tool-btn"><span class="icon">👁</span>Informant</div>
+</div>
+
+<!-- Response buttons -->
+<div class="response-bar">
+  <button class="response-btn investigate">Investigate</button>
+  <button class="response-btn act">Act (costs capital)</button>
+  <button class="response-btn" style="border-color:#666">Ignore</button>
+</div>
+
+<script>
+function showPhase(phase) {
+  document.querySelectorAll('.schematic svg').forEach(s => s.style.display = 'none');
+  document.querySelectorAll('.mockup-tab').forEach(t => t.classList.remove('active'));
+
+  document.getElementById('phase-' + phase).style.display = 'block';
+
+  const tabs = document.querySelectorAll('.mockup-tab');
+  const signals = {
+    early: 'Chip tracker alert: 2,400 shipped but only 2,100 received. 300 chips missing in transit. One shipment = enough compute for a frontier training run.',
+    mid: 'Power anomaly in Region B: aggregate draw across 30 residential addresses consistent with coordinated GPU cluster. Satellite sees nothing — individual sites too small.',
+    late: 'Thermal anomaly at Region A — but Inspector reports "compliant." Satellite and inspector disagree. Which instrument do you trust?'
+  };
+  const phases = { early: 'Foundation', mid: 'Evasion', late: 'Decay' };
+
+  document.getElementById('signal-text').textContent = signals[phase];
+  document.getElementById('phase-label').textContent = phases[phase];
+
+  if (phase === 'early') tabs[0].classList.add('active');
+  if (phase === 'mid') tabs[1].classList.add('active');
+  if (phase === 'late') tabs[2].classList.add('active');
+}
+</script>
+
+</body>
+</html>
