@@ -312,6 +312,18 @@ Fields:
 - **Unrealistic scenario**: Something that wouldn't happen under this treaty framework
 - **Redundant card**: Mechanically identical to an existing card with different flavor text
 
+### Common Agent Mistakes (observed in review)
+
+These recur across agent-written cards. Check every card against this list:
+
+1. **SHORT TEXT**: Cards come in at 35-50 words when the floor is 50. Agents stop writing too early. Aim for 60-80.
+2. **SINGLE-RESOURCE choices**: `effects: { pol: -8 }` on one side — the guide requires 2-3 resources touched per choice.
+3. **ASYMMETRIC cost**: Right choice in political cards often affects only 1 resource vs left's 2. Creates a soft "safe" option — both sides need real tradeoffs.
+4. **"you" in card text**: Speaker talks TO you, but the text body describes the situation in third person. Watch for second-person game prose creeping in.
+5. **Dangling hidden state**: `hiddenEffects: { key: 1 }` that no other card reads. Every hidden state write needs a corresponding reader.
+6. **alg treated as controllable**: alg is a monotone accumulator (capabilities going up is bad). Cards that let the player reduce alg violate the domain model.
+7. **Non-choice on "stay out" side**: Labor/economic cards frequently make the passive option a non-choice with only 1 resource and a small delta.
+
 ---
 
 ## Speakers (21 portraits available)

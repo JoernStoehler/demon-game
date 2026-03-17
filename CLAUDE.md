@@ -8,7 +8,7 @@ A Reigns-clone where the player is the Director-General of the ISIA (Internation
 
 **Target audience:** People who don't yet appreciate how a global pause on AI development might work — or fail.
 
-**Core thesis (Jörn's framing):** A pause is hard to get right and relies on a lot of luck and crisis management. The pause is not relaxed waiting but frantic effort to finish the safety homework before the deadline approaches. The player learns this by dying repeatedly from different failure modes, each caused by the tension between competing priorities.
+**Core thesis (Jörn's framing):** (1) Without a serious pause we are dead. (2) A serious pause is possible. (3) It requires specific things — the talking points. Players should leave with articulable knowledge ("a pause needs X because Y") they can explain to a friend. The talking points are a deeper layer of learning — retained through repetition across sessions, not from a single first play.
 
 **Inspiration:** Reigns (Nerial, 2016). Faithful clone of its core mechanics: dynamic card pool, weighted draw, binary swipe, four resource bars that kill at both extremes.
 
