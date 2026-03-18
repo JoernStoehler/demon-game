@@ -29,6 +29,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     tree \
     inotify-tools \
     age \
+    tmux \
+    trash-cli \
     && rm -rf /var/lib/apt/lists/*
 
 # VS Code tunnel CLI (bake into image to avoid slow postCreate download)

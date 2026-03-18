@@ -38,6 +38,41 @@ echo "code-tunnel: $(code-tunnel --version 2>/dev/null || echo 'not found')"
 echo "node: $(node -v 2>/dev/null || echo 'not found')"
 echo "npm: $(npm -v 2>/dev/null || echo 'not found')"
 
+# tmux config for Claude Code TUI compatibility
+# Based on https://github.com/sethdford/tmux-claude-code
+cat > ~/.tmux.conf << 'TMUXCONF'
+set -g mouse on
+set -g status off
+set -g set-titles on
+set -g set-titles-string "[#S] #{pane_title}"
+set -g @scroll-down-exit-copy-mode off
+
+# Claude Code fixes
+set -g allow-passthrough on
+set -sg escape-time 0
+set -g extended-keys always
+set -as terminal-features 'xterm*:extkeys'
+set -as terminal-features 'xterm-kitty:extkeys'
+set -g set-clipboard on
+set -g history-limit 250000
+set -g focus-events on
+set -g default-terminal "tmux-256color"
+set -ag terminal-overrides ",xterm-256color:RGB"
+
+# Copy mode styling (readable on light background)
+set -g mode-style "bg=#a8d1ff,fg=#000000"
+TMUXCONF
+
+# Safe delete wrapper — redirects rm to trash-put (use /bin/rm for real deletes)
+if ! grep -q 'trash-put' ~/.bashrc 2>/dev/null; then
+  cat >> ~/.bashrc << 'BASHRC'
+
+# Safe delete: redirect rm to trash-put (use /bin/rm for real deletes)
+rm() { trash-put "$@"; }
+export -f rm
+BASHRC
+fi
+
 # Source .env into shell profile so secrets are available in all sessions.
 DOTENV="/workspaces/xrisk-pause-game/.env"
 if [ -f "$DOTENV" ] && ! grep -q 'source.*\.env' "${HOME}/.bashrc"; then
