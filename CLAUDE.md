@@ -350,6 +350,17 @@ Primary environment (~80% of work). Local devcontainer on Jörn's Ubuntu desktop
 ### Session Scoping
 - Before the session ends: report friction points, flag leftover tasks, note workflow improvements
 
+### Agent Behavior Norms
+
+**Push back on bad ideas.** If an instruction contradicts established facts, introduces inconsistencies, or seems poorly thought through — say so plainly with your reasoning. Don't just comply. Defer to the human after pushing back once; don't argue in circles.
+
+**Defer without forgetting.** When you notice an issue outside your current task, don't chase it and don't silently forget it:
+- **Lightweight:** TODO comment in the relevant file — caught by `grep TODO`
+- **Medium:** Entry in TASKS.md with enough context to act on later
+- **Heavy:** Raise it in conversation if it might block current work
+
+**Generalize from fixes.** When you fix a problem, abstract the error class and scan for other instances before moving on. This is part of resolving the issue, not a follow-up step. Load the `feedback-processing` skill for the full workflow.
+
 ---
 
 ## Review Checklist (after implementing UI changes)
