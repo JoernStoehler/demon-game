@@ -1,14 +1,61 @@
 ---
 name: post-mortem
-description: Run a session post-mortem to capture process failures and improvement opportunities
+description: Run a session post-mortem to capture process failures and improvement opportunities. Use at end of session, when something went wrong, or to improve prompts.
+user-invocable: true
 ---
 
-Review the current session for process failures. Check each item and report only items that apply:
+Reflect on the current session. This runs in main context (not as a subagent) because it needs access to the session's conversation history.
 
-1. **Agent splitting needed?** — Did any multi-responsibility agent fail to adequately cover all its assigned checks? If so, recommend splitting into focused agents.
-2. **Fabrications slipped through?** — Did fabricated claims, false attributions, or convention violations reach Jörn that should have been caught by subagent review?
-3. **Iterated in front of user?** — Did I run multiple fix/review cycles in the conversation instead of using subagents offline?
-4. **False attribution?** — Did I attribute something to Jörn or to a source that didn't actually say it?
-5. **Memory update needed?** — Are there new process lessons from this session that belong in `memory/process-rules.md`?
+## Shared core — answer for every session
 
-Write findings to `memory/process-rules.md` if any new rules emerged.
+Be concrete and specific. Vague feedback is not useful.
+
+### 1. Friction
+What slowed you down?
+
+Bad: "The code was confusing"
+Good: "Couldn't find which card file handles crisis events — they're spread across 38 files with no naming convention for category"
+
+### 2. Unclear Instructions
+What was confusing in CLAUDE.md, skills, or agent prompts?
+
+Bad: "The prompt was unclear"
+Good: "write-cards skill doesn't specify whether degraded variants should be in the same file as the base card"
+
+### 3. Missing Context
+What information wasn't provided but was needed?
+
+Bad: "Didn't have enough context"
+Good: "Needed to know which literature sources have been validated by Jörn vs which are agent-fetched and unreviewed"
+
+### 4. What Worked Well
+What should be preserved or expanded?
+
+### 5. Suggested Changes
+Specific, actionable improvements.
+
+Bad: "Make things clearer"
+Good: "Add a 'validated' field to literature YAML frontmatter"
+
+## Process checks — report only items that apply
+
+6. **Agent splitting needed?** — Did any multi-responsibility agent fail to cover all its checks? Recommend splitting if so.
+7. **Fabrications slipped through?** — Did fabricated claims, false attributions, or convention violations reach Jörn that subagent review should have caught?
+8. **Iterated in front of user?** — Did I run multiple fix/review cycles in conversation instead of using subagents offline?
+9. **False attribution?** — Did I attribute something to Jörn or a source that didn't actually say it?
+10. **Assumed Jörn read something?** — Did I act as if Jörn saw a question or information that he may not have read?
+
+## Generalize from issues
+
+For each friction point or mistake identified above: abstract the error class and check whether the same class of error exists elsewhere in the repo. This step is part of the postmortem, not deferred — once findings are written, the generalization may never happen.
+
+## Output
+
+Write findings to `memory/process-rules.md` if new rules emerged.
+
+Follow-up actions:
+- Update CLAUDE.md or agent prompts directly for quick fixes
+- Add TODO comments in relevant files for localized issues
+- Add to TASKS.md for issues needing more context
+- Check that any design decisions or card concepts discussed in conversation are written to design/ files
+- Update iabied-vocabulary.md if new fabrications were identified
