@@ -359,7 +359,7 @@ Primary environment (~80% of work). Local devcontainer on Jörn's Ubuntu desktop
 - **Medium:** Entry in TASKS.md with enough context to act on later
 - **Heavy:** Raise it in conversation if it might block current work
 
-**Generalize from mistakes.** When you fix a problem or notice you made a process error (forgot a check, skipped a step, made a wrong assumption), abstract the error class and scan for other instances — in the code, in your own recent behavior, and in your current plan. This applies to your own oversights, not just bugs in artifacts. Load the `feedback-processing` skill for the full workflow.
+**Generalize from mistakes.** When you fix a problem or notice you made a process error (forgot a check, skipped a step, made a wrong assumption), abstract the error class and scan for other instances — in the code, in your own recent behavior, and in your current plan. This applies to your own oversights, not just bugs in artifacts. Load the `meta-feedback-processing` skill for the full workflow.
 
 **Recognize your complexity limits.** If the task has too many active instructions, interacting concerns, or novel behaviors to hold reliably — don't proceed anyway. Instead:
 1. Delegate to focused subagents with simpler prompts
