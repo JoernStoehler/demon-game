@@ -11,6 +11,13 @@ This file tracks current work and project state. Read at session start.
 
 Status updates: mark items DONE/STALE, don't delete — context matters for future sessions.
 
+### Escalation Markers
+
+Each task item carries an escalation marker:
+- 🔴 **Jörn decision required** — agent cannot proceed alone
+- 🟡 **Agent can attempt**, but should present result for Jörn review before building on it
+- 🟢 **Agent can do autonomously**
+
 ---
 
 ## Maturity Map
@@ -52,19 +59,19 @@ Jörn identified that the game's geopolitical model is naive — treats corrupti
 2. [x] Agent research: 4 reports in `design/research/` (arms control, sanctions evasion, regulatory capture, 30yr geopolitics) — agent-written, cited, need expert validation
 3. [x] Fetch cited source documents → `literature/` (16 geopolitics sources added to literature root)
 4. [x] Synthesis: 17 mechanisms extracted → `design/geopolitics-synthesis.md`
-5. [ ] Jörn reviews synthesis, corrects misunderstandings, adds expert context
+5. [ ] 🔴 Jörn reviews synthesis, corrects misunderstandings, adds expert context
 6. [x] Update domain-model.md with validated geopolitics model (M1–M17 ISIA scenario model)
 7. [x] Derive new card concepts from updated model → 40 geopolitics card concepts in `design/card-concepts.md`
-8. [ ] Implement cards in TypeScript
+8. [ ] 🟢 Implement cards in TypeScript
 
 ### Other (blocked on content decisions)
 
-- [ ] Card text quality: 144 cards exist but text is agent-written placeholder quality — Jörn reviewing via `design/cards-export.md` and `public/cards-map.html`
-- [ ] Portrait regeneration: 11 bad, 3 borderline — blocked on card content
-- [ ] More history-triggered chains (blocked on card content)
-- [ ] More degraded variant pairs (blocked on card content)
-- [ ] Re-balance after content pass
-- [ ] Title/death screen polish — defer until after card content pass
+- [ ] 🔴 Card text quality: 144 cards exist but text is agent-written placeholder quality — Jörn reviewing via `design/cards-export.md` and `public/cards-map.html`
+- [ ] 🔴 Portrait regeneration: 11 bad, 3 borderline — blocked on card content
+- [ ] 🟡 More history-triggered chains (blocked on card content)
+- [ ] 🟡 More degraded variant pairs (blocked on card content)
+- [ ] 🟢 Re-balance after content pass
+- [ ] 🔴 Title/death screen polish — defer until after card content pass
 
 ### Balance Tuning Process
 
@@ -90,11 +97,11 @@ When re-balancing after content changes, follow this process:
 
 ### Considered but deferred
 
-- Achievements / card collection: revisit after content overhaul
-- Settings screen: nothing to configure. Add if tutorial needs skip toggle or accessibility needs arise
-- Better desktop layout: mobile is primary, current max-w-md phone-app look works fine
-- Different starts + immersive selection screen: massive scope, premature before content overhaul
-- framer-motion migration: AnimatePresence would properly sequence card enter/exit (currently setTimeout + key remount)
+- 🔴 Achievements / card collection: revisit after content overhaul
+- 🟢 Settings screen: nothing to configure. Add if tutorial needs skip toggle or accessibility needs arise
+- 🔴 Better desktop layout: mobile is primary, current max-w-md phone-app look works fine
+- 🔴 Different starts + immersive selection screen: massive scope, premature before content overhaul
+- 🟢 framer-motion migration: AnimatePresence would properly sequence card enter/exit (currently setTimeout + key remount)
 
 ---
 
