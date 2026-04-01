@@ -31,18 +31,18 @@ export function TitleScreen({ onStart }: TitleScreenProps) {
         <MuteButton />
       </div>
 
+      {/* TODO: Replace title, subtitle, tagline for demon-game theme */}
       <div className="mb-8">
         <h1 className="text-4xl font-bold tracking-widest text-tan mb-3">
-          THE PAUSE
+          DEMON GAME
         </h1>
         <div className="w-16 h-1 bg-tan mx-auto mb-4 rounded-full" />
         <div className="text-text-muted text-xs font-bold uppercase tracking-widest">
-          Director-General, ISIA
+          A Card-Swipe Game
         </div>
       </div>
 
       <p className="text-text-muted text-xs max-w-xs mb-12 leading-relaxed">
-        Enforce the international ban on superintelligence development.
         Every decision has consequences. Keep the balance — or lose everything.
       </p>
 
@@ -50,9 +50,9 @@ export function TitleScreen({ onStart }: TitleScreenProps) {
         className="px-8 py-4 bg-tan text-text-dark rounded-lg font-bold uppercase tracking-wider text-sm active:bg-tan-light transition-colors min-h-[44px] cursor-pointer"
         onClick={handleStart}
         data-testid="start-button"
-        aria-label="Start game — Take Office"
+        aria-label="Start game"
       >
-        Take Office
+        Play
       </button>
     </div>
   );

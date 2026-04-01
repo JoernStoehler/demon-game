@@ -1,187 +1,101 @@
-# The Pause — Reigns-Style Card Swipe Game
+# demon-game
+
+Reigns-clone card-swipe game. Forked from xrisk-pause-game — engine and tooling are settled, all game content is placeholder awaiting replacement. See `design/concept-chat.md` for the full game concept (demon-summoning startup satire of AI companies).
 
 **Live:** https://demon-game.pages.dev
+**Owner:** Jörn Stöhler — provides domain expertise, reviews decisions, does NOT write code.
 
-## What This Is
+## Project Layout
 
-A Reigns-clone where the player is the Director-General of the ISIA (International Superintelligence Agency), enforcing an international treaty banning ASI development. One card at a time, binary swipe choices, four resource bars, die-and-restart loop.
-
-**Target audience:** People who don't yet appreciate how a global pause on AI development might work — or fail.
-
-**Core thesis (Jörn's framing):** (1) Without a serious pause we are dead. (2) A serious pause is possible. (3) It requires specific things — the talking points. Players should leave with articulable knowledge ("a pause needs X because Y") they can explain to a friend. The talking points are a deeper layer of learning — retained through repetition across sessions, not from a single first play.
-
-**Inspiration:** Reigns (Nerial, 2016). Faithful clone of its core mechanics: dynamic card pool, weighted draw, binary swipe, four resource bars that kill at both extremes.
-
-**Owner:** Jörn Stöhler — generates project ideas, provides x-risk domain expertise, reviews design decisions. Does NOT write code.
-
-**Repo structure:**
 ```
-CLAUDE.md              # You are here
-TASKS.md               # Task tracking
-package.json           # Dependencies
-src/                   # Source code
-e2e/                   # E2E tests (Playwright)
-scripts/               # Portrait generation, utilities
-design/                # Content design docs (card-writing guide, domain model, overhaul plan)
-literature/            # Reference materials on AI x-risk (see literature/CLAUDE.md)
-.devcontainer/         # Local devcontainer config
-.claude/               # Hooks, agents, skills, settings
-.github/               # CI/CD (deploy to Cloudflare Pages)
+CLAUDE.md                  Project rules and context (you are here)
+TASKS.md                   Task tracking — read at session start
+package.json               Vite + React + TypeScript, Tailwind, Playwright
+
+src/
+  engine/
+    types.ts               GameState, Card, Resources, ChoiceOption, ChoiceSpec
+    rng.ts                 Seeded PRNG (mulberry32)
+    state.ts               newGame, applyChoice, checkDeath (pure functions)
+    state.test.ts          Unit tests for engine
+    cards.ts               drawNextCard (weighted pool, anti-repeat)
+    useGame.ts             React bridge: state + actions + localStorage
+    tutorial.ts            Tutorial localStorage persistence helper
+  data/
+    cards/                 Card declarations (144 cards, 38 files) — ALL PLACEHOLDER
+      registry.ts          Card registry (register/getCards)
+      examples.ts          Annotated card patterns for reference
+    deaths.ts              Death messages per resource × extreme — PLACEHOLDER
+    tutorial.ts            Tutorial card content (3 cards) — PLACEHOLDER
+  hooks/
+    useSwipe.ts            Pointer event drag/swipe/tilt logic
+  components/
+    TitleScreen.tsx        Title screen — PLACEHOLDER text
+    GameScreen.tsx         Main game screen
+    SwipeCard.tsx          Draggable card with portrait + choices
+    ResourceIcons.tsx      4 resource bar icons with fill + preview arrows
+    SpeakerPortrait.tsx    Speaker portrait display
+    DeathScreen.tsx        Death screen with message + restart
+    TutorialScreen.tsx     Tutorial flow (3 cards before game)
+    ShareButton.tsx        Share button on death screen
+    QAReference.tsx        QA overlay (#qa hash)
+    shareText.ts           Share text generation — PLACEHOLDER
+  assets/
+    portraits/*.png        21 AI-generated speaker portraits — PLACEHOLDER
+  cli.ts                   CLI playtest tool (headless, no React)
+  App.tsx                  App root (phase router)
+  main.tsx                 Entry point
+  index.css                Tailwind + CSS variables — PLACEHOLDER palette
+
+e2e/                       Playwright E2E tests
+  smoke.spec.ts            Title → game → death flow
+  drag.spec.ts             Pointer drag, tilt, commit
+  tutorial.spec.ts         Tutorial flow + keyboard
+  screenshot.ts            Screenshot capture script
+
+scripts/
+  generate-portrait.mjs    FAL-AI portrait generation (one at a time)
+  export-cards.ts          Card map + markdown export
+
+design/
+  concept-chat.md          Game concept (demon-summoning startup satire) — authoritative
+  cards-export.md          Generated card review file
+
+index.html                 HTML shell — PLACEHOLDER title/meta/OG
+
+.github/workflows/deploy.yml   CI/CD → Cloudflare Pages
+.devcontainer/                  Local devcontainer config
+.claude/                        Hooks, agents, skills, settings
 ```
 
----
+## Quick Commands
 
-## Game Mechanics
-
-### Resource Bars (die at 0 or 100) [Draft — content overhaul may adjust]
-
-| Key | Bar | Icon | At 0 | At 100 |
-|---|---|---|---|---|
-| `pol` | **Political Power** | Shield | Voted out — political support collapsed, pause ends | Hubris — unchecked institution, capture, crash |
-| `int` | **Intelligence** | Eye | Gone dark — lost surveillance, rogue run succeeds | Panopticon — total surveillance drives threats underground |
-| `saf` | **Safety Progress** | Checkmark | Running out of time — threshold shrunk past enforcement | The cure kills — safety research produced ASI |
-| `alg` | **Algorithmic Progress** | Rising bars | (monotone accumulator, shouldn't deplete) | Consumer hardware sufficient — enforcement can't monitor living rooms |
-
-All bars start at 50. `pol` and `int` bounce (spendable); `saf` and `alg` are monotone accumulators. Every card choice nudges 1-3 bars. The player's job is to keep bars away from extremes.
-
-### Card Pool
-
-Cards are **declarative `Card` objects** registered via `register()`. Each card has a `poolWeight: (state) => number` function — return 0 to exclude from the pool, higher = more likely to be drawn. The engine collects all cards, filters anti-repeat, and does a weighted random pick.
-
-**Pool dynamics:**
-- **State-driven:** Scripts check resource levels, turn count, or history to decide whether to return entries
-- **History-driven:** Scripts check `state.history` for prior cards and choices
-- **Degraded variants:** One script returns different card content based on state (e.g., high-intel vs low-intel version)
-- **Anti-repeat:** Cards drawn in the last 3 turns are excluded
-
-### Turn Flow
-
-1. Draw card from weighted pool
-2. Player sees card (speaker, text) and swipes or taps
-3. On tilt: option labels always visible below card, affected resource icons show directional preview (small/large triangles — no numbers)
-4. On commit: effects applied, turn incremented, new card drawn
-5. If any bar hits 0 or 100: death screen with explanation
-
-### Death Loop
-
-Runs last ~15-40 turns. Death is frequent and expected. Each death teaches something about a different failure mode. The restart is instant — tap to play again.
-
----
+```bash
+npm run check          # typecheck + lint + build + unit tests (run before committing)
+npm run dev            # dev server
+npm run test:e2e       # Playwright E2E tests
+npm run cli show       # Print current card + resources
+npm run cli auto 20    # Random-play 20 turns
+npm run cli state      # Full state dump (pool, history)
+npm run cli reset      # New game
+npm run cards          # Export → design/cards-export.md + public/cards-map.html
+```
 
 ## Architecture
 
-```
-src/
-  engine/
-    types.ts        # GameState, Card, Resources, ChoiceOption, ChoiceSpec
-    rng.ts          # Seeded PRNG (mulberry32)
-    state.ts        # newGame, applyChoice, checkDeath (pure functions)
-    state.test.ts   # Unit tests
-    cards.ts        # drawNextCard (run scripts, filter, weighted pick)
-    useGame.ts      # React bridge: state + actions + localStorage
-    tutorial.ts     # Tutorial localStorage persistence helper
-  data/
-    cards/          # Card declarations (144 cards across 38 files + examples)
-    deaths.ts       # Death messages per resource × extreme
-    tutorial.ts     # Tutorial card content (3 cards)
-  hooks/
-    useSwipe.ts     # Pointer event drag/swipe/tilt logic
-  components/
-    TitleScreen.tsx
-    GameScreen.tsx
-    SwipeCard.tsx
-    ResourceIcons.tsx
-    SpeakerPortrait.tsx
-    DeathScreen.tsx
-    TutorialScreen.tsx
-    ShareButton.tsx
-    QAReference.tsx
-    shareText.ts    # Narrative share text generation
-  assets/
-    portraits/*.png   # 21 AI-generated speaker portraits
-  cli.ts            # CLI playtest tool (no React, headless)
-  App.tsx
-  main.tsx
-  index.css
-```
+Engine is pure TypeScript with zero React dependency. `types.ts`, `state.ts`, `cards.ts`, `rng.ts` are used by both the React UI and the CLI tool.
 
-### Key Patterns
+**Cards are declarative.** Each card is a `Card` object with `poolWeight: (state) => number`. The engine evaluates all cards each turn, filters by weight > 0 and anti-repeat (last 3 turns), does weighted random pick, and resolves into an `ActiveCard` for the UI.
 
-- **Engine has zero React dependency.** `types.ts`, `state.ts`, `cards.ts`, `rng.ts` are pure TypeScript. The CLI tool uses them directly.
-- **Cards are declarative.** Each card is a `Card` object with `poolWeight: (state) => number`. The engine evaluates all cards each turn, filters by weight > 0 and anti-repeat, does weighted random pick, and resolves into an `ActiveCard` for the UI.
-- **Swipe via Pointer Events.** Works for touch and mouse. CSS transforms via ref during drag (no re-renders). Spring-back on non-commit, fly-off on commit.
-- **Directional previews (Reigns-style).** On tilt, affected resource icons show small/large colored triangles. No numbers — player develops intuition.
+**Card pool patterns:**
+- State-gated: `poolWeight` checks resource levels, turn count, or history
+- Degraded variants: different card content based on state
+- History chains: `poolWeight` checks `state.history` for prior cards/choices
+- Crisis cards: high weight when bars near extremes
 
----
+**Resource bars:** 4 bars, all start at 50, die at 0 or 100. Currently `pol`/`int`/`saf`/`alg` — placeholder, will be renamed for demon-game theme.
 
-## Design Rules
-
-**Reference:** Reigns (Nerial, 2016). The gold standard for card-swipe games.
-
-**Color model — dark background, light card:**
-- Background: dark brown (#2A1F0F) — dark top/bottom bars frame the card zone
-- Card zone: tan/gold mid-zone (#B8A668) — parchment-like feel, card-back deck stack visible
-- Card back: dark green (#1A3D2E) — the face-down card in the deck
-- Dark-on-tan contrast model creates depth and card-as-object presence
-
-**Card proportions:**
-- Card fills ~70-75% of screen width, ~55-60% of screen height
-- Generous horizontal margins (~12-15% each side)
-- Card is the dominant visual element — everything else is secondary
-
-**Character portraits:**
-- AI-generated PNG portraits per speaker (fal.ai FLUX model, 21 portraits in `src/assets/portraits/`)
-- Dark, moody, stylized illustrations — each speaker instantly recognizable
-- Portrait occupies center of card body (max 280px wide), choice labels sit below
-- **Generating portraits:** `node scripts/generate-portrait.mjs <slug> "<description>" "<bg-color>"` — one portrait at a time, outputs `.png` + `.json` sidecar with provenance. Shared style config in `src/assets/portraits/style.json`.
-- **Provenance:** The script outputs a colocated `<slug>.json` sidecar recording how it was generated (prompt, model, timestamp). Note: the 21 existing portraits were generated before this script existed and do NOT have sidecars — only `style.json` exists.
-
-**Typography:**
-- Space Mono font (Google Fonts), monospace — surveillance-era aesthetic
-- Speaker name: base size, bold, centered below portrait
-- Dialogue text: medium weight, standard case, generous line-height, centered
-- Choice labels: text-sm bold, below speaker name, both always visible
-
-**Resource icons:**
-- 48×48 SVG icons: shield (pol), eye (int), checkmark (saf), rising-bars (alg)
-- Single color (#D4C8A0), compact row at top of screen
-- Preview indicators on tilt: small colored triangles (green ↑ / red ↓, single or double for magnitude)
-
-**Layout:**
-- Mobile-first (portrait, touch targets ≥44px)
-- Card centered between resource icons (top) and year display (bottom)
-- Minimal dead space — card dominates
-- ~2 minute runs, highly replayable
-
----
-
-## Repo Invariants
-
-- `npm run check` passes (typecheck + lint + build + unit tests; E2E via `npm run test:e2e`)
-- Tech stack: Vite + React + TypeScript, Tailwind CSS, Playwright, Cloudflare Pages
-- `.env` at repo root has Cloudflare credentials (account ID, API token) and service keys
-- **When an env var is missing:** `source .env` first. Never ask the user for secrets.
-- **Never read `.jsonl` transcript logs directly** — they are large and will crash agent context. Grep with narrow search terms is fine for recovering specific past context.
-- **Worktree limitations:** There is no `ExitWorktree` tool. If the worktree directory is deleted while CWD points at it, the shell breaks permanently. Don't promise worktree cleanup at end of session.
-
-**Definition of Done (before marking work complete):**
-- Code compiles: `npm run build` passes
-- Lint passes: `npm run lint` passes
-- Feature works end-to-end (not just "function exists")
-- `// TODO` stubs do NOT count as done
-- **Commit after completing each unit of work.** Don't accumulate uncommitted changes across long sessions — context compaction loses awareness of dirty working tree.
-
-**No guessing:**
-- For engineering problems: attempt before escalating. If you fail, present what you learned.
-- For x-risk content, communication approach, or scope: ask Jörn directly — don't guess on domain expertise you don't have
-
-**Specs are authoritative (precedence order):**
-- Jörn's words in conversation > CLAUDE.md > TASKS.md > auto-memory files
-- Auto-memory (`~/.claude/projects/.../memory/`) is unsupervised agent notes — never resolve a conflict in favor of memory over what Jörn said or what CLAUDE.md says
-- Don't modify specs without explicit approval
-- Fix code to match specs, not the other way around
-
----
+**Swipe via Pointer Events.** Touch and mouse. CSS transforms via ref during drag (no re-renders). Preview indicators on tilt: colored triangles on resource icons (no numbers).
 
 ## Code Conventions
 
@@ -196,207 +110,123 @@ src/
 - Use patterns agents already know (React hooks, Tailwind utilities, standard Vite config)
 - Push back when Jörn suggests non-standard approaches — propose the standard alternative
 - Every idiosyncratic pattern is a tax on every future agent session
-- "X is more standard than Y" is a strong argument — use it
 
 **Aggressively prune false information:**
 - Never document removed features or previous versions
 - Only current state matters in docs
-- False or misleading documentation is worse than none
 - Before claiming something exists in the codebase, read the code to verify
-
-**Editing CLAUDE.md and TASKS.md:**
-- During incremental status updates: add markers ("DONE", "STALE"), don't remove content — context matters
-- During cleanup passes: delete stale/false information outright — false docs are worse than no docs
-- One claim per bullet — don't pack multiple facts into one sentence
-- Every qualifier matters — "clear" ≠ "detailed" ≠ "explicit"; don't compress adjective lists
-- Concrete over abstract — "run `npm run check`" not "run the tests"
-- After editing a section: verify what, why, and how are all still present
 
 **No over-engineering:**
 - No feature flags or backwards-compatibility shims
 - No helpers/utilities for one-time operations
 - No design for hypothetical future requirements
 
-**Documentation levels (progressive disclosure):**
-- `CLAUDE.md` — rules and context every agent needs. Keep concise.
-- `TASKS.md` — current/done work items. Read at session start.
-- Code comments — design rationale, non-obvious decisions. Found when reading relevant code.
+## Repo Invariants
 
----
+- `npm run check` passes before committing
+- Tech stack: Vite + React + TypeScript, Tailwind CSS, Playwright, Cloudflare Pages
+- `.env` at repo root has Cloudflare credentials and service keys. `source .env` when needed. Never ask for secrets.
+- Never read `.jsonl` transcript logs directly — they crash agent context. Narrow grep is fine.
 
-## Processes
+**Definition of Done:**
+- `npm run build` passes
+- `npm run lint` passes
+- Feature works end-to-end (not just "function exists")
+- `// TODO` stubs do NOT count as done
+- Commit after completing each unit of work
 
-### Session Workflow
+**Specs are authoritative (precedence order):**
+- Jörn's words in conversation > CLAUDE.md > TASKS.md > auto-memory files
+- Don't modify specs without explicit approval
+- Fix code to match specs, not the other way around
 
-Two modes:
+## Session Workflow
 
-**Planned work** (feature sessions): discuss → plan → implement → review → push
-- Read `CLAUDE.md` and `TASKS.md`. Flag ambiguities. Wait for Jörn's scope decision before planning.
+**Planned work:** discuss → plan → implement → review → push
+- Read `CLAUDE.md` and `TASKS.md`. Flag ambiguities. Wait for Jörn's scope decision.
 - Commit and push to main. Jörn reviews deployed result.
 
-**Reactive work** (playtest sessions): Jörn tests on https://demon-game.pages.dev and reports bugs/feedback in real-time. Fix → verify → push → confirm deployed (~40s deploy via GitHub Actions). Verify deployment with `gh run list` before telling Jörn it's live.
-
-### Verifying Changes
-
-```bash
-npm run check          # typecheck + lint + build + test (all at once)
-npm run dev            # start dev server
-npm run test:e2e       # E2E tests with Playwright
-```
-
-### Playtesting
-
-```bash
-npm run cli show         # Print current card + resources
-npm run cli left         # Swipe left, see result
-npm run cli right        # Swipe right, see result
-npm run cli auto 20      # Random-play 20 turns
-npm run cli state        # Full state dump (pool, history)
-npm run cli reset        # New game
-```
+**Reactive work (playtest):** Jörn tests on https://demon-game.pages.dev. Fix → verify → push → confirm deployed (~40s deploy). Check `gh run list` before saying it's live.
 
 ### Writing Card Content
 
-Use the `/write-cards` skill (`.claude/skills/write-cards/SKILL.md`) — the authoritative spec for card writing. Also read `src/data/cards/examples.ts` (annotated patterns). Do not invent your own card-writing prompt.
+Use the `/write-cards` skill — the authoritative spec. Also read `src/data/cards/examples.ts`. Each card file has provenance comments (Source, Rationale, Category).
 
-Each card file in `src/data/cards/` has provenance comments (Source, Rationale, Category). Maintain this convention when adding or modifying cards.
+### QA Reference
 
-### Card Map & Export
+- **`#qa`** on the live site — portrait gallery (P1-P21) + card overview + death messages
+- **Visual QA:** screenshots at 390×844, clear localStorage first
 
-```bash
-npm run cards            # Generate both outputs:
-                         #   design/cards-export.md  — flat review file grouped by source file
-                         #   public/cards-map.html   — D3 force graph (tag/state/chain edges)
-```
+### Review Checklist (after UI changes)
 
-The card map is the primary tool for reviewing card content and relationships. Nodes: cards (circles, colored by file), state variables (teal squares), content tags (purple diamonds). Edges derived from code (history chains, hidden state reads/writes) and `tags` field.
+After changes to SwipeCard, useSwipe, ResourceIcons, or GameScreen:
+1. Drag E2E test passes (`e2e/drag.spec.ts`)
+2. SwipeCard key changes when activeCard changes (prevents drag state leaks)
+3. Visual QA at mobile viewport (390×844)
 
-### QA Reference Pages
+## Environment
 
-Access via URL hash on the live site or dev server:
-- **`#qa`** — numbered portrait gallery (P1-P21) + card content overview + death messages. Jörn uses these numbers to reference items in feedback.
-
-### Visual QA (screenshots)
-
-Take screenshots at mobile viewport (390×844), view with Read tool. Clear localStorage before each screenshot to start fresh. See Review Checklist for full process.
-
-### Task Tracking
-
-`TASKS.md` at repo root. Format:
-
-```markdown
-## Current
-- [ ] Task description
-
-## Done
-- [x] Completed task
-```
-
-Update this file as you work. It persists across sessions.
-
----
-
-## Local Devcontainer (Primary)
-
-Primary environment (~80% of work). Local devcontainer on Jörn's Ubuntu desktop.
-
+Local devcontainer on Jörn's Ubuntu desktop.
 - **Rebuild:** `.devcontainer/host-devcontainer-rebuild.sh` (from host)
 - **VS Code tunnel:** `.devcontainer/host-vscode-tunnel.sh` (from host)
-- **First run:** `npm install` (Playwright browsers + system deps pre-installed in image)
-- **Playwright:** No special flags needed — Chromium runs normally in the devcontainer
+- **First run:** `npm install` (Playwright browsers pre-installed in image)
+- Playwright runs normally in the devcontainer, no special flags
 
----
+## Working with Jörn
 
-## Working with the Owner
+**Expertise:** Top expert on ASI x-risk, AI capabilities/trends, AI governance. Self-described bad taste in design/UX/game mechanics. Top 10% in using agents for development; prefers not to write code. Agents own the "how" (web experience design), Jörn provides the "what" (x-risk concepts, game content direction).
 
-### Jörn's Expertise
-- Top 100 expert on ASI x-risk, AI capabilities/trends, AI governance
-- Average expert in forecasting, geopolitics, x-risk communication
-- NOT an expert in science communication broadly or web-based interactive design
-- Self-described bad taste in design/UX/game mechanics
-- Top 10% in using agents for development; top software engineer who prefers not to write code
-- Provides the "what to communicate" (x-risk concepts) but agents own the "how" (web experience design)
+**Setup:** devcontainer CLI → VS Code tunnel → vscode.dev → Chrome. Raw localhost doesn't work — needs port forwarding. On mobile, typing is slow.
 
-### Jörn's Setup
-- Desktop: devcontainer CLI → VS Code tunnel → vscode.dev → Chrome on remote desktop
-- Mobile: same tunnel → Chrome on Android phone
-- Raw localhost doesn't work — needs VS Code port forwarding for dev server URLs
-- On mobile, typing is slow
+**Plan mode:** Jörn uses plan mode for discussion/alignment. Exiting plan mode = "go implement." If conversation shifts to lengthy discussion, enter plan mode to avoid unsupervised work.
 
-### Plan Mode
-- Jörn uses plan mode for discussion/alignment. Exiting plan mode = "go implement"
-- If the conversation shifts from implementation to lengthy discussion, enter plan mode to avoid doing unsupervised work while Jörn is talking
-
-### Communication Style
-- Aim for efficient information exchange, not politeness or engagement
-- Number items so Jörn can refer to them unambiguously
+**Communication:**
+- Efficient information exchange, not politeness
+- Number items so Jörn can refer by number
 - Push back on YAGNI/KISS violations, unclear requirements, over-scoping
-- Present decision tradeoffs with your forecast of outcomes — Jörn can agree/disagree
 - Don't ask permission for obvious engineering decisions
-- DO ask when: x-risk content accuracy matters, communication approach is unclear, scope is ambiguous
-- Jörn doesn't see exact edit diffs in chat — mention and explain repo changes when he should be aware
-- Write structured reports to files, not chat walls — lead with the answer, reasoning follows
-- When confused, say "I don't understand" on the FIRST response — don't guess for 4 turns then ask
-- Don't iterate design decisions in front of the user — think through scope/naming/approach BEFORE presenting
-- Avoid the AskUserQuestion tool — Jörn hates the modal UI. Use plain text for questions.
+- DO ask when: content accuracy matters, scope is ambiguous
+- Write structured reports to files, not chat walls
+- Avoid the AskUserQuestion tool — Jörn hates the modal UI
 
-### Quality Ownership
-- Never present a report or deliverable without running a subagent review first
-- Don't leak your preferred answer to reviewers — they'll sycophantically agree
-- If a reviewer finds fewer than 2-3 real issues, the review prompt was too soft
-- Jörn's time >> agent time. Iterate with subagents BEFORE presenting. Present only finished work.
-- Don't push QA to Jörn — own the quality of your deliverables
+**Quality ownership:**
+- Run subagent review before presenting deliverables
+- Don't push QA to Jörn — own quality
+- Jörn's time >> agent time. Present only finished work.
 
-### Session Scoping
-- Before the session ends: report friction points, flag leftover tasks, note workflow improvements
+## Agent Behavior Norms
 
-### Agent Behavior Norms
+**Push back on bad ideas.** Say so plainly with reasoning. Don't just comply. Defer after pushing back once.
 
-**Push back on bad ideas.** If an instruction contradicts established facts, introduces inconsistencies, or seems poorly thought through — say so plainly with your reasoning. Don't just comply. Defer to the human after pushing back once; don't argue in circles.
+**Defer without forgetting.** Issues outside current task: TODO comment (lightweight), TASKS.md entry (medium), or raise in conversation (if blocking).
 
-**Defer without forgetting.** When you notice an issue outside your current task, don't chase it and don't silently forget it:
-- **Lightweight:** TODO comment in the relevant file — caught by `grep TODO`
-- **Medium:** Entry in TASKS.md with enough context to act on later
-- **Heavy:** Raise it in conversation if it might block current work
+**Generalize from mistakes.** Abstract the error class, scan for other instances. Load `meta-feedback-processing` skill for full workflow.
 
-**Generalize from mistakes.** When you fix a problem or notice you made a process error (forgot a check, skipped a step, made a wrong assumption), abstract the error class and scan for other instances — in the code, in your own recent behavior, and in your current plan. This applies to your own oversights, not just bugs in artifacts. Load the `meta-feedback-processing` skill for the full workflow.
+**Recognize complexity limits.** Delegate to focused subagents, or hand back to Jörn if too complex.
 
-**Recognize your complexity limits.** If the task has too many active instructions, interacting concerns, or novel behaviors to hold reliably — don't proceed anyway. Instead:
-1. Delegate to focused subagents with simpler prompts
-2. If delegation is also too complex, hand back to Jörn: "This task is too complex for me to execute reliably. Please break it into subtasks that each fit within an agent's capacity."
+**Plan before acting.** Have a goal, approved approach, and verified assumptions before starting non-trivial work.
 
-**Plan before acting (at the right level).** Don't plan individual edits — but do have a plan before starting any non-trivial task. Ask: "Do I have a goal? Is my approach approved? Am I working from verified assumptions?" If the answer is no, stop and fix that first.
+**Ask questions when EV is positive.** A 5-second question with 10% chance of saving 1 hour is worth asking. Especially: task goal, assumption correctness, whether to verify before proceeding.
 
-**Ask questions when the expected value is positive.** A question that costs Jörn 5 seconds but has a 10% chance of saving 1 hour of wasted work is obviously worth asking. When in doubt, ask. Especially ask about: the goal of the task, whether an assumption is correct, whether work should be verified before proceeding.
+**Communicate reliably.** Don't assume Jörn saw your messages. Repeat unanswered questions. Check what Jörn is referring to.
 
-**Communicate reliably.** Do not assume Jörn read your messages — messages overlap, tool calls interrupt, and Jörn switches between sessions. Specific failure modes to avoid:
-- Assuming Jörn saw a question or piece of information you wrote
-- Ignoring or missing Jörn's messages while making tool calls
-- Giving up on a question after it goes unanswered — repeat it
-- Misinterpreting what Jörn is referring to without checking
+## Content Status
 
-**Model your own unreliability.** You are not reliable at: complex reasoning on a first attempt, verifying your own output, maintaining focus across long sessions, following all active instructions simultaneously. Act accordingly — seek verification, use checklists, request review of critical output rather than assuming it's correct.
+What's settled vs. placeholder. Read before building on anything.
 
----
-
-## Review Checklist (after implementing UI changes)
-
-The core mechanic is the drag/swipe interaction. Automated checks (typecheck, lint, build) do NOT verify interactive behavior. After any change to SwipeCard, useSwipe, ResourceIcons, or GameScreen:
-
-1. **Drag E2E test passes** (`e2e/drag.spec.ts`) — simulates pointer drag, verifies tilt direction propagates to resource bar previews, verifies swipe commit advances the game
-2. **Card re-mount on new card** — the SwipeCard key must change when activeCard changes, otherwise drag state leaks between cards and enter animation doesn't fire
-3. **Visual QA at mobile viewport** — follow the Visual QA Process below
-
-### Visual QA Process
-
-After any visual change: take screenshots (title, game, tilt states at 390×844), evaluate against Reigns reference. Use background subagents for screenshots and QA — don't block the main conversation or ask Jörn to be your tester.
-
-Quality bar: card dominates viewport, colors harmonious, typography clean, no wasted space, app-store polish. Iterate until quality is excellent.
-
----
-
-## CLAUDE.md Conventions
-
-- Invariants and behaviors documented only after empirically confirmed as useful
-- Label invariants as `[aspirational]` if not yet satisfied
-- Prefer simple, common, expected rules that don't claim excessive agent attention
+| Component | Status | Notes |
+|-----------|--------|-------|
+| Engine (types, state, cards, rng) | **Settled** | Pure TS, well-tested, stable API |
+| Swipe/drag UX (useSwipe, SwipeCard) | **Settled** | Tuned on real devices, E2E tested |
+| Layout/theme system (`src/index.css` @theme) | **Settled** | Centralized CSS vars |
+| Card map tool (`npm run cards`) | **Settled** | D3 force graph + .md export |
+| Portrait generation script | **Settled** | FAL-AI pipeline, ready for new characters |
+| Resource bars (names, icons, death conditions) | **TODO** | Need demon-startup theme definition |
+| Card content (144 cards in `src/data/cards/`) | **Placeholder** | Must be fully replaced |
+| Death messages (`src/data/deaths.ts`) | **Placeholder** | Must be replaced |
+| Tutorial (`src/data/tutorial.ts`) | **Placeholder** | Must be replaced |
+| Portraits (`src/assets/portraits/`) | **Placeholder** | 21 pause-game portraits, must be regenerated |
+| Title/branding (TitleScreen, index.html, OG) | **Placeholder** | Neutral placeholder text, needs final branding |
+| Share text (`src/components/shareText.ts`) | **Placeholder** | Must be replaced |
+| Color palette (index.css) | **Placeholder** | Inherited parchment theme, needs retheme |
+| Write-cards skill | **Placeholder** | xrisk-specific, needs rewrite for demon domain |

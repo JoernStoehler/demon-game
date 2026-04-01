@@ -9,10 +9,10 @@ test.beforeEach(async ({ page }) => {
 });
 
 test("first play shows 3 tutorial cards then starts game", async ({ page }) => {
-  await page.click("text=Take Office");
+  await page.click("text=Play");
 
   // Tutorial card 1: welcome
-  await expect(page.getByText("Welcome, Director-General")).toBeVisible();
+  await expect(page.getByText("Welcome")).toBeVisible();
   await expect(page.getByText("Skip Tutorial")).toBeVisible();
 
   // Swipe to advance (keyboard)
@@ -20,7 +20,7 @@ test("first play shows 3 tutorial cards then starts game", async ({ page }) => {
   await page.waitForTimeout(600);
 
   // Tutorial card 2: resources (highlights should be active)
-  await expect(page.getByText("four pillars")).toBeVisible();
+  await expect(page.getByText("four resource bars")).toBeVisible();
   await page.keyboard.press("ArrowLeft");
   await page.waitForTimeout(600);
 
@@ -36,8 +36,8 @@ test("first play shows 3 tutorial cards then starts game", async ({ page }) => {
 
 test("skip tutorial persists across sessions", async ({ page }) => {
   // Complete tutorial first
-  await page.click("text=Take Office");
-  await expect(page.getByText("Welcome, Director-General")).toBeVisible();
+  await page.click("text=Play");
+  await expect(page.getByText("Welcome")).toBeVisible();
 
   // Skip it
   await page.click("text=Skip Tutorial");
@@ -46,7 +46,7 @@ test("skip tutorial persists across sessions", async ({ page }) => {
   // Clear game state but keep tutorial-done flag, then reload
   await page.evaluate(() => localStorage.removeItem("demon-game-state"));
   await page.reload();
-  await page.click("text=Take Office");
+  await page.click("text=Play");
 
   // Should go straight to game (no tutorial text)
   await expect(page.getByText("2026")).toBeVisible({ timeout: 2000 });
@@ -57,7 +57,7 @@ test("keyboard controls work during gameplay", async ({ page }) => {
   // Skip tutorial via localStorage
   await page.evaluate(() => localStorage.setItem("demon-game-tutorial-done", "1"));
   await page.reload();
-  await page.click("text=Take Office");
+  await page.click("text=Play");
   await page.locator(".animate-card-enter").first().waitFor();
   await page.waitForTimeout(400); // card-enter animation
 

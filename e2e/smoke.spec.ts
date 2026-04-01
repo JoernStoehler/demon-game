@@ -12,14 +12,14 @@ test.beforeEach(async ({ page }) => {
   await page.reload();
 });
 
-test("title screen loads and shows Take Office", async ({ page }) => {
-  await expect(page.locator("text=THE PAUSE")).toBeVisible();
-  await expect(page.locator("text=Take Office")).toBeVisible();
+test("title screen loads and shows Play", async ({ page }) => {
+  await expect(page.locator("text=DEMON GAME")).toBeVisible();
+  await expect(page.locator("text=Play")).toBeVisible();
   await page.screenshot({ path: "/tmp/e2e-01-title.png" });
 });
 
-test("clicking Take Office shows game screen with card", async ({ page }) => {
-  await page.click("text=Take Office");
+test("clicking Play shows game screen with card", async ({ page }) => {
+  await page.click("text=Play");
   await page.locator(".animate-card-enter").first().waitFor();
 
   // Resource icons should be present (SVG elements in the dark top bar)
@@ -35,7 +35,7 @@ test("clicking Take Office shows game screen with card", async ({ page }) => {
 });
 
 test("swiping advances to next card", async ({ page }) => {
-  await page.click("text=Take Office");
+  await page.click("text=Play");
   await page.locator(".animate-card-enter").first().waitFor();
   // Wait for card-enter flip animation (350ms) to complete
   await page.waitForTimeout(400);
@@ -62,7 +62,7 @@ test("swiping advances to next card", async ({ page }) => {
 });
 
 test("repeated swipes eventually trigger death screen", async ({ page }) => {
-  await page.click("text=Take Office");
+  await page.click("text=Play");
   await page.locator(".animate-card-enter").first().waitFor();
   // Wait for card-enter flip animation (350ms) to complete
   await page.waitForTimeout(400);

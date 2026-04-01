@@ -1,3 +1,5 @@
+// TODO: Replace share text for demon-game theme. Failure phrases, notable cards, and
+// share template all reference pause-game content.
 import type { DeathInfo, HistoryEntry, ResourceKey } from "../engine/types";
 
 const FAILURE_PHRASES: Record<ResourceKey, Record<string, string>> = {

@@ -53,12 +53,12 @@ async function main() {
     await page.reload();
 
     // 1. Title screen
-    await page.waitForSelector("text=Take Office");
+    await page.waitForSelector("text=Play");
     await page.screenshot({ path: `${dir}/01-title.png` });
     console.log(`✓ ${dir}/01-title.png — Title screen`);
 
-    // 2. Game screen (click Take Office, wait for card animation)
-    await page.click("text=Take Office");
+    // 2. Game screen (click Play, wait for card animation)
+    await page.click("text=Play");
     await page.waitForTimeout(800);
     await page.screenshot({ path: `${dir}/02-game.png` });
     console.log(`✓ ${dir}/02-game.png — Game screen (neutral, no swipe)`);

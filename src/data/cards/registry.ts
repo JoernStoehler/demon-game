@@ -1,3 +1,4 @@
+// TODO: All 144 cards are placeholder from pause-game. Must be fully replaced for demon-game.
 import type { Card } from "../../engine/types";
 
 const cards: Card[] = [];

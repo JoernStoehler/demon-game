@@ -9,7 +9,7 @@ test.beforeEach(async ({ page }) => {
     localStorage.setItem("demon-game-tutorial-done", "1");
   });
   await page.reload();
-  await page.click("text=Take Office");
+  await page.click("text=Play");
   await page.locator(".animate-card-enter").first().waitFor();
   // Wait for card-enter flip animation (350ms rotateY) to complete —
   // backface-visibility:hidden blocks pointer events during animation

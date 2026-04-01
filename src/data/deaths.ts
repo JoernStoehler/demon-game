@@ -1,5 +1,5 @@
-// Draft death messages — causal autopsies that teach specific dynamics.
-// One message per bar × extreme for now. Will expand after card content settles.
+// TODO: Replace all death messages for demon-game theme.
+// PLACEHOLDER — inherited from pause-game. Current messages reference ISIA/superintelligence.
 import type { ResourceKey } from "../engine/types";
 
 export const DEATH_MESSAGES: Record<
