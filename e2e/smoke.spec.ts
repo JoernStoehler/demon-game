@@ -29,7 +29,7 @@ test("clicking Play shows game screen with card", async ({ page }) => {
   await expect(page.locator(".bg-tan").first()).toBeVisible();
 
   // Bottom bar with year
-  await expect(page.getByText("2026")).toBeVisible();
+  await expect(page.getByText("2015")).toBeVisible();
 
   await page.screenshot({ path: "/tmp/e2e-02-game.png" });
 });
@@ -100,6 +100,6 @@ test("repeated swipes eventually trigger death screen", async ({ page }) => {
 
   // Restart
   await page.click("text=Try Again");
-  await expect(page.getByText("2026")).toBeVisible({ timeout: 2000 });
+  await expect(page.getByText("2015")).toBeVisible({ timeout: 2000 });
   await page.screenshot({ path: "/tmp/e2e-05-restart.png" });
 });

@@ -30,7 +30,7 @@ test("first play shows 3 tutorial cards then starts game", async ({ page }) => {
   await page.waitForTimeout(600);
 
   // Now in real game — year display and real card visible
-  await expect(page.getByText("2026")).toBeVisible({ timeout: 2000 });
+  await expect(page.getByText("2015")).toBeVisible({ timeout: 2000 });
   await page.locator(".animate-card-enter").first().waitFor({ timeout: 2000 });
 });
 
@@ -41,7 +41,7 @@ test("skip tutorial persists across sessions", async ({ page }) => {
 
   // Skip it
   await page.click("text=Skip Tutorial");
-  await expect(page.getByText("2026")).toBeVisible({ timeout: 2000 });
+  await expect(page.getByText("2015")).toBeVisible({ timeout: 2000 });
 
   // Clear game state but keep tutorial-done flag, then reload
   await page.evaluate(() => localStorage.removeItem("demon-game-state"));
@@ -49,7 +49,7 @@ test("skip tutorial persists across sessions", async ({ page }) => {
   await page.click("text=Play");
 
   // Should go straight to game (no tutorial text)
-  await expect(page.getByText("2026")).toBeVisible({ timeout: 2000 });
+  await expect(page.getByText("2015")).toBeVisible({ timeout: 2000 });
   await page.locator(".animate-card-enter").first().waitFor({ timeout: 2000 });
 });
 

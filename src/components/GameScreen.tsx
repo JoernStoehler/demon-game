@@ -64,8 +64,8 @@ export function GameScreen({ state, onChoice }: GameScreenProps) {
 
       {/* Dark bottom bar — year display + mute button */}
       <div className="bg-bar-dark px-5 py-5 flex items-center justify-center relative" data-testid="year-display">
-        <span className="text-text-light text-2xl font-bold" aria-label={`Year ${2026 + Math.floor(state.turn / 12)}`}>
-          {2026 + Math.floor(state.turn / 12)}
+        <span className="text-text-light text-2xl font-bold" aria-label={`Year ${2015 + Math.floor(state.turn / 12)}`}>
+          {2015 + Math.floor(state.turn / 12)}
         </span>
         <div className="absolute right-2">
           <MuteButton />
