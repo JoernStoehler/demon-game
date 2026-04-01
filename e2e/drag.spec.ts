@@ -6,7 +6,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto("/");
   await page.evaluate(() => {
     localStorage.clear();
-    localStorage.setItem("global-pause-tutorial-done", "1");
+    localStorage.setItem("demon-game-tutorial-done", "1");
   });
   await page.reload();
   await page.click("text=Take Office");

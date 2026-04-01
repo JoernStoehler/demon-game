@@ -57,6 +57,6 @@ describe("generateShareText", () => {
 
   it("always ends with the game URL", () => {
     const text = generateShareText(makeDeath("pol", "depleted"), 5, []);
-    expect(text).toContain("global-pause.pages.dev");
+    expect(text).toContain("demon-game.pages.dev");
   });
 });

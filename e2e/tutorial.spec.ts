@@ -44,7 +44,7 @@ test("skip tutorial persists across sessions", async ({ page }) => {
   await expect(page.getByText("2026")).toBeVisible({ timeout: 2000 });
 
   // Clear game state but keep tutorial-done flag, then reload
-  await page.evaluate(() => localStorage.removeItem("global-pause-state"));
+  await page.evaluate(() => localStorage.removeItem("demon-game-state"));
   await page.reload();
   await page.click("text=Take Office");
 
@@ -55,7 +55,7 @@ test("skip tutorial persists across sessions", async ({ page }) => {
 
 test("keyboard controls work during gameplay", async ({ page }) => {
   // Skip tutorial via localStorage
-  await page.evaluate(() => localStorage.setItem("global-pause-tutorial-done", "1"));
+  await page.evaluate(() => localStorage.setItem("demon-game-tutorial-done", "1"));
   await page.reload();
   await page.click("text=Take Office");
   await page.locator(".animate-card-enter").first().waitFor();

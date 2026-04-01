@@ -53,5 +53,5 @@ export function generateShareText(
     }
   }
 
-  return `I tried to enforce a global AI pause. ${notableLine}${failure} — ${time}.\n\nThe Pause — global-pause.pages.dev`;
+  return `I tried to enforce a global AI pause. ${notableLine}${failure} — ${time}.\n\nDemon Game — demon-game.pages.dev`;
 }

@@ -6,7 +6,7 @@ import { ALL_CARDS } from "../data/cards";
 import { TUTORIAL_CARDS } from "../data/tutorial";
 import { isTutorialCompleted, markTutorialCompleted } from "./tutorial";
 
-const STORAGE_KEY = "global-pause-state";
+const STORAGE_KEY = "demon-game-state";
 // Bump this when the save format changes (e.g. new fields, restructured data).
 // Any localStorage data with a different version is discarded.
 const STORAGE_VERSION = 4;

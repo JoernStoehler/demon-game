@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 SHELL ["/bin/bash", "-lc"]
 
 # -----------------------------------------------------------------------------
-# Local devcontainer image for xrisk-pause-game (Jörn's Ubuntu desktop)
+# Local devcontainer image for demon-game (Jörn's Ubuntu desktop)
 #
 # Design goals (same as msc-math):
 # - Keep the image simple and close to standard devcontainer patterns (KISS).
@@ -61,4 +61,4 @@ ENV PATH="$HOME/.local/bin:$PATH"
 # install-deps above handles system libs; this downloads the actual browser.
 RUN npx -y playwright@1.56.1 install chromium
 
-WORKDIR /workspaces/xrisk-pause-game
+WORKDIR /workspaces/demon-game

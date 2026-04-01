@@ -1,5 +1,5 @@
 {
-  // Local devcontainer for xrisk-pause-game (Jörn's Ubuntu desktop).
+  // Local devcontainer for demon-game (Jörn's Ubuntu desktop).
   // PRIMARY ENVIRONMENT.
   //
   // Features:
@@ -15,9 +15,9 @@
   // Usage from host:
   //   .devcontainer/host-devcontainer-rebuild.sh
   //   .devcontainer/host-vscode-tunnel.sh
-  "name": "xrisk-pause-game-local",
+  "name": "demon-game-local",
   "dockerFile": "Dockerfile",
-  "workspaceFolder": "/workspaces/xrisk-pause-game",
+  "workspaceFolder": "/workspaces/demon-game",
   "updateRemoteUserUID": true,
   "features": {},
   // Memory limit: 10GB RAM + 2GB swap max. Protects host from runaway processes.

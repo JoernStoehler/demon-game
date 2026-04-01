@@ -1,4 +1,4 @@
-const TUTORIAL_KEY = "global-pause-tutorial-done";
+const TUTORIAL_KEY = "demon-game-tutorial-done";
 
 export function isTutorialCompleted(): boolean {
   try {

@@ -1,6 +1,6 @@
 # The Pause — Reigns-Style Card Swipe Game
 
-**Live:** https://global-pause.pages.dev
+**Live:** https://demon-game.pages.dev
 
 ## What This Is
 
@@ -234,7 +234,7 @@ Two modes:
 - Read `CLAUDE.md` and `TASKS.md`. Flag ambiguities. Wait for Jörn's scope decision before planning.
 - Commit and push to main. Jörn reviews deployed result.
 
-**Reactive work** (playtest sessions): Jörn tests on https://global-pause.pages.dev and reports bugs/feedback in real-time. Fix → verify → push → confirm deployed (~40s deploy via GitHub Actions). Verify deployment with `gh run list` before telling Jörn it's live.
+**Reactive work** (playtest sessions): Jörn tests on https://demon-game.pages.dev and reports bugs/feedback in real-time. Fix → verify → push → confirm deployed (~40s deploy via GitHub Actions). Verify deployment with `gh run list` before telling Jörn it's live.
 
 ### Verifying Changes
 

@@ -6,7 +6,7 @@
  * browser autoplay policy. Mute preference persisted in localStorage.
  */
 
-const MUTE_KEY = "global-pause-muted";
+const MUTE_KEY = "demon-game-muted";
 
 type SoundName =
   | "cardFlip"

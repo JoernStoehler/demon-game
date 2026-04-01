@@ -74,7 +74,7 @@ BASHRC
 fi
 
 # Source .env into shell profile so secrets are available in all sessions.
-DOTENV="/workspaces/xrisk-pause-game/.env"
+DOTENV="/workspaces/demon-game/.env"
 if [ -f "$DOTENV" ] && ! grep -q 'source.*\.env' "${HOME}/.bashrc"; then
   echo -e '\n# Project secrets\nset -a; source '"$DOTENV"'; set +a' >> "${HOME}/.bashrc"
 fi
