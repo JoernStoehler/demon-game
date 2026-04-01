@@ -9,7 +9,7 @@ Four-step process for turning a knowledge gap into card-ready design material. E
 
 ## When to use
 
-When the domain model (`design/domain-model.md`) or card concepts (`design/card-concepts.md`) have a gap that requires real-world expertise — e.g. "how does regulatory capture actually work?" or "what are the mechanisms of sanctions evasion?"
+When card content needs real-world expertise that isn't in `literature/` yet — e.g. "how does regulatory capture actually work?" or "what are the mechanisms of sanctions evasion?"
 
 ## Step 1: Guided Literature Search
 
@@ -45,7 +45,7 @@ Rules:
 ## Step 3: ISIA Scenario Specialization
 
 **Goal:** Translate generic mechanisms into concrete ISIA pause scenarios.
-**Output:** New section in `design/domain-model.md`
+**Output:** New file `design/<topic>-scenarios.md`
 
 Rules:
 - For each mechanism from step 2, describe how it specifically plays out for a global AI pause agency over 30 years
@@ -60,11 +60,10 @@ Rules:
 ## Step 4: Card-Writing Reference
 
 **Goal:** Produce material a card-writing agent can directly use.
-**Output:** New entries in `design/card-concepts.md` (idea lines with no card IDs yet)
+**Output:** New file `design/<topic>-card-ideas.md` (idea lines with no card IDs yet)
 
 Rules:
 - Each idea line should be a concrete scenario with a player choice implied
-- Group by topic section in card-concepts.md
 - Mark new ideas clearly (e.g. `NEW` tag or separate sub-section) so Jorn can review before implementation
 - Note which mechanism from step 3 each idea derives from
 - Do NOT write TypeScript cards yet — Jorn reviews concepts first
@@ -83,5 +82,4 @@ Rules:
 
 - **Geopolitics research (2026-03-11):**
   - Step 1: ~30 source documents in `literature/` (IAEA reports, Kwak, Boeing 737 MAX report, CNAS chip smuggling, etc.)
-  - Step 2: `design/geopolitics-synthesis.md` (17 mechanisms across 6 themes)
-  - Steps 3-4: Not yet completed — pending Jorn's review of synthesis
+  - Steps 2-4: Not yet completed
