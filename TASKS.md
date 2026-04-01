@@ -15,6 +15,29 @@ This file tracks current work and project state. Read at session start.
 
 ---
 
+## Maturity Map
+
+What's settled vs. placeholder — read before building on anything.
+
+| Component | Status | Notes |
+|-----------|--------|-------|
+| Engine (types, state, cards, rng) | **Settled** | Pure TS, well-tested, stable API |
+| Swipe/drag UX (useSwipe, SwipeCard) | **Settled** | Tuned on real devices, E2E tested |
+| Layout/theme system (`src/index.css` @theme) | **Settled** | Centralized CSS vars |
+| Card map tool (`npm run cards`) | **Settled** | D3 force graph + .md export |
+| Portrait generation script | **Settled** | FAL-AI pipeline, ready for new characters |
+| Resource bars (names, icons, death conditions) | **TODO** | Need demon-startup theme definition |
+| Card content (144 cards in `src/data/cards/`) | **Placeholder** | Must be fully replaced |
+| Death messages (`src/data/deaths.ts`) | **Placeholder** | Must be replaced |
+| Tutorial (`src/data/tutorial.ts`) | **Placeholder** | Neutral placeholder, needs demon theme |
+| Portraits (`src/assets/portraits/`) | **Placeholder** | 21 pause-game portraits, must be regenerated |
+| Title/branding (TitleScreen, index.html, OG) | **Placeholder** | Neutral placeholder, needs final branding |
+| Share text (`src/components/shareText.ts`) | **Placeholder** | Must be replaced |
+| Color palette (index.css) | **Placeholder** | Inherited parchment theme, needs retheme |
+| Write-cards skill | **Placeholder** | xrisk-specific, needs rewrite for demon domain |
+
+---
+
 ## Current
 
 - [ ] 🔴 Define resource bars — 4 bars with demon-startup theme, death conditions at 0 and 100
